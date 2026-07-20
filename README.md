@@ -1,6 +1,6 @@
 # Zostava
 
-Webová aplikácia pre trénerov mládeže (U8 – U11). Tréner si vyberie kategóriu a tému
+Webová aplikácia pre trénerov mládeže (U6 – U19). Tréner si vyberie kategóriu a tému
 a dostane hotovú tréningovú jednotku podľa metodiky, rozdelenú na časti (PČ / HČ / ZČ),
 s konkrétnymi tréningami pre každú časť.
 

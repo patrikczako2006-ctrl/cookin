@@ -109,7 +109,7 @@ h1.head{font-size:clamp(42px,8vw,110px);letter-spacing:-.045em;max-width:15ch}
 @keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,13px)}}
 
 .marq{border-block:1px solid var(--line);padding:24px 0;overflow:hidden;background:var(--ink2)}
-.marq .track{display:flex;gap:44px;width:max-content;animation:slide 42s linear infinite}
+.marq .track{display:flex;gap:44px;width:max-content;animation:slide 95s linear infinite}
 .marq:hover .track{animation-play-state:paused}
 .marq span{font-family:var(--f-disp);font-weight:700;font-size:clamp(19px,2.3vw,28px);color:var(--faint);letter-spacing:-.02em;display:inline-flex;align-items:center;gap:44px;white-space:nowrap}
 .marq span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--acc);opacity:.6}
@@ -150,11 +150,12 @@ section.blk{position:relative;padding-block:clamp(80px,12vw,150px)}
 
 /* generic cards grid */
 .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
-.fcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;transition:transform .35s,border-color .35s}
-.fcard:hover{transform:translateY(-5px);border-color:var(--line2)}
+.fcard{display:block;width:100%;text-align:left;cursor:pointer;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;transition:transform .35s,border-color .35s}
+.fcard:hover{transform:translateY(-5px);border-color:var(--acc)}
 .fcard .ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;color:var(--acc);background:var(--surface2);border:1px solid var(--line2);margin-bottom:18px}
 .fcard h3{font-size:19px}.fcard p{color:var(--muted);font-size:14.5px;font-weight:500;margin-top:9px}
-.fcard .soon{display:inline-block;margin-top:14px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);border:1px solid rgba(43,229,138,.3);border-radius:100px;padding:4px 11px}
+.fcard .go{display:inline-block;margin-top:16px;font-size:13.5px;font-weight:700;color:var(--acc)}
+.fcard.soon .go{color:var(--warn)}
 
 /* stats */
 .statband{border-block:1px solid var(--line);background:var(--ink2)}
@@ -175,13 +176,12 @@ section.blk{position:relative;padding-block:clamp(80px,12vw,150px)}
 .controls .h{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-bottom:14px}
 .controls .fl{display:flex;align-items:center;justify-content:space-between;margin:22px 0 11px}
 .controls .fl:first-of-type{margin-top:6px}
-.cats{display:flex;flex-direction:column;gap:9px}
-.cat{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:12px 13px;transition:border-color .15s,background .15s}
-.cat:hover{border-color:var(--line2)}
-.cat[aria-pressed="true"]{border-color:var(--acc);background:linear-gradient(90deg,rgba(43,229,138,.09),transparent)}
-.cat .cc{font-family:var(--f-disp);font-weight:800;font-size:14px;padding:4px 9px;border-radius:7px;background:var(--surface3);color:var(--acc);white-space:nowrap}
-.cat[aria-pressed="true"] .cc{background:linear-gradient(135deg,var(--acc),var(--acc2));color:var(--ink)}
-.cat .meta b{display:block;font-size:14px;font-weight:700}.cat .meta span{font-size:12px;color:var(--muted)}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.catchip{font-family:var(--f-disp);font-weight:800;font-size:14px;padding:11px 0;border-radius:10px;background:var(--surface2);border:1px solid var(--line);color:var(--text);transition:border-color .15s,background .15s,color .15s;text-align:center}
+.catchip:hover{border-color:var(--line2)}
+.catchip[aria-pressed="true"]{border-color:transparent;background:linear-gradient(135deg,var(--acc),var(--acc2));color:var(--ink)}
+.catinfo{margin-top:12px;font-size:13px;color:var(--muted);font-weight:500;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.catinfo b{color:var(--text);font-weight:700}
 .selectwrap{position:relative}
 .selectwrap::after{content:"";position:absolute;right:15px;top:50%;width:8px;height:8px;border-right:2px solid var(--acc);border-bottom:2px solid var(--acc);transform:translateY(-70%) rotate(45deg);pointer-events:none}
 select.field{width:100%;appearance:none;-webkit-appearance:none;background:var(--surface2);color:var(--text);border:1px solid var(--line2);border-radius:12px;padding:13px 38px 13px 14px;font-size:14.5px;font-weight:500;cursor:pointer}
@@ -408,7 +408,7 @@ footer .bottom .sp{flex:1}
     <div class="bottom">
       <span>© <span id="yr"></span> Zostava. Všetky práva vyhradené.</span>
       <span class="sp"></span>
-      <span>Metodika tréningu mládeže · U8 – U11</span>
+      <span>Metodika tréningu mládeže · U6 – U19</span>
     </div>
   </div>
 </footer>
@@ -434,11 +434,16 @@ footer .bottom .sp{flex:1}
 /* =========================================================================
    DÁTA METODIKY
    ========================================================================= */
-const CATEGORIES=[
-  {code:"A8–A10",age:"8 – 10 rokov",tj:3,durations:[120,90,90]},
-  {code:"G8–G9",age:"8 – 9 rokov",tj:2,durations:[90,90]},
-  {code:"G10–G11",age:"10 – 11 rokov",tj:2,durations:[90,90]},
-];
+function ageBand(a){
+  if(a<=7)return{tj:2,dur:60};
+  if(a<=9)return{tj:2,dur:70};
+  if(a<=11)return{tj:3,dur:80};
+  if(a<=13)return{tj:3,dur:90};
+  if(a<=15)return{tj:4,dur:90};
+  return{tj:4,dur:90};
+}
+const CATEGORIES=[];
+for(let a=6;a<=19;a++){const b=ageBand(a);CATEGORIES.push({code:"U"+a,age:"do "+a+" rokov",tj:b.tj,durations:[b.dur]});}
 const PHASES=[
   {code:"PČ",name:"Prípravná časť",purpose:"Aktivácia s loptou a technický základ témy — veľa dotykov, málo státia.",share:.24,kind:"tech"},
   {code:"HČ",name:"Hlavná časť",purpose:"Jadro tréningu: herné cvičenia a súboje zamerané priamo na zvolenú tému.",share:.60,kind:"main"},
@@ -552,7 +557,7 @@ function homeView(){
     <canvas id="field" aria-hidden="true"></canvas>
     <span class="aura a"></span><span class="aura b"></span><span class="vig"></span>
     <div class="wrap inner">
-      <span class="badge"><b>NOVÉ</b> Metodika · U8 – U11</span>
+      <span class="badge"><b>NOVÉ</b> Metodika · U6 – U19</span>
       <h1 class="head">
         <span class="line"><i>Tréningy,</i></span>
         <span class="line"><i>ktoré <span class="grad">nemusíš</span></i></span>
@@ -620,7 +625,7 @@ function homeView(){
   </section>
 
   <div class="statband"><div class="wrap stats">
-    <div class="stat" data-reveal data-d="1"><div class="n grad"><span data-count="3">0</span></div><div class="l">vekové kategórie</div></div>
+    <div class="stat" data-reveal data-d="1"><div class="n grad">U6–<span data-count="19">0</span></div><div class="l">vekové kategórie</div></div>
     <div class="stat" data-reveal data-d="2"><div class="n grad"><span data-count="15">0</span></div><div class="l">tréningových tém</div></div>
     <div class="stat" data-reveal data-d="3"><div class="n grad"><span data-count="300">0</span>+</div><div class="l">tréningov v Pro</div></div>
     <div class="stat" data-reveal data-d="4"><div class="n grad"><span data-count="4">0</span></div><div class="l">herné piliere</div></div>
@@ -641,25 +646,31 @@ function homeView(){
 
 function funkcieView(){
   const F=[
-    ["Generátor tréningov","Kategória + téma → hotová jednotka po častiach so zručnosťami a princípmi z metodiky.",0],
-    ["Zoznam tréningov na tému","Pre každú časť (PČ/HČ/ZČ) desiatky tréningov. Basic zopár, Pro všetky.",0],
-    ["Ročný plán","Mikrocykly a témy naprieč sezónou — vidíš, kam tím smeruje.",1],
-    ["Správa klubu","Kategórie, tímy, tréneri a hráči na jednom mieste.",1],
-    ["Dochádzka","Prehľad účasti na tréningoch a zápasoch bez papierov.",1],
-    ["Piliere a princípy","Futbalovosť, rýchla hra, tvrdá práca, charakter — v každom tréningu.",0],
+    ["Generátor tréningov","Kategória + téma → hotová jednotka po častiach so zručnosťami a princípmi z metodiky.","#/generator"],
+    ["Zoznam tréningov na tému","Pre každú časť (PČ/HČ/ZČ) desiatky tréningov. Basic zopár, Pro všetky.","#/generator"],
+    ["Cenník a plány","Basic zdarma, Pro odomkne všetky tréningy pre každú tému.","#/cennik"],
+    ["Ročný plán","Mikrocykly a témy naprieč sezónou — vidíš, kam tím smeruje.","soon"],
+    ["Správa klubu","Kategórie, tímy, tréneri a hráči na jednom mieste.","soon"],
+    ["Dochádzka","Prehľad účasti na tréningoch a zápasoch bez papierov.","soon"],
   ];
   return `<div class="page"><div class="wrap">
     <div class="crumb"><a href="#/" data-link>Domov</a> / Funkcie</div>
     <h1 class="title">Čo Zostava vie</h1>
     <p class="lede">Postavené okolo metodiky, ale rastie s klubom — od jedného tréningu po celý ročný plán.</p>
     <div class="fgrid">
-      ${F.map(([t,d,soon],i)=>`<article class="fcard" data-reveal data-d="${(i%3)+1}">
-        <div class="ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="4" width="16" height="14" rx="2"/><path d="M3 8h16M8 4v14"/></svg></div>
-        <h3>${t}</h3><p>${d}</p>${soon?'<span class="soon">Čoskoro</span>':''}</article>`).join('')}
+      ${F.map(([t,d,target],i)=>{
+        const soon=target==='soon';
+        const inner=`<div class="ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="4" width="16" height="14" rx="2"/><path d="M3 8h16M8 4v14"/></svg></div>
+          <h3>${t}</h3><p>${d}</p><span class="go">${soon?'Čoskoro 🚧':'Otvoriť →'}</span>`;
+        return soon
+          ? `<button class="fcard soon" data-soon data-reveal data-d="${(i%3)+1}">${inner}</button>`
+          : `<a class="fcard" href="${target}" data-link data-reveal data-d="${(i%3)+1}">${inner}</a>`;
+      }).join('')}
     </div>
     <div style="margin-top:44px" data-reveal><a class="btn solid" href="#/generator" data-link>Vyskúšať generátor →</a></div>
   </div></div>`;
 }
+function initFunkcie(){$$('#view [data-soon]').forEach(b=>b.onclick=()=>toast('Pripravujeme 🚧 — čoskoro dostupné.'));}
 
 /* ---------------- GENERATOR ---------------- */
 let gen={cat:0,theme:null};
@@ -672,6 +683,7 @@ function generatorView(){
       <aside class="panel controls">
         <div class="h">Kategória</div>
         <div class="cats" id="gcats"></div>
+        <div class="catinfo" id="gcatinfo"></div>
         <div class="fl"><div class="h" style="margin:0">Téma tréningu</div></div>
         <div class="selectwrap"><select class="field" id="gtheme"></select></div>
         <div class="go">
@@ -692,11 +704,12 @@ function generatorView(){
     </div>
   </div></div>`;
 }
+function catInfo(){const c=CATEGORIES[gen.cat];$('#gcatinfo').innerHTML=`<b>${c.code}</b> · ${c.age} · ${c.tj}× týždenne · tréning ${c.durations[0]}´`;}
 function initGenerator(){
   const cats=$('#gcats');
-  cats.innerHTML=CATEGORIES.map((c,i)=>`<button class="cat" data-i="${i}" aria-pressed="${i===gen.cat}">
-    <span class="cc">${c.code}</span><span class="meta"><b>${c.age}</b><span>${c.tj}× / týždeň · ${c.durations.map(d=>d+'´').join(' · ')}</span></span></button>`).join('');
-  cats.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{gen.cat=+b.dataset.i;cats.querySelectorAll('.cat').forEach(x=>x.setAttribute('aria-pressed',x===b));});
+  cats.innerHTML=CATEGORIES.map((c,i)=>`<button class="catchip" data-i="${i}" aria-pressed="${i===gen.cat}">${c.code}</button>`).join('');
+  cats.querySelectorAll('.catchip').forEach(b=>b.onclick=()=>{gen.cat=+b.dataset.i;cats.querySelectorAll('.catchip').forEach(x=>x.setAttribute('aria-pressed',x===b));catInfo();});
+  catInfo();
   const sel=$('#gtheme');
   sel.innerHTML=GROUPS.map(g=>`<optgroup label="${esc(g.name)}">${g.themes.map(t=>`<option value="${esc(t.name)}">${esc(t.name)}</option>`).join('')}</optgroup>`).join('');
   if(gen.theme)sel.value=gen.theme;
@@ -1059,7 +1072,7 @@ function stopCanvas(){if(canvasRAF)cancelAnimationFrame(canvasRAF);canvasRAF=nul
 const routes={
   '/':{render:homeView,after:()=>{initMarquee();playHero();initCanvas();}},
   '/generator':{render:generatorView,after:initGenerator},
-  '/funkcie':{render:funkcieView,after:()=>{}},
+  '/funkcie':{render:funkcieView,after:initFunkcie},
   '/cennik':{render:pricingView,after:initPricing},
   '/prihlasenie':{render:()=>authView('login'),after:()=>initAuth('login')},
   '/registracia':{render:()=>authView('register'),after:()=>initAuth('register')},
