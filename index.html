@@ -1,0 +1,702 @@
+<title>Zostava — metodika tréningu mládeže</title>
+<meta name="description" content="Vyber kategóriu a tému, aplikácia ti zostaví tréningovú jednotku po častiach a povie, na čo sa v každej sústrediť." />
+<style>
+  /* ============================================================
+     ZOSTAVA — dizajnový systém
+     Ground: taktická tabuľa (zeleno-čierna) / kriedová biela
+     Identita: trávnikovo-zelená · Akcia: jantárový fixkár
+     Kódy a časy: mono (ako na tréningovom hárku)
+     ============================================================ */
+  :root{
+    color-scheme: light dark;
+
+    /* neutrály so zeleným nádychom (vybrané, nie default sivá) */
+    --ground:      #F1F4EF;
+    --surface:     #FFFFFF;
+    --surface-2:   #F7F9F5;
+    --ink:         #14201A;
+    --muted:       #56675C;
+    --faint:       #7C8C81;
+    --line:        #E0E5DD;
+    --line-strong: #CBD3C7;
+
+    /* identita + akcia */
+    --turf:        #157A47;   /* zelená – značka, kategórie, kódy fáz */
+    --turf-soft:   #E4F1E8;
+    --marker:      #E85D1B;   /* jantár – jediná výrazná akcia */
+    --marker-ink:  #FFFFFF;
+
+    /* semantika (oddelená od akcentu) */
+    --ofenz:       #157A47;
+    --defenz:      #2563A8;
+
+    --radius:      6px;
+    --radius-lg:   12px;
+    --shadow:      0 1px 2px rgba(20,32,26,.05), 0 8px 24px -14px rgba(20,32,26,.22);
+    --ring:        0 0 0 3px rgba(232,93,27,.32);
+
+    --f-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --f-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
+
+    --wrap: 1180px;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ground:      #0B120E;
+      --surface:     #111B15;
+      --surface-2:   #0E1712;
+      --ink:         #E9F0E9;
+      --muted:       #96A99C;
+      --faint:       #6E8175;
+      --line:        #21302A;
+      --line-strong: #2C3E35;
+      --turf:        #34C67C;
+      --turf-soft:   #12271C;
+      --marker:      #FF7A38;
+      --marker-ink:  #1A0E06;
+      --shadow:      0 1px 2px rgba(0,0,0,.4), 0 16px 40px -20px rgba(0,0,0,.7);
+      --ring:        0 0 0 3px rgba(255,122,56,.4);
+    }
+  }
+  /* explicitný toggle prepíše media query v oboch smeroch */
+  :root[data-theme="light"]{
+    --ground:#F1F4EF;--surface:#FFFFFF;--surface-2:#F7F9F5;--ink:#14201A;--muted:#56675C;--faint:#7C8C81;
+    --line:#E0E5DD;--line-strong:#CBD3C7;--turf:#157A47;--turf-soft:#E4F1E8;--marker:#E85D1B;--marker-ink:#FFFFFF;
+    --shadow:0 1px 2px rgba(20,32,26,.05),0 8px 24px -14px rgba(20,32,26,.22);--ring:0 0 0 3px rgba(232,93,27,.32);
+  }
+  :root[data-theme="dark"]{
+    --ground:#0B120E;--surface:#111B15;--surface-2:#0E1712;--ink:#E9F0E9;--muted:#96A99C;--faint:#6E8175;
+    --line:#21302A;--line-strong:#2C3E35;--turf:#34C67C;--turf-soft:#12271C;--marker:#FF7A38;--marker-ink:#1A0E06;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -20px rgba(0,0,0,.7);--ring:0 0 0 3px rgba(255,122,56,.4);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--f-sans);font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3,h4{margin:0;line-height:1.08;text-wrap:balance;font-weight:800;letter-spacing:-.02em}
+  p{margin:0}
+  a{color:inherit}
+  button{font:inherit}
+  ::selection{background:var(--turf);color:#fff}
+
+  .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:clamp(18px,4vw,40px)}
+  .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+  .eyebrow{
+    font-family:var(--f-mono);font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--faint);font-weight:600;
+  }
+
+  /* ---------- Header ---------- */
+  .site{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--ground) 86%, transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .site .row{display:flex;align-items:center;gap:16px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em;font-size:19px}
+  .brand .mk{width:22px;height:22px;border-radius:5px;background:var(--turf);position:relative;flex:0 0 auto;
+    box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--turf) 60%, #000 20%)}
+  .brand .mk::after{content:"";position:absolute;inset:0;border-radius:5px;
+    background:
+      linear-gradient(transparent 49%, rgba(255,255,255,.5) 49% 51%, transparent 51%),
+      radial-gradient(circle at 50% 50%, transparent 26%, rgba(255,255,255,.5) 27% 30%, transparent 31%)}
+  .brand small{font-family:var(--f-mono);font-weight:500;letter-spacing:.14em;font-size:10.5px;
+    text-transform:uppercase;color:var(--faint)}
+  .site .spacer{flex:1}
+  .ghost{
+    display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:var(--radius);
+    background:transparent;border:1px solid var(--line-strong);color:var(--ink);cursor:pointer;
+    font-weight:600;font-size:13.5px;transition:border-color .15s, background .15s}
+  .ghost:hover{border-color:var(--turf);background:var(--surface-2)}
+  .ghost:focus-visible{outline:none;box-shadow:var(--ring)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .pitch{position:absolute;inset:0;pointer-events:none;opacity:.5}
+  .hero .pitch::before{content:"";position:absolute;inset:-2px;
+    background:
+      linear-gradient(90deg, transparent calc(100% - 1px), var(--line) calc(100% - 1px)) 0 0/ 64px 100%,
+      linear-gradient(0deg, transparent calc(100% - 1px), var(--line) calc(100% - 1px)) 0 0/ 100% 64px;
+    -webkit-mask:radial-gradient(120% 90% at 82% 12%, #000, transparent 70%);
+            mask:radial-gradient(120% 90% at 82% 12%, #000, transparent 70%)}
+  .hero .inner{display:grid;grid-template-columns:1.35fr .9fr;gap:40px;align-items:center;
+    padding-block:clamp(44px,7vw,84px);position:relative}
+  .hero h1{font-size:clamp(32px,5.4vw,58px);letter-spacing:-.035em}
+  .hero h1 .u{color:var(--turf)}
+  .lead{margin-top:20px;font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:33ch}
+  .herocta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 22px;border-radius:var(--radius);
+    border:0;cursor:pointer;font-weight:700;font-size:15px;letter-spacing:-.01em;transition:transform .1s, filter .15s, box-shadow .15s}
+  .btn.primary{background:var(--marker);color:var(--marker-ink);box-shadow:0 6px 16px -8px var(--marker)}
+  .btn.primary:hover{filter:brightness(1.05)}
+  .btn.primary:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:none;box-shadow:var(--ring)}
+  .btn.line{background:var(--surface);color:var(--ink);border:1px solid var(--line-strong)}
+  .btn.line:hover{border-color:var(--turf)}
+
+  /* how-it-works steps card */
+  .steps{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:2px}
+  .steps .eyebrow{margin-bottom:12px}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:12px 4px;position:relative}
+  .step:not(:last-child){border-bottom:1px dashed var(--line)}
+  .step .n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+    background:var(--turf-soft);color:var(--turf);font-family:var(--f-mono);font-weight:700;font-size:13px}
+  .step b{font-weight:700;font-size:14.5px}
+  .step span{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
+
+  /* ---------- Builder ---------- */
+  .builder{padding-block:clamp(32px,5vw,56px)}
+  .grid{display:grid;grid-template-columns:340px 1fr;gap:28px;align-items:start}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+  .controls{position:sticky;top:88px;padding:22px}
+  .controls h2{font-size:13px;letter-spacing:.02em}
+  .fieldlabel{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px}
+  .fieldlabel:first-of-type{margin-top:16px}
+  .fieldlabel .eyebrow{letter-spacing:.16em}
+  .fieldlabel .hint{font-size:11.5px;color:var(--faint)}
+
+  .cats{display:flex;flex-direction:column;gap:8px}
+  .cat{display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;
+    background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:11px 13px;
+    transition:border-color .15s, background .15s}
+  .cat:hover{border-color:var(--line-strong)}
+  .cat[aria-pressed="true"]{border-color:var(--turf);background:var(--turf-soft)}
+  .cat .code{font-family:var(--f-mono);font-weight:700;font-size:14px;letter-spacing:-.02em;
+    background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:3px 8px;color:var(--turf);white-space:nowrap}
+  .cat[aria-pressed="true"] .code{background:var(--turf);color:#fff;border-color:transparent}
+  .cat .meta b{display:block;font-size:14px;font-weight:600}
+  .cat .meta span{font-size:12px;color:var(--muted);font-family:var(--f-mono)}
+
+  .selectwrap{position:relative}
+  .selectwrap::after{content:"";position:absolute;right:14px;top:50%;width:9px;height:9px;
+    border-right:2px solid var(--faint);border-bottom:2px solid var(--faint);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  select{width:100%;appearance:none;-webkit-appearance:none;background:var(--surface-2);color:var(--ink);
+    border:1px solid var(--line);border-radius:var(--radius);padding:12px 36px 12px 13px;font:inherit;
+    font-size:14.5px;cursor:pointer;transition:border-color .15s}
+  select:hover{border-color:var(--line-strong)}
+  select:focus-visible{outline:none;box-shadow:var(--ring);border-color:var(--turf)}
+  optgroup{font-weight:700}
+  option{font-weight:400}
+
+  .actions{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+  .actions .btn{width:100%;justify-content:center}
+  .dice{font-family:var(--f-mono)}
+
+  /* ---------- Output ---------- */
+  .output{min-height:420px}
+  .empty{border:1.5px dashed var(--line-strong);border-radius:var(--radius-lg);background:
+      repeating-linear-gradient(-45deg, transparent 0 14px, color-mix(in srgb,var(--line) 40%, transparent) 14px 15px);
+    padding:clamp(40px,7vw,80px) 28px;text-align:center;color:var(--muted)}
+  .empty .ic{width:52px;height:52px;border-radius:12px;background:var(--surface);border:1px solid var(--line);
+    display:grid;place-items:center;margin:0 auto 18px;color:var(--turf)}
+  .empty h3{color:var(--ink);font-size:19px;margin-bottom:8px}
+  .empty p{max-width:42ch;margin-inline:auto;font-size:14.5px}
+
+  .session{display:flex;flex-direction:column;gap:20px}
+  .session[hidden]{display:none}
+
+  /* session header */
+  .shead{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);overflow:hidden}
+  .shead .top{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .badge{font-family:var(--f-mono);font-weight:700;font-size:13px;letter-spacing:-.02em;
+    background:var(--turf);color:#fff;border-radius:5px;padding:5px 10px}
+  .badge.dur{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
+  .shead .grp{color:var(--muted);font-size:13px;font-family:var(--f-mono);letter-spacing:.02em}
+  .shead .top .spacer{flex:1}
+  .type-pill{font-size:11.5px;font-family:var(--f-mono);letter-spacing:.08em;text-transform:uppercase;
+    padding:4px 9px;border-radius:999px;border:1px solid var(--line-strong);color:var(--faint)}
+  .shead .title{padding:20px 22px 22px}
+  .shead .title h2{font-size:clamp(21px,2.6vw,30px);letter-spacing:-.03em}
+  .shead .title .sub{margin-top:8px;color:var(--muted);font-size:14.5px;max-width:60ch}
+
+  .devrow{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 20px}
+  .tag{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
+    padding:6px 11px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line)}
+  .tag .dot{width:7px;height:7px;border-radius:50%;background:var(--turf)}
+  .tag.def .dot{background:var(--defenz)}
+  .tag .k{color:var(--faint);font-weight:500;font-family:var(--f-mono);font-size:11px}
+
+  /* phases */
+  .phases{display:flex;flex-direction:column;gap:0;position:relative}
+  .phase{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);padding:20px 22px;position:relative;margin-left:34px}
+  .phase + .phase{margin-top:16px}
+  /* dashed sequence rail (fázy sú v poradí – niečo pravdivé o obsahu) */
+  .phase::before{content:"";position:absolute;left:-34px;top:26px;bottom:-16px;width:2px;
+    background:repeating-linear-gradient(var(--line-strong) 0 6px, transparent 6px 12px)}
+  .phase:last-child::before{display:none}
+  .phase .node{position:absolute;left:-46px;top:14px;width:26px;height:26px;border-radius:50%;
+    background:var(--surface);border:2px solid var(--turf);color:var(--turf);display:grid;place-items:center;
+    font-family:var(--f-mono);font-weight:700;font-size:12px;z-index:1}
+  .phase.main .node{background:var(--turf);color:#fff}
+
+  .phase .ph-top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .phase .ph-code{font-family:var(--f-mono);font-weight:700;color:var(--turf);font-size:13px;
+    background:var(--turf-soft);border-radius:5px;padding:3px 8px;letter-spacing:.02em}
+  .phase h3{font-size:17px;letter-spacing:-.02em}
+  .phase .time{margin-left:auto;font-family:var(--f-mono);font-weight:700;font-size:15px;color:var(--ink)}
+  .phase .purpose{margin-top:9px;color:var(--muted);font-size:14px;max-width:64ch}
+
+  .focus{margin-top:16px}
+  .focus .lbl{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:9px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;
+    background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:7px 11px;line-height:1.3}
+  .chip .m{width:6px;height:6px;border-radius:1.5px;background:var(--turf);flex:0 0 auto;transform:rotate(45deg)}
+
+  /* source slot – "odkiaľ čerpať cviky" */
+  .source{margin-top:16px;border-top:1px dashed var(--line);padding-top:16px;
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .source .txt b{font-size:13.5px}
+  .source .txt span{display:block;color:var(--faint);font-size:12.5px;font-family:var(--f-mono);margin-top:2px}
+  .source .spacer{flex:1}
+  .add{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:var(--radius);
+    border:1px dashed var(--line-strong);background:transparent;color:var(--muted);cursor:pointer;font-size:12.5px;font-weight:600}
+  .add:hover{border-color:var(--turf);color:var(--turf)}
+  .add:focus-visible{outline:none;box-shadow:var(--ring)}
+
+  /* related themes / microcycle */
+  .related{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-lg);padding:20px 22px}
+  .related .eyebrow{margin-bottom:6px}
+  .related h3{font-size:16px}
+  .related p{color:var(--muted);font-size:13.5px;margin-top:6px;max-width:66ch}
+  .relgrid{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+  .relcard{flex:1 1 180px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:12px 14px}
+  .relcard .w{font-family:var(--f-mono);font-size:11px;color:var(--faint);letter-spacing:.1em}
+  .relcard b{display:block;font-size:13.5px;margin-top:4px;font-weight:600}
+
+  /* ---------- Footer ---------- */
+  .foot{border-top:1px solid var(--line);margin-top:56px;padding-block:34px;color:var(--muted);font-size:13px}
+  .foot .row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .foot .spacer{flex:1}
+  .foot .mono{color:var(--faint)}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:var(--ground);padding:12px 18px;border-radius:var(--radius);font-size:13.5px;font-weight:600;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:900px){
+    .hero .inner{grid-template-columns:1fr;gap:28px}
+    .steps{order:2}
+    .grid{grid-template-columns:1fr}
+    .controls{position:static}
+  }
+  @media (max-width:560px){
+    .phase{margin-left:26px}
+    .phase .node{left:-38px}
+    .phase::before{left:-26px}
+    .brand small{display:none}
+  }
+
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .anim{animation:rise .38s cubic-bezier(.2,.7,.3,1) both}
+  @media (prefers-reduced-motion:reduce){
+    .anim{animation:none}
+    *{scroll-behavior:auto !important}
+  }
+</style>
+
+<header class="site">
+  <div class="wrap row">
+    <div class="brand">
+      <span class="mk" aria-hidden="true"></span>
+      Zostava <small>metodika&nbsp;mládeže</small>
+    </div>
+    <div class="spacer"></div>
+    <button class="ghost" id="themeBtn" type="button" aria-label="Prepnúť tému">
+      <span id="themeIco">◐</span><span id="themeTxt">Tmavý režim</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="pitch" aria-hidden="true"></div>
+  <div class="wrap inner">
+    <div>
+      <p class="eyebrow">Metodika tréningu · U8 – U11</p>
+      <h1>Prestaň hľadať cviky<br>po <span class="u">Instagrame</span> a Facebooku.</h1>
+      <p class="lead">Vyber si kategóriu a tému. Zostava ti podľa metodiky poskladá
+        tréningovú jednotku po častiach a jasne povie, na ktoré zručnosti sa v každej z nich sústrediť.</p>
+      <div class="herocta">
+        <button class="btn primary" type="button" onclick="document.getElementById('builder').scrollIntoView({behavior:'smooth'})">
+          Zostaviť tréning
+        </button>
+        <a class="btn line" href="#builder">Ako to funguje</a>
+      </div>
+    </div>
+
+    <aside class="steps" aria-label="Ako to funguje">
+      <p class="eyebrow">Tri kroky</p>
+      <div class="step"><span class="n">1</span><div><b>Vyber kategóriu</b><span>Vek a dĺžka tréningovej jednotky.</span></div></div>
+      <div class="step"><span class="n">2</span><div><b>Vyber tému</b><span>Čo chceš dnes rozvíjať — alebo vezmi hotový návrh celku.</span></div></div>
+      <div class="step"><span class="n">3</span><div><b>Máš kostru tréningu</b><span>Rozdelenú na PČ / HČ / ZČ so zručnosťami a miestom pre cviky.</span></div></div>
+    </aside>
+  </div>
+</section>
+
+<main class="builder wrap" id="builder">
+  <div class="grid">
+    <!-- CONTROLS -->
+    <aside class="panel controls" aria-label="Nastavenie tréningu">
+      <h2 class="eyebrow" style="letter-spacing:.18em">Zostavenie tréningu</h2>
+
+      <div class="fieldlabel"><span class="eyebrow">Kategória</span></div>
+      <div class="cats" id="cats" role="group" aria-label="Kategória"></div>
+
+      <div class="fieldlabel"><span class="eyebrow">Téma tréningu</span><span class="hint" id="themeCount"></span></div>
+      <div class="selectwrap">
+        <select id="themeSel" aria-label="Téma tréningu"></select>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="genBtn" type="button">Zostaviť tréning</button>
+        <button class="btn line dice" id="randBtn" type="button">⚲ Náhodný návrh celku</button>
+      </div>
+    </aside>
+
+    <!-- OUTPUT -->
+    <section class="output" aria-live="polite">
+      <div class="empty" id="empty">
+        <div class="ic" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/>
+          </svg>
+        </div>
+        <h3>Zatiaľ prázdny hárok</h3>
+        <p>Vyber kategóriu a tému vľavo a stlač <b>Zostaviť tréning</b>. Zostava ti pripraví
+           kostru tréningovej jednotky rozdelenú na časti.</p>
+      </div>
+
+      <div class="session" id="session" hidden></div>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap row">
+    <span>Zostava — nástroj pre trénerov mládeže. Metodika: témy, zručnosti, piliere a princípy.</span>
+    <span class="spacer"></span>
+    <span class="mono">v0.1 · základ · cviky sa doplnia</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ============================================================
+   DÁTA METODIKY  (zdroj: Koncepcia 2025 — témy, zručnosti, piliere)
+   Cviky (drills) sa budú dopĺňať neskôr do `exercises` v každej fáze.
+   ============================================================ */
+
+const CATEGORIES = [
+  { code:"A8–A10", age:"8 – 10 rokov", tj:3, durations:[120,90,90] },
+  { code:"G8–G9",  age:"8 – 9 rokov",  tj:2, durations:[90,90] },
+  { code:"G10–G11",age:"10 – 11 rokov",tj:2, durations:[90,90] },
+];
+
+// Fázy tréningovej jednotky — kódy sú upraviteľné na jednom mieste.
+const PHASES = [
+  { code:"PČ", name:"Prípravná časť",
+    purpose:"Aktivácia s loptou a technický základ témy — veľa dotykov, málo státia.",
+    share:0.24, kind:"tech" },
+  { code:"HČ", name:"Hlavná časť",
+    purpose:"Jadro tréningu: herné cvičenia a súboje zamerané priamo na zvolenú tému.",
+    share:0.60, kind:"main" },
+  { code:"ZČ", name:"Záverečná časť",
+    purpose:"Prenos témy do hry — malé hry (SSG) a zápasové formy so zvýraznením princípov.",
+    share:0.16, kind:"game" },
+];
+
+const GROUPS = [
+  {
+    name:"Prekonanie súpera — jednotlivcom", type:"I/S",
+    pillars:["Futbalovosť","Rýchla hra"],
+    principles:[["of","Rýchle vedenie lopty do voľného priestoru"],["of","Odvážna hra"],["of","Kreativita"]],
+    themes:[
+      { name:"Rýchlym vedením lopty", skills:[
+        "Vedenie lopty priamym priehlavkom vo voľnom priestore","Zmeny rýchlosti pri vedení lopty","Krytie lopty telom pri vedení"]},
+      { name:"1v1 KÚ/KO", skills:[
+        "Kľučky (zmena smeru v pohybe na bránku — napr. bicykel)","Vedenie lopty priamym priehlavkom vo voľnom priestore","Zmeny rýchlosti pri vedení lopty"]},
+      { name:"1v1 SÚ/SSH/KÚ (chrbtom k bránke)", skills:[
+        "Vedenie lopty vnútrajškom/vonkajškom na malom priestore","Zasekávačky (zmena smeru o 180° — napr. Cruyff turn)","Krytie lopty telom pri vedení"]},
+      { name:"1v1 SO/SSH/SÚ (v čelnom postavení)", skills:[
+        "Kľučky (zmena smeru v pohybe na bránku — napr. bicykel)","Vedenie lopty vnútrajškom/vonkajškom na malom priestore"]},
+      { name:"Prvým dotykom (ofenzívny / otvorený)", skills:[
+        "Spracovanie lopty do voľného priestoru (dopredu, do strany, za seba) vnútrajškom/vonkajškom"]},
+    ]
+  },
+  {
+    name:"Prekonanie súpera — spoluprácou hráčov", type:"I/S",
+    pillars:["Rýchla hra","Futbalovosť"],
+    principles:[["of","Vytváranie prečíslení / Prihraj a bež"],["of","Prvá myšlienka dopredu"],["of","Stála ponuka hráčov bez lopty"]],
+    themes:[
+      { name:"Prienikovou prihrávkou", skills:[
+        "Prihrávka po zemi vnútrajškom / priamym priehlavkom","Spracovanie lopty stlmením podrážkou / vnútrajškom","Spracovanie lopty do voľného priestoru vnútrajškom/vonkajškom"]},
+      { name:"Prihrávkou do behu (za brániaceho hráča)", skills:[
+        "Prihrávka po zemi vnútrajškom / priamym priehlavkom","Spracovanie lopty do voľného priestoru vnútrajškom/vonkajškom","Vedenie lopty priamym priehlavkom vo voľnom priestore"]},
+      { name:"Hrou na jeden dotyk (narážačka / na tretieho)", skills:[
+        "Prihrávka z prvého dotyku"]},
+    ]
+  },
+  {
+    name:"Ovládanie lopty pod tlakom", type:"I/S",
+    pillars:["Futbalovosť"],
+    principles:[["of","Efektívne držanie lopty"],["of","Kvalitné a rýchle samostatné rozhodovanie"]],
+    themes:[
+      { name:"Krytie lopty (jednotlivca)", skills:[
+        "Vedenie lopty vnútrajškom/vonkajškom na malom priestore","Zasekávačky (zmena smeru o 180° — napr. Cruyff turn)","Krytie lopty telom pri vedení"]},
+      { name:"Držanie lopty (skupinou hráčov)", skills:[
+        "Prihrávka po zemi vnútrajškom / priamym priehlavkom","Spracovanie lopty stlmením podrážkou / vnútrajškom","Spracovanie lopty do voľného priestoru vnútrajškom/vonkajškom"]},
+    ]
+  },
+  {
+    name:"Finálna fáza", type:"I/S",
+    pillars:["Rýchla hra","Futbalovosť"],
+    principles:[["of","Časté zakončenie"],["of","Prvá myšlienka dopredu"]],
+    themes:[
+      { name:"Zakončenie po vedení lopty / kľučke", skills:[
+        "Zakončenie vnútrajškom (menšia vzdialenosť, prudšie ako prihrávka)","Zakončenie priamym priehlavkom (väčšia vzdialenosť, čo najprudšie)"]},
+      { name:"Zakončenie po prihrávke / z prvého dotyku", skills:[
+        "Zakončenie vnútrajškom/priamym priehlavkom z prvého dotyku"]},
+    ]
+  },
+  {
+    name:"Herný systém", type:"T",
+    pillars:["Rýchla hra","Tvrdá práca"],
+    principles:[["of","Zakladanie útoku"],["def","Bránenie nebezpečnej zóny"],["def","Konštruktívne odobratie lopty"]],
+    themes:[
+      { name:"Zakladanie útoku", skills:[] },
+      { name:"Základy priestorovej obrany", skills:[] },
+      { name:"Štandardné situácie (roh, priamy kop, aut)", skills:[] },
+    ]
+  },
+];
+
+// Návrhy celkov (mikrocyklus) — 2W/3W kombinácie súvisiacich tém
+const COMBOS = [
+  { span:"2W", themes:["Rýchlym vedením lopty","Prihrávkou do behu (za brániaceho hráča)","Zakončenie po vedení lopty / kľučke"] },
+  { span:"2W", themes:["1v1 SO/SSH/SÚ (v čelnom postavení)","Prihrávkou do behu (za brániaceho hráča)","Zakončenie po vedení lopty / kľučke"] },
+  { span:"3W", themes:["1v1 KÚ/KO","Prvým dotykom (ofenzívny / otvorený)","Zakončenie po prihrávke / z prvého dotyku"] },
+  { span:"3W", themes:["1v1 SÚ/SSH/KÚ (chrbtom k bránke)","Prienikovou prihrávkou","Zakončenie po prihrávke / z prvého dotyku"] },
+  { span:"3W", themes:["Krytie lopty (jednotlivca)","Držanie lopty (skupinou hráčov)","Hrou na jeden dotyk (narážačka / na tretieho)"] },
+];
+
+const PILLAR_DESC = {
+  "Futbalovosť":"Obchádzanie · prihrávka · zakončenie — žiadna náhoda.",
+  "Rýchla hra":"Máme loptu → útočíme na bránku. Prvá myšlienka dopredu.",
+  "Tvrdá práca":"Vždy v rýchlosti a pod tlakom — ako v zápase.",
+  "Správny charakter":"Sebavedomie, odvaha a rešpekt.",
+};
+
+/* ============================================================
+   STAV + POMOCNÍKY
+   ============================================================ */
+const state = { catIndex:0, slot:0 };
+const $ = s => document.querySelector(s);
+const el = (t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const findTheme = name => {
+  for(const g of GROUPS){const t=g.themes.find(x=>x.name===name); if(t) return {theme:t, group:g};}
+  return null;
+};
+const escapeHtml = s => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---- render kategórií ---- */
+function renderCats(){
+  const box = $("#cats"); box.innerHTML="";
+  CATEGORIES.forEach((c,i)=>{
+    const b = el("button","cat");
+    b.type="button";
+    b.setAttribute("aria-pressed", i===state.catIndex ? "true":"false");
+    b.innerHTML = `<span class="code">${c.code}</span>
+      <span class="meta"><b>${c.age}</b><span>${c.tj}× / týždeň · ${c.durations.map(d=>d+"´").join(" · ")}</span></span>`;
+    b.addEventListener("click",()=>{ state.catIndex=i; renderCats(); });
+    box.appendChild(b);
+  });
+}
+
+/* ---- render výberu tém ---- */
+function renderThemeOptions(){
+  const sel = $("#themeSel"); sel.innerHTML="";
+  let count=0;
+  GROUPS.forEach(g=>{
+    const og = el("optgroup"); og.label = g.name;
+    g.themes.forEach(t=>{ const o=el("option",null,escapeHtml(t.name)); o.value=t.name; og.appendChild(o); count++; });
+    sel.appendChild(og);
+  });
+  $("#themeCount").textContent = count+" tém";
+}
+
+/* ---- výpočet časov fáz ---- */
+function phaseTimes(total){
+  let acc=0, out=[];
+  PHASES.forEach((p,i)=>{
+    let t = Math.round(total*p.share/5)*5;
+    if(i===PHASES.length-1) t = total-acc;      // zvyšok do záverečnej
+    acc+=t; out.push(t);
+  });
+  return out;
+}
+
+/* ---- rozdelenie zručností do fáz ---- */
+function phaseSkills(theme, group){
+  const s = theme.skills;
+  const tech = s.filter(x=>/vedeni|kľučk|zaseká|krytie|zmen|ball|spracovan/i.test(x));
+  const pass = s.filter(x=>/prihrávk|dotyk/i.test(x));
+  const fin  = s.filter(x=>/zakončen/i.test(x));
+  const isFinal = group.name==="Finálna fáza";
+  const isSystem = group.type==="T";
+
+  return {
+    "PČ": (tech.length?tech:s).slice(0,3).length ? (tech.length?tech:s).slice(0,3)
+           : ["Aktivácia s loptou","Ball mastery — veľa dotykov"],
+    "HČ": s.length ? s : ["Herné cvičenie zamerané na tému","Súboje 1v1 / prečíslenia podľa témy"],
+    "ZČ": isFinal ? (fin.length?fin:s)
+          : isSystem ? ["Zápasová hra 7v7 / 9v9 so zvýraznením systému"]
+          : ["Malá hra (SSG) so zvýhodnením témy","Voľná hra so zápasovými pravidlami"],
+  };
+}
+
+/* ============================================================
+   GENEROVANIE TRÉNINGU
+   ============================================================ */
+function buildSession(themeName, combo){
+  const found = findTheme(themeName);
+  if(!found){ toast("Vyber tému."); return; }
+  const {theme, group} = found;
+  const cat = CATEGORIES[state.catIndex];
+  const dur = cat.durations[Math.min(state.slot, cat.durations.length-1)];
+  const times = phaseTimes(dur);
+  const skills = phaseSkills(theme, group);
+
+  const wrap = $("#session");
+  wrap.innerHTML="";
+  $("#empty").hidden = true;
+  wrap.hidden = false;
+
+  /* --- hlavička --- */
+  const shead = el("div","shead anim");
+  shead.innerHTML = `
+    <div class="top">
+      <span class="badge">${cat.code}</span>
+      <span class="badge dur mono">${dur}´</span>
+      <span class="grp">${escapeHtml(group.name)}</span>
+      <span class="spacer"></span>
+      <span class="type-pill">${group.type==="T"?"Tímová téma":"Individuálna / skupinová"}</span>
+    </div>
+    <div class="title">
+      <h2>${escapeHtml(theme.name)}</h2>
+      <p class="sub">Tréningová jednotka rozdelená na tri časti. V každej máš jasne dané,
+      na aké zručnosti sa sústrediť — a miesto, kam sa doplnia konkrétne cviky.</p>
+    </div>
+    <div class="devrow">
+      ${group.pillars.map(p=>`<span class="tag" title="${escapeHtml(PILLAR_DESC[p]||'')}"><span class="dot"></span>${p}</span>`).join("")}
+      ${group.principles.map(([k,v])=>`<span class="tag ${k==='def'?'def':''}"><span class="dot"></span>${escapeHtml(v)}<span class="k">${k==='def'?'DEF':'OF'}</span></span>`).join("")}
+    </div>`;
+  wrap.appendChild(shead);
+
+  /* --- fázy --- */
+  const phases = el("div","phases");
+  PHASES.forEach((p,i)=>{
+    const card = el("div","phase anim"+(p.kind==="main"?" main":""));
+    card.style.animationDelay = (0.06*(i+1))+"s";
+    const list = skills[p.code]||[];
+    card.innerHTML = `
+      <div class="node">${i+1}</div>
+      <div class="ph-top">
+        <span class="ph-code">${p.code}</span>
+        <h3>${p.name}</h3>
+        <span class="time">${times[i]}´</span>
+      </div>
+      <p class="purpose">${p.purpose}</p>
+      <div class="focus">
+        <div class="lbl">Na čo sa sústrediť</div>
+        <div class="chips">
+          ${list.map(s=>`<span class="chip"><span class="m"></span>${escapeHtml(s)}</span>`).join("")}
+        </div>
+      </div>
+      <div class="source">
+        <div class="txt"><b>Odkiaľ čerpať cviky</b><span>0 cvikov · databáza cvikov sa dopĺňa</span></div>
+        <div class="spacer"></div>
+        <button class="add" type="button" data-phase="${p.code}">＋ Pridať cvik</button>
+      </div>`;
+    phases.appendChild(card);
+  });
+  wrap.appendChild(phases);
+
+  /* --- súvisiace témy / mikrocyklus --- */
+  const rel = relatedFor(themeName, combo);
+  if(rel){
+    const r = el("div","related anim");
+    r.style.animationDelay="0.28s";
+    r.innerHTML = `
+      <p class="eyebrow">${combo?`Návrh celku · ${combo.span}`:"Súvisiace témy"}</p>
+      <h3>${combo?"Odporúčaný mikrocyklus":"Na čo nadviazať v ďalších tréningoch"}</h3>
+      <p>${combo
+        ? "Postupnosť tém, ktoré na seba nadväzujú a spolu tvoria ucelený herný celok."
+        : "Témy z metodiky, ktoré logicky nadväzujú na dnešnú — udrž líniu naprieč mikrocyklom."}</p>
+      <div class="relgrid">
+        ${rel.map((t,idx)=>`<div class="relcard"><span class="w">${combo?combo.span+" · "+(idx+1)+"/"+rel.length:"NADVÄZUJE"}</span><b>${escapeHtml(t)}</b></div>`).join("")}
+      </div>`;
+    wrap.appendChild(r);
+  }
+
+  wrap.querySelectorAll(".add").forEach(btn=>btn.addEventListener("click",()=>toast("Databáza cvikov sa dopĺňa — tu budú konkrétne cviky pre danú časť.")));
+  shead.scrollIntoView({behavior: prefersReduced()?"auto":"smooth", block:"start"});
+}
+
+function relatedFor(themeName, combo){
+  if(combo) return combo.themes;
+  const c = COMBOS.find(x=>x.themes.includes(themeName));
+  if(c) return c.themes.filter(t=>t!==themeName);
+  return null;
+}
+
+/* ============================================================
+   UDALOSTI
+   ============================================================ */
+function prefersReduced(){return window.matchMedia("(prefers-reduced-motion:reduce)").matches;}
+let toastTimer;
+function toast(msg){
+  const t=$("#toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2600);
+}
+
+$("#genBtn").addEventListener("click",()=> buildSession($("#themeSel").value, null));
+$("#randBtn").addEventListener("click",()=>{
+  const combo = COMBOS[Math.floor(Math.random()*COMBOS.length)];
+  $("#themeSel").value = combo.themes[0];
+  buildSession(combo.themes[0], combo);
+  toast("Náhodný návrh celku ("+combo.span+") — prvá téma zobrazená, ďalšie sú v mikrocykle.");
+});
+
+/* theme toggle */
+(function themeInit(){
+  const root=document.documentElement, btn=$("#themeBtn"), ico=$("#themeIco"), txt=$("#themeTxt");
+  function apply(mode){
+    if(mode) root.setAttribute("data-theme",mode); else root.removeAttribute("data-theme");
+    const dark = mode ? mode==="dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+    ico.textContent = dark ? "☀" : "☾";
+    txt.textContent = dark ? "Svetlý režim" : "Tmavý režim";
+  }
+  let cur=null;
+  btn.addEventListener("click",()=>{
+    const dark = cur ? cur==="dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+    cur = dark ? "light":"dark"; apply(cur);
+  });
+  apply(null);
+})();
+
+/* init */
+renderCats();
+renderThemeOptions();
+</script>
