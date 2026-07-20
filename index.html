@@ -109,7 +109,7 @@ h1.head{font-size:clamp(42px,8vw,110px);letter-spacing:-.045em;max-width:15ch}
 @keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,13px)}}
 
 .marq{border-block:1px solid var(--line);padding:24px 0;overflow:hidden;background:var(--ink2)}
-.marq .track{display:flex;gap:44px;width:max-content;animation:slide 95s linear infinite}
+.marq .track{display:flex;gap:44px;width:max-content;animation:slide 190s linear infinite}
 .marq:hover .track{animation-play-state:paused}
 .marq span{font-family:var(--f-disp);font-weight:700;font-size:clamp(19px,2.3vw,28px);color:var(--faint);letter-spacing:-.02em;display:inline-flex;align-items:center;gap:44px;white-space:nowrap}
 .marq span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--acc);opacity:.6}
@@ -704,7 +704,7 @@ function generatorView(){
     </div>
   </div></div>`;
 }
-function catInfo(){const c=CATEGORIES[gen.cat];$('#gcatinfo').innerHTML=`<b>${c.code}</b> · ${c.age} · ${c.tj}× týždenne · tréning ${c.durations[0]}´`;}
+function catInfo(){const c=CATEGORIES[gen.cat];$('#gcatinfo').innerHTML=`<b>${c.code}</b> · ${c.age} · tréning ${c.durations[0]}´`;}
 function initGenerator(){
   const cats=$('#gcats');
   cats.innerHTML=CATEGORIES.map((c,i)=>`<button class="catchip" data-i="${i}" aria-pressed="${i===gen.cat}">${c.code}</button>`).join('');
