@@ -39,8 +39,27 @@ metodika aj neskoršia databáza cvikov. Stav (účet, plán, cookies) je v `loc
 
 Statická stránka — stačí otvoriť `index.html` alebo nasadiť na akýkoľvek hosting.
 
+## Cviky (databáza)
+
+Cviky sú dáta v `exercises.json` a súčasne vložené v `index.html` medzi značkami
+`__EXERCISES_START__/__EXERCISES_END__` (aby fungovali aj v single-file náhľade).
+Generátor pre danú tému + časť zobrazí reálne cviky (podľa `theme` alebo `skill`);
+ak pre tému/časť ešte žiadne nie sú, použije dočasné placeholder varianty.
+
+**Hromadné nahrávanie:**
+1. Vyplň `cviky-sablona.xlsx` (hárok „Cviky“, rozbaľovacie zoznamy).
+2. Spusti prevodník:
+   ```bash
+   python3 scripts/excel_to_json.py
+   ```
+   Prepíše `exercises.json` a vloží dáta do `index.html`. Excel je zdroj pravdy.
+3. Commitni a pushni — appka má cviky okamžite.
+
+Pár cvikov na časť stačí: generátor ich kombinuje (6+6+6 = 216 tréningov na tému).
+
 ## Ďalšie kroky
 
 - Reálny backend + platobná brána (predplatné Pro).
-- Databáza cvikov priradených k témam a častiam.
+- Drag & drop upload Excelu priamo v admine (namiesto skriptu).
+- Kombinačný engine (skladanie viacerých cvikov do jednej jednotky).
 - Správa klubu (tímy, hráči, dochádzka), ročný plán.
