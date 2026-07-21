@@ -109,7 +109,7 @@ h1.head{font-size:clamp(42px,8vw,110px);letter-spacing:-.045em;max-width:15ch}
 @keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,13px)}}
 
 .marq{border-block:1px solid var(--line);padding:24px 0;overflow:hidden;background:var(--ink2)}
-.marq .track{display:flex;gap:44px;width:max-content;animation:slide 190s linear infinite}
+.marq .track{display:flex;gap:44px;width:max-content;animation:slide 120s linear infinite;will-change:transform;transform:translateZ(0);backface-visibility:hidden}
 .marq:hover .track{animation-play-state:paused}
 .marq span{font-family:var(--f-disp);font-weight:700;font-size:clamp(19px,2.3vw,28px);color:var(--faint);letter-spacing:-.02em;display:inline-flex;align-items:center;gap:44px;white-space:nowrap}
 .marq span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--acc);opacity:.6}
@@ -287,6 +287,30 @@ optgroup{background:var(--surface);color:var(--text)}option{background:var(--sur
 .success{max-width:560px;margin-inline:auto;text-align:center}
 .success .big-ic{width:88px;height:88px;border-radius:50%;background:rgba(43,229,138,.13);border:1px solid rgba(43,229,138,.3);display:grid;place-items:center;color:var(--acc);margin:0 auto 26px}
 
+/* admin */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+.kpi .kl{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.kpi .kv{font-family:var(--f-disp);font-weight:800;font-size:clamp(24px,3vw,34px);letter-spacing:-.03em;margin:8px 0 4px}
+.kpi .ks{font-size:12px;color:var(--acc);font-weight:600}
+.admgrid{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;margin-top:20px}
+.ah{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--muted);margin-bottom:18px}
+.chart{display:flex;align-items:flex-end;gap:6px;height:180px}
+.chart .bar{flex:1;background:linear-gradient(180deg,var(--acc),rgba(43,229,138,.22));border-radius:5px 5px 0 0;position:relative;min-height:6px}
+.chart .bar i{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;color:var(--muted);font-style:normal;opacity:0;transition:opacity .2s}
+.chart .bar:hover i{opacity:1}.chart .bar:hover{filter:brightness(1.15)}
+.pb{margin-bottom:16px}.pb .pbl{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:7px}
+.pb .pbt{height:9px;border-radius:6px;background:var(--surface3);overflow:hidden}
+.pb .pbt span{display:block;height:100%;border-radius:6px}
+.table{display:flex;flex-direction:column}
+.table .tr{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px;align-items:center}
+.table .tr:last-child{border-bottom:0}
+.table .th{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.ppill{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:100px;border:1px solid var(--line2)}
+.ppill.pro{background:rgba(43,229,138,.14);color:var(--acc);border-color:transparent}
+.ppill.trial{background:rgba(255,176,32,.14);color:var(--warn);border-color:transparent}
+.ppill.basic{color:var(--muted)}
+
 /* legal / prose */
 .prose{max-width:760px}
 .prose h2{font-size:22px;margin:34px 0 12px}
@@ -348,6 +372,8 @@ footer .bottom .sp{flex:1}
   .steps,.fgrid,.dgrid{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr);gap:34px 24px}
   .plans,.problem .split{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .admgrid{grid-template-columns:1fr}
   footer .cols{grid-template-columns:1fr 1fr}
 }
 @media (max-width:560px){.dgrid{grid-template-columns:1fr}footer .cols{grid-template-columns:1fr}}
@@ -498,7 +524,19 @@ const store={
   set plan(v){localStorage.setItem('zs_plan',v)},
   get cookies(){return localStorage.getItem('zs_cookies')},
   set cookies(v){localStorage.setItem('zs_cookies',v)},
+  get trialEnd(){return +localStorage.getItem('zs_trialEnd')||0},
+  set trialEnd(v){v?localStorage.setItem('zs_trialEnd',String(v)):localStorage.removeItem('zs_trialEnd')},
+  get trialUsed(){return localStorage.getItem('zs_trialUsed')==='1'},
+  set trialUsed(v){localStorage.setItem('zs_trialUsed',v?'1':'0')},
+  get visits(){return +localStorage.getItem('zs_visits')||0},
+  set visits(v){localStorage.setItem('zs_visits',String(v))},
 };
+const DAY=86400000, TRIAL_DAYS=14;
+const ADMIN_PIN="2468"; // zmeň si na vlastný kód
+function checkTrial(){ if(store.plan==='pro' && store.trialEnd && Date.now()>store.trialEnd){ store.plan='basic'; store.trialEnd=0; } }
+function isTrial(){ return store.plan==='pro' && store.trialEnd>0 && Date.now()<store.trialEnd; }
+function trialDaysLeft(){ return store.trialEnd ? Math.max(0,Math.ceil((store.trialEnd-Date.now())/DAY)) : 0; }
+function startTrial(){ store.plan='pro'; store.trialEnd=Date.now()+TRIAL_DAYS*DAY; store.trialUsed=true; }
 const isPro=()=>store.plan==='pro';
 
 /* =========================================================================
@@ -820,10 +858,12 @@ function pricingView(){
         ${li(true,'Databáza cvikov (čoskoro)')}
         ${li(true,'Prednostná podpora')}
       </ul>
-      <button class="btn solid block" id="planPro">${isPro()?'Máš Pro ✓':'Prejsť na Pro'}</button>
+      ${!isPro()&&!store.trialUsed?`<p style="text-align:center;font-size:12.5px;color:var(--acc);font-weight:700;margin-bottom:10px">✨ 14 dní zdarma, potom ${yr?'79 €/rok':'9,90 €/mes'}</p>`:''}
+      <button class="btn solid block" id="planPro">${isPro()?(isTrial()?`Skúšobné Pro — zostáva ${trialDaysLeft()} dní`:'Máš Pro ✓'):(!store.trialUsed?'Začať 14 dní zdarma':'Prejsť na Pro')}</button>
+      ${isTrial()?'<a class="btn ghost block" href="#/pokladna" data-link style="margin-top:10px">Prejsť na platené Pro</a>':''}
     </div>
   </div>
-  <p class="center muted" style="margin-top:26px;font-size:13.5px">Platba je zatiaľ v <b>demo</b> režime (bez reálnej platobnej brány). Zrušiť môžeš kedykoľvek.</p>
+  <p class="center muted" style="margin-top:26px;font-size:13.5px">Skúšku spustíš bez platby. Platba je zatiaľ v <b>demo</b> režime (bez reálnej brány). Zrušiť môžeš kedykoľvek.</p>
   </div></div>`;
 }
 function li(on,t){return `<li class="${on?'':'off'}">
@@ -832,8 +872,9 @@ function initPricing(){
   $('#bm')&&($('#bm').onclick=()=>{billing='m';rerender();});
   $('#by')&&($('#by').onclick=()=>{billing='y';rerender();});
   $('#planPro')&&($('#planPro').onclick=()=>{
-    if(isPro()){toast('Pro už máš aktívne.');return;}
-    if(!store.user){sessionStorage.setItem('afterAuth','#/pokladna');location.hash='#/registracia';return;}
+    if(isPro()){toast(isTrial()?'Skúšobné Pro máš aktívne.':'Pro už máš aktívne.');return;}
+    if(!store.user){sessionStorage.setItem('afterAuth','#/cennik');location.hash='#/registracia';return;}
+    if(!store.trialUsed){startTrial();renderNavAuth();location.hash='#/skuska-hotovo';return;}
     location.hash='#/pokladna';
   });
   $('#planBasic')&&($('#planBasic').onclick=()=>{
@@ -879,7 +920,7 @@ function initCheckout(){
     if(!$('#coName').value.trim()||!$('#coEmail').value.trim()){err.textContent='Vyplň meno a e-mail.';return;}
     if(!$('#coTerms').checked){err.textContent='Potvrď súhlas s podmienkami.';return;}
     pay.disabled=true;pay.textContent='Spracúvam…';
-    setTimeout(()=>{store.plan='pro';renderNavAuth();location.hash='#/hotovo';},900);
+    setTimeout(()=>{store.plan='pro';store.trialEnd=0;renderNavAuth();location.hash='#/hotovo';},900);
   };
 }
 
@@ -940,11 +981,15 @@ function accountView(){
         <div class="fh" style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:16px">Plán</div>
         <div style="display:flex;align-items:center;gap:10px">
           <span class="planbadge ${isPro()?'pro':''}" style="font-size:14px;padding:6px 14px">${isPro()?'PRO':'BASIC'}</span>
-          <span class="muted" style="font-size:14px">${isPro()?'Všetky tréningy odomknuté':BASIC_LIMIT+' tréningy na časť'}</span>
+          <span class="muted" style="font-size:14px">${isTrial()?`Skúšobná verzia — zostáva ${trialDaysLeft()} dní`:(isPro()?'Všetky tréningy odomknuté':BASIC_LIMIT+' tréningy na časť')}</span>
         </div>
-        ${isPro()
+        ${isTrial()
+          ?'<a class="btn solid block" href="#/pokladna" data-link style="margin-top:24px">Prejsť na platené Pro →</a><button class="btn ghost block" id="downgrade" style="margin-top:10px">Ukončiť skúšku</button>'
+          :isPro()
           ?'<button class="btn ghost block" id="downgrade" style="margin-top:24px">Zrušiť Pro (prejsť na Basic)</button>'
-          :'<a class="btn solid block" href="#/cennik" data-link style="margin-top:24px">Prejsť na Pro →</a>'}
+          :(!store.trialUsed
+            ?'<a class="btn solid block" href="#/cennik" data-link style="margin-top:24px">Začať 14 dní Pro zdarma →</a>'
+            :'<a class="btn solid block" href="#/cennik" data-link style="margin-top:24px">Prejsť na Pro →</a>')}
       </div>
     </div>
     <div style="margin-top:24px"><a class="btn solid" href="#/generator" data-link>Otvoriť generátor →</a></div>
@@ -952,7 +997,7 @@ function accountView(){
 }
 function initAccount(){
   $('#logout')&&($('#logout').onclick=()=>{store.user=null;renderNavAuth();toast('Odhlásený.');location.hash='#/';});
-  $('#downgrade')&&($('#downgrade').onclick=()=>{store.plan='basic';renderNavAuth();toast('Pro zrušené, si na Basic.');rerender();});
+  $('#downgrade')&&($('#downgrade').onclick=()=>{const wasTrial=isTrial();store.plan='basic';store.trialEnd=0;renderNavAuth();toast(wasTrial?'Skúška ukončená, si na Basic.':'Pro zrušené, si na Basic.');rerender();});
 }
 
 /* ---------------- SUCCESS ---------------- */
@@ -1026,6 +1071,79 @@ function notFound(){return `<div class="page"><div class="wrap center">
   <p class="lede" style="margin-inline:auto">Táto stránka neexistuje.</p>
   <div style="margin-top:26px"><a class="btn solid" href="#/" data-link>Späť na úvod</a></div></div></div>`;}
 
+/* ---------------- ADMIN (len pre správcu) ---------------- */
+function adminData(){
+  const days=14, bars=[]; let base=42;
+  for(let i=0;i<days;i++){ const s=Math.sin(i*1.25)*9; const r=hashStr('vis'+i)%20; bars.push(Math.max(9,Math.round(base+s+r+i*1.6))); }
+  const totalVisits=bars.reduce((a,b)=>a+b,0)+store.visits;
+  const users=128, pro=34, trial=11, basic=users-pro-trial, conv=Math.round(pro/users*100);
+  const recent=[['FK Príklad','pro','pred 2 h'],['TJ Sokol','trial','pred 5 h'],['ŠK Junior','basic','včera'],
+    ['MFK Mladosť','pro','včera'],['OŠK Dedina','basic','pred 2 dňami'],['FC Talent','trial','pred 3 dňami']];
+  return {bars,days,totalVisits,users,pro,trial,basic,conv,recent};
+}
+function kpi(l,v,sub){return `<div class="kpi"><div class="kl">${l}</div><div class="kv">${v}</div><div class="ks">${sub}</div></div>`;}
+function planbar(l,v,total,c){const pct=Math.round(v/total*100);return `<div class="pb"><div class="pbl"><span>${l}</span><span>${v} · ${pct}%</span></div><div class="pbt"><span style="width:${pct}%;background:${c}"></span></div></div>`;}
+function adminView(){
+  if(sessionStorage.getItem('zs_admin')!=='1'){
+    return `<div class="page"><div class="wrap"><div class="formwrap">
+      <div class="center" style="margin-bottom:24px">
+        <div class="planbadge" style="display:inline-block;margin-bottom:14px">🔒 ADMIN</div>
+        <h1 class="title" style="font-size:clamp(26px,4vw,40px)">Admin prístup</h1>
+        <p class="lede" style="margin-inline:auto;font-size:15px">Táto sekcia je len pre správcu.</p>
+      </div>
+      <div class="card">
+        <label class="field-l">Admin kód</label>
+        <input class="inp" id="adPin" type="password" placeholder="••••" inputmode="numeric" autocomplete="off">
+        <div class="err" id="adErr"></div>
+        <button class="btn solid block" id="adBtn" style="margin-top:8px">Vstúpiť</button>
+      </div>
+    </div></div></div>`;
+  }
+  const d=adminData(), max=Math.max(...d.bars);
+  return `<div class="page"><div class="wrap">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div><div class="crumb">Admin / Prehľad</div><h1 class="title" style="font-size:clamp(28px,4vw,44px)">Admin prehľad</h1></div>
+      <span style="flex:1"></span>
+      <button class="btn ghost sm" id="adOut">Odhlásiť admin</button>
+    </div>
+    <div class="note">📊 Ukážkové dáta pre náhľad. Reálne štatistiky (návštevy, plány, používatelia) sa začnú zbierať po napojení backendu.</div>
+    <div class="kpis">
+      ${kpi('Návštevy (14 dní)', d.totalVisits.toLocaleString('sk-SK'), 'tento prehliadač: '+store.visits)}
+      ${kpi('Používatelia', d.users, '+8 tento týždeň')}
+      ${kpi('Aktívne Pro', d.pro, d.conv+' % konverzia')}
+      ${kpi('Skúšobné verzie', d.trial, 'prebiehajúce')}
+    </div>
+    <div class="admgrid">
+      <div class="card">
+        <div class="ah">Návštevnosť — posledných ${d.days} dní</div>
+        <div class="chart">${d.bars.map(v=>`<span class="bar" style="height:${Math.round(v/max*100)}%"><i>${v}</i></span>`).join('')}</div>
+      </div>
+      <div class="card">
+        <div class="ah">Rozdelenie plánov</div>
+        ${planbar('Basic', d.basic, d.users, 'var(--faint)')}
+        ${planbar('Pro', d.pro, d.users, 'var(--acc)')}
+        ${planbar('Skúšobné', d.trial, d.users, 'var(--warn)')}
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <div class="ah">Najnovšie registrácie</div>
+      <div class="table">
+        <div class="tr th"><span>Klub / používateľ</span><span>Plán</span><span>Kedy</span></div>
+        ${d.recent.map(([n,p,t])=>`<div class="tr"><span>${esc(n)}</span><span><span class="ppill ${p}">${p==='pro'?'Pro':p==='trial'?'Skúška':'Basic'}</span></span><span class="muted">${t}</span></div>`).join('')}
+      </div>
+    </div>
+  </div></div>`;
+}
+function initAdmin(){
+  if(sessionStorage.getItem('zs_admin')!=='1'){
+    const btn=$('#adBtn'); if(!btn)return;
+    const go=()=>{ if($('#adPin').value===ADMIN_PIN){sessionStorage.setItem('zs_admin','1');rerender();} else {$('#adErr').textContent='Nesprávny kód.';} };
+    btn.onclick=go; $('#adPin').addEventListener('keydown',e=>{if(e.key==='Enter')go();});
+  } else {
+    $('#adOut')&&($('#adOut').onclick=()=>{sessionStorage.removeItem('zs_admin');toast('Admin odhlásený.');location.hash='#/';});
+  }
+}
+
 /* =========================================================================
    MODAL
    ========================================================================= */
@@ -1079,6 +1197,8 @@ const routes={
   '/ucet':{render:accountView,after:initAccount},
   '/pokladna':{render:checkoutView,after:initCheckout},
   '/hotovo':{render:()=>successView('Vitaj v Pro! 🎉','Odomkol si všetky tréningy pre každú tému a časť.','#/generator','Otvoriť generátor'),after:()=>{}},
+  '/skuska-hotovo':{render:()=>successView('Skúšobné Pro aktivované! 🎉',`Máš ${TRIAL_DAYS} dní plný prístup ku všetkým tréningom. Zrušiť môžeš kedykoľvek v účte.`,'#/generator','Otvoriť generátor'),after:()=>{}},
+  '/admin':{render:adminView,after:initAdmin},
   '/obchodne-podmienky':{render:vopView,after:()=>{}},
   '/ochrana-udajov':{render:gdprView,after:()=>{}},
   '/cookies':{render:cookiesView,after:()=>{}},
@@ -1103,7 +1223,14 @@ addEventListener('hashchange',router);
 
 function initMarquee(){const t=$('#marqTrack');if(!t)return;
   const themes=['Rýchlym vedením lopty','1v1 v čelnom postavení','Prienikovou prihrávkou','Krytie lopty','Zakončenie po kľučke','Držanie lopty','Prihrávka do behu','Hra na jeden dotyk','Zakladanie útoku','Priestorová obrana'];
-  const seg=themes.map(x=>`<span>${x}</span>`).join('');t.innerHTML=seg+seg;}
+  const seg=themes.map(x=>`<span>${x}</span>`).join('');t.innerHTML=seg+seg;
+  // Rovnaká rýchlosť na PC aj mobile: dĺžku animácie odvodíme od reálnej šírky (px/s konštantné)
+  const SPEED=55; // px za sekundu
+  const setSpeed=()=>{const dist=t.scrollWidth/2; if(dist>0) t.style.animationDuration=Math.round(dist/SPEED)+'s';};
+  requestAnimationFrame(setSpeed);
+  clearTimeout(window._marqT); window._marqT=setTimeout(setSpeed,300);
+  window.removeEventListener('resize',window._marqR||(()=>{}));
+  window._marqR=setSpeed; window.addEventListener('resize',setSpeed);}
 function playHero(){const h=$('#hero');if(h)requestAnimationFrame(()=>h.classList.add('play'));}
 
 /* =========================================================================
@@ -1119,6 +1246,8 @@ function initCookies(){
    INIT
    ========================================================================= */
 $('#yr').textContent=new Date().getFullYear();
+store.visits=store.visits+1;
+checkTrial();
 renderNavAuth();
 initCookies();
 if(!location.hash)location.hash='#/';
