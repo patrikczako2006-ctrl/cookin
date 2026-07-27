@@ -41,6 +41,9 @@ Statická stránka — stačí otvoriť `index.html` alebo nasadiť na akýkoľv
 
 ## Cviky (databáza)
 
+**Aktuálne v databáze: 64 cvikov** (PČ 19 · HČ 25 · ZČ 20) pokrývajúcich všetkých 15 tém
+vo všetkých troch častiach. Prehľad v `cviky-databaza.pdf`.
+
 Cviky sú dáta v `exercises.json` a súčasne vložené v `index.html` medzi značkami
 `__EXERCISES_START__/__EXERCISES_END__` (aby fungovali aj v single-file náhľade).
 Generátor pre danú tému + časť zobrazí reálne cviky (podľa `theme` alebo `skill`);

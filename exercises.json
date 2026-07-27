@@ -11,7 +11,14 @@
     "gear": "6 kužeľov/rad, lopta pre každého",
     "steps": "Dva rady kužeľov, hráč vedie loptu slalomom priamym priehlavkom, po poslednom kuželi šprint s loptou do cieľovej zóny. Súťaž dvoch radov, kto skôr.",
     "coach": "Nízke ťažisko, lopta blízko nohy, po prekážke okamžite zrýchliť, hlava hore medzi dotykmi.",
-    "skills": []
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty"
+    ]
   },
   {
     "id": "C002",
@@ -25,7 +32,10 @@
     "gear": "lopta pre každého",
     "steps": "Všetci vedú loptu vo voľnom priestore. Tréner dvíha farby: zelená = rýchlo, žltá = pomaly, červená = zastav loptu podrážkou. Kto sa pomýli, robí drep.",
     "coach": "Zmeny rýchlosti, kontrola lopty pri zastavení, pohľad na trénera (nie na loptu).",
-    "skills": []
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty"
+    ]
   },
   {
     "id": "C003",
@@ -39,7 +49,14 @@
     "gear": "lopta na pár",
     "steps": "Jeden hráč vedie loptu a mení smer, druhý bez lopty ho zrkadlovo kopíruje. Po 30 s výmena. Potom pridaj klamlivý pohyb pred zmenou smeru.",
     "coach": "Dôraz na klamlivý pohyb telom, prudkú zmenu smeru vonkajškom, prvý krok výbušne.",
-    "skills": []
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení"
+    ]
   },
   {
     "id": "C004",
@@ -53,7 +70,12 @@
     "gear": "lopta pre každého",
     "steps": "Séria: podrážky vpred-vzad, ťahy do strán, prešľapy (V), vnútro-vonkajšok. Každý prvok 30 s, tréner ukazuje tempo.",
     "coach": "Veľa dotykov, mäkký kotník, obe nohy, postupne zrýchľuj bez straty kontroly.",
-    "skills": []
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Kľučky (napr. bicykel)",
+      "Kľučky (zmena smeru na bránku — napr. bicykel)"
+    ]
   },
   {
     "id": "C005",
@@ -67,7 +89,14 @@
     "gear": "kužele, lopta pre každého",
     "steps": "Hráči vedú loptu k okrajovej čiare a zasekávačkou (Cruyff/180°) sa otočia späť do priestoru. Na signál zmena smeru k inej čiare.",
     "coach": "Krytie lopty telom pri otočke, prvý dotyk preč od tlaku, hlava hore pred otočkou.",
-    "skills": []
+    "skills": [
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení",
+      "Zasekávačky (Cruyff turn)",
+      "Zasekávačky (napr. Cruyff turn)",
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru"
+    ]
   },
   {
     "id": "C006",
@@ -81,7 +110,13 @@
     "gear": "4 méty (2 bránky), rozlišováky",
     "steps": "Útočník dostane loptu čelom k obrancovi a snaží sa prejsť a skórovať do jednej z dvoch malých bránok za obrancom. Striedanie po každej akcii.",
     "coach": "Nájsť otvorenú bránku, klamlivý pohyb, zrýchlenie po prekonaní. Obranca: trpezlivosť, nízky postoj, oddialiť.",
-    "skills": []
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
   },
   {
     "id": "C007",
@@ -95,7 +130,14 @@
     "gear": "kužele, 1 lopta",
     "steps": "Štyria po obvode držia loptu, jeden v strede odoberá. Kto stratí loptu alebo ju dá mimo, ide do stredu. Max 2 dotyky.",
     "coach": "Otvorené telo pred prijatím, prihrávka do vzdialenejšej nohy, pohyb do medzery, tempo prihrávok.",
-    "skills": []
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Spracovanie do voľného priestoru",
+      "Spracovanie do voľného priestoru vnútrajškom/vonkajškom"
+    ]
   },
   {
     "id": "C008",
@@ -109,7 +151,10 @@
     "gear": "kužele, lopty",
     "steps": "4v2 v štvorci; ak útočiaci hráči trafia prihrávku cez stred (medzi dvoch brániacich), získavajú bod a menia sa obrancovia.",
     "coach": "Trpezlivo cirkulovať a čakať na okno, prienik po zemi, načasovanie prihrávky a pohybu.",
-    "skills": []
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
   },
   {
     "id": "C009",
@@ -123,7 +168,14 @@
     "gear": "kužele, méty",
     "steps": "Vo dvojiciach postup ihriskom cez narážačky (dá-bež) okolo pasívnych, neskôr aktívnych bránidiel, zakončenie do malej bránky.",
     "coach": "Prvý dotyk narážačky pod uhlom, výbušný nábeh po prihrávke, komunikácia očami.",
-    "skills": []
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru",
+      "Spracovanie do voľného priestoru vnútrajškom/vonkajškom",
+      "Spracovanie stlmením"
+    ]
   },
   {
     "id": "C010",
@@ -137,7 +189,14 @@
     "gear": "bránka + brankár, rozlišováky",
     "steps": "Traja útočníci riešia prečíslenie proti dvom obrancom, cieľ prihrávka do behu za obranu a zakončenie. Po akcii rýchly protiútok 2v3.",
     "coach": "Rozťahovať šírku, načasovať kolmicu za obranu, rýchle rozhodovanie – kľučka/prihrávka/strela.",
-    "skills": []
+    "skills": [
+      "Kľučky (napr. bicykel)",
+      "Kľučky (zmena smeru na bránku — napr. bicykel)",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)"
+    ]
   },
   {
     "id": "C011",
@@ -151,7 +210,14 @@
     "gear": "4 malé bránky, rozlišováky",
     "steps": "Dva tímy, každý bráni 2 a útočí na 2 bránky. Skóruje sa prejdením loptou cez bránku. Podporuje otvorenie tela a zmenu strany.",
     "coach": "Otvorený prvý dotyk do voľného smeru, skenovanie pred prijatím, rýchla zmena ťažiska hry.",
-    "skills": []
+    "skills": [
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru",
+      "Spracovanie do voľného priestoru vnútrajškom/vonkajškom",
+      "Spracovanie stlmením",
+      "Spracovanie stlmením podrážkou/vnútrajškom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)"
+    ]
   },
   {
     "id": "C012",
@@ -165,7 +231,10 @@
     "gear": "lopta na pár",
     "steps": "Útočník drží loptu v malom štvorci a chráni ju telom pred obrancom po dobu 20 s. Počítajú sa odobratia.",
     "coach": "Telo medzi loptu a súpera, lopta na vzdialenejšej nohe, ruky (predlaktie) na cítenie súpera, otáčanie.",
-    "skills": []
+    "skills": [
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení"
+    ]
   },
   {
     "id": "C013",
@@ -179,7 +248,13 @@
     "gear": "rozlišováky, 2 bránky",
     "steps": "Tím zakladá útok od brankára/obrany, cez strednú zónu do útočnej. V každej zóne min. jedna prihrávka. Presun lopty do útočnej zóny = možnosť zakončenia.",
     "coach": "Šírka a hĺbka pri zakladaní, prvá myšlienka dopredu, trpezlivosť pod tlakom, tretí hráč.",
-    "skills": []
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
   },
   {
     "id": "C014",
@@ -193,7 +268,14 @@
     "gear": "bránka+brankár, méty",
     "steps": "Hráč vedie loptu na figuranta/métu, urobí kľučku a zakončí. Strieda sa strana aj typ kľučky. Súťaž o počet gólov.",
     "coach": "Kľučka v rýchlosti smerom na bránku, po kľučke spevniť členok, hlava dole pri strele, presnosť pred silou z blízka.",
-    "skills": []
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty"
+    ]
   },
   {
     "id": "C015",
@@ -207,7 +289,14 @@
     "gear": "bránka+brankár, lopty",
     "steps": "Nahrávač posiela loptu do vápna (po zemi/vzduchom), hráč zakončuje prvým dotykom. Meň uhly nábehu a strany.",
     "coach": "Načasovať nábeh, telo nad loptou, prvý dotyk = strela, nôh cez loptu, brankára prekvapiť rýchlosťou.",
-    "skills": []
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru"
+    ]
   },
   {
     "id": "C016",
@@ -221,7 +310,13 @@
     "gear": "bránka+brankár",
     "steps": "Dvaja útočníci proti jednému obrancovi, po zakončení sa útočník stáva obrancom pre ďalšiu dvojicu. Rýchle striedanie tempa.",
     "coach": "Fixovať obrancu vedením, načasovať prihrávku alebo dokončiť sám, dôraz na prvú strelu bez váhania.",
-    "skills": []
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
   },
   {
     "id": "C017",
@@ -235,7 +330,11 @@
     "gear": "2 bránky, rozlišováky",
     "steps": "Bez lopty tím bráni v kompaktnom bloku, cieľ získať loptu v strednej tretine a rýchlo zakončiť. Bod za zisk lopty do 6 s a streľbu.",
     "coach": "Bránime stred, tlak na loptu + istenie, posun bloku ako celok, komunikácia, prepnutie po zisku.",
-    "skills": []
+    "skills": [
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
   },
   {
     "id": "C018",
@@ -277,7 +376,14 @@
     "gear": "lopty",
     "steps": "Trojice: vhadzujúci + dvaja hráči vytvárajú ponuku (do nohy, do behu, návrat). Rýchle a taktické vhadzovanie, potom pod miernym tlakom brániaceho.",
     "coach": "Rýchlosť rozohrania, ponuka do voľného priestoru, prvý dotyk preč od súpera, udržať loptu.",
-    "skills": []
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení",
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru"
+    ]
   },
   {
     "id": "C021",
@@ -291,7 +397,14 @@
     "gear": "2 bránky+brankári",
     "steps": "Voľná malá hra so zápasovými pravidlami. Zvýrazni tému dňa bonusovým bodom (napr. gól po narážačke = 2 body).",
     "coach": "Preniesť naučené do hry, rýchle rozhodovanie, radosť z hry, minimum prerušení.",
-    "skills": []
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Prihrávka z prvého dotyku",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
   },
   {
     "id": "C022",
@@ -305,7 +418,10 @@
     "gear": "rozlišováky, 2 bránky",
     "steps": "Dva tímy 4v4, dvaja neutráli hrajú vždy s loptou majúcim tímom (6v4). Podporuje držanie a prečíslenie.",
     "coach": "Využiť prečíslenie, ponuka do medzier, trpezlivosť, prepnutie po strate.",
-    "skills": []
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
   },
   {
     "id": "C023",
@@ -319,7 +435,13 @@
     "gear": "2 bránky+brankári",
     "steps": "Bežná hra, ale gól platí len z prvého dotyku vo vápne alebo do 2 dotykov. Núti rýchle finálne riešenie.",
     "coach": "Načasovanie nábehov, kvalitná finálna prihrávka, dokončiť akciu strelou, nie odkopom.",
-    "skills": []
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
   },
   {
     "id": "C024",
@@ -334,5 +456,780 @@
     "steps": "Tri tímy po 3; dva hrajú, tretí čaká na okraji a zapája sa po zisku lopty (rýchly prechod). Kto inkasuje, ide von.",
     "coach": "Rýchle prepnutie útok↔obrana, prvá myšlienka dopredu, kompaktnosť v obrane.",
     "skills": []
+  },
+  {
+    "id": "C025",
+    "name": "Preteky cez bránky",
+    "theme": "Rýchlym vedením lopty",
+    "phase": "HČ",
+    "age": "U7–U11",
+    "players": "8–14",
+    "space": "25×20 m",
+    "time": "14´",
+    "gear": "8 métových bránok, lopty",
+    "steps": "Po ihrisku rozostavené malé bránky z mét. Hráči vedú loptu a za 60 s musia prejsť čo najviac bránok. Dve kolá, medzitým krátka pauza.",
+    "coach": "Hlava hore pri hľadaní voľnej bránky, zrýchlenie do voľného priestoru, striedať nohy.",
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
+  },
+  {
+    "id": "C026",
+    "name": "Súboj o územie s vedením",
+    "theme": "Rýchlym vedením lopty",
+    "phase": "HČ",
+    "age": "U9–U14",
+    "players": "8–12",
+    "space": "30×20 m",
+    "time": "14´",
+    "gear": "rozlišováky, lopty",
+    "steps": "Dve družstvá, každé má svoju polovicu. Hráč s loptou sa snaží prejsť vedením cez súperovu polovicu až za koncovú čiaru. Bod za prechod.",
+    "coach": "Vedenie na vzdialenejšej nohe od súpera, zrýchliť po prekonaní, hľadať medzeru medzi obrancami.",
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty"
+    ]
+  },
+  {
+    "id": "C027",
+    "name": "Voľná hra s bonusom za vedenie",
+    "theme": "Rýchlym vedením lopty",
+    "phase": "ZČ",
+    "age": "U8–U14",
+    "players": "10–14",
+    "space": "30×22 m",
+    "time": "12´",
+    "gear": "2 bránky+brankári",
+    "steps": "Bežná malá hra. Gól po tom, ako hráč predtým prekonal súpera vedením lopty, platí za 2 body.",
+    "coach": "Odvaha ísť do 1v1, po prekonaní okamžite hľadať zakončenie alebo prihrávku.",
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C028",
+    "name": "Kužeľ ako obranca",
+    "theme": "1v1 KÚ/KO",
+    "phase": "PČ",
+    "age": "U8–U12",
+    "players": "8–14",
+    "space": "18×12 m",
+    "time": "10´",
+    "gear": "kužele, lopty",
+    "steps": "Hráč vedie loptu na kužeľ, pred ním urobí kľučku (bicykel, prešľap, nožnice) a zrýchli do cieľovej zóny. Striedaj typ kľučky.",
+    "coach": "Kľučka v pohybe, nie na mieste. Po klamlivom pohybe výbušný krok, lopta blízko nohy.",
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty"
+    ]
+  },
+  {
+    "id": "C029",
+    "name": "1v1 z krídla do centra",
+    "theme": "1v1 KÚ/KO",
+    "phase": "HČ",
+    "age": "U10–U15",
+    "players": "8–14",
+    "space": "25×18 m",
+    "time": "16´",
+    "gear": "bránka+brankár, méty",
+    "steps": "Krídelník dostane loptu pri postrannej čiare, obranca ho atakuje. Cieľ: prejsť 1v1 a buď zakončiť, alebo priložiť center do vápna na dobiehajúceho hráča.",
+    "coach": "Prvý dotyk do priestoru, klamlivý pohyb, rozhodnúť sa – kľučka dnu alebo von, kvalita centra.",
+    "skills": [
+      "Kľučky (napr. bicykel)",
+      "Kľučky (zmena smeru na bránku — napr. bicykel)",
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru",
+      "Spracovanie do voľného priestoru vnútrajškom/vonkajškom",
+      "Spracovanie stlmením"
+    ]
+  },
+  {
+    "id": "C030",
+    "name": "Turnaj 1v1",
+    "theme": "1v1 KÚ/KO",
+    "phase": "ZČ",
+    "age": "U8–U14",
+    "players": "8–16",
+    "space": "10×8 m/pár",
+    "time": "12´",
+    "gear": "malé bránky",
+    "steps": "Krátke 1v1 duely na dve malé bránky, 45 s na zápas, potom rotácia súperov. Vedie sa tabuľka bodov.",
+    "coach": "Súťaživosť, opakované 1v1 pod únavou, po strate lopty okamžitý pressing.",
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)"
+    ]
+  },
+  {
+    "id": "C031",
+    "name": "Otočka pod tlakom",
+    "theme": "1v1 SÚ/SSH/KÚ (chrbtom k bránke)",
+    "phase": "HČ",
+    "age": "U10–U16",
+    "players": "8–12",
+    "space": "20×15 m",
+    "time": "16´",
+    "gear": "méty, rozlišováky, lopty",
+    "steps": "Hráč stojí chrbtom k bránke, obranca za ním. Nahrávač mu posiela loptu do nohy. Cieľ: spracovať, otočiť sa cez zasekávačku a zakončiť alebo prejsť čiaru.",
+    "coach": "Cítiť súpera telom pred prijatím, prvý dotyk preč od tlaku, otočka na slabšej strane obrancu.",
+    "skills": [
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení",
+      "Zasekávačky (Cruyff turn)",
+      "Zasekávačky (napr. Cruyff turn)",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C032",
+    "name": "Hra chrbtom k bránke 3v3",
+    "theme": "1v1 SÚ/SSH/KÚ (chrbtom k bránke)",
+    "phase": "ZČ",
+    "age": "U11–U17",
+    "players": "10–14",
+    "space": "28×20 m",
+    "time": "14´",
+    "gear": "2 bránky+brankári",
+    "steps": "Malá hra, v ktorej každý tím musí pred zakončením zapojiť hráča stojaceho chrbtom k bránke (cieľový hráč v poslednej tretine).",
+    "coach": "Ponuka do nohy, krytie lopty, rýchla otočka alebo návrat lopty a nábeh.",
+    "skills": [
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení",
+      "Zasekávačky (Cruyff turn)",
+      "Zasekávačky (napr. Cruyff turn)",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)"
+    ]
+  },
+  {
+    "id": "C033",
+    "name": "1v1 na dotyk čiary",
+    "theme": "1v1 SO/SSH/SÚ (v čelnom postavení)",
+    "phase": "ZČ",
+    "age": "U8–U15",
+    "players": "8–14",
+    "space": "15×12 m",
+    "time": "12´",
+    "gear": "méty",
+    "steps": "Duel 1v1 v koridore, útočník skóruje zastavením lopty na súperovej čiare. Krátke intervaly, rýchle striedanie.",
+    "coach": "Napádať súpera vedením, zmena rýchlosti pred kľučkou, obranca oddiali a tlačí k čiare.",
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Kľučky (napr. bicykel)",
+      "Kľučky (zmena smeru na bránku — napr. bicykel)",
+      "Prihrávka z prvého dotyku"
+    ]
+  },
+  {
+    "id": "C034",
+    "name": "Otvor telo a otoč sa",
+    "theme": "Prvým dotykom (ofenzívny / otvorený)",
+    "phase": "PČ",
+    "age": "U9–U15",
+    "players": "6–12",
+    "space": "15×15 m",
+    "time": "12´",
+    "gear": "kužele, lopty",
+    "steps": "V trojiciach: nahrávač – stredový hráč – cieľ. Stredový hráč prijíma loptu s otvoreným telom a prvým dotykom ju posúva do smeru tretieho hráča.",
+    "coach": "Skenovať pred prijatím, otvorené boky, prvý dotyk do voľného priestoru, nie pod seba.",
+    "skills": [
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení",
+      "Zasekávačky (Cruyff turn)",
+      "Zasekávačky (napr. Cruyff turn)",
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru"
+    ]
+  },
+  {
+    "id": "C035",
+    "name": "Prijmi a hraj cez zónu",
+    "theme": "Prvým dotykom (ofenzívny / otvorený)",
+    "phase": "HČ",
+    "age": "U11–U17",
+    "players": "10–14",
+    "space": "30×22 m",
+    "time": "16´",
+    "gear": "rozlišováky, méty",
+    "steps": "Hra 5v5 s podmienkou: prvý dotyk musí smerovať dopredu alebo do strany, nikdy dozadu. Bod za prienik do útočnej zóny na max. 3 dotyky.",
+    "coach": "Príprava tela pred loptou, agresívny prvý dotyk, okamžitá myšlienka dopredu.",
+    "skills": [
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru",
+      "Spracovanie do voľného priestoru vnútrajškom/vonkajškom",
+      "Spracovanie stlmením",
+      "Spracovanie stlmením podrážkou/vnútrajškom"
+    ]
+  },
+  {
+    "id": "C036",
+    "name": "Prihrávka cez bránku",
+    "theme": "Prienikovou prihrávkou",
+    "phase": "PČ",
+    "age": "U9–U15",
+    "players": "8–14",
+    "space": "20×20 m",
+    "time": "12´",
+    "gear": "métové bránky, lopty",
+    "steps": "Vo dvojiciach si hráči prihrávajú cez malé métové bránky rozostavené po ihrisku. Za 90 s čo najviac úspešných prienikov.",
+    "coach": "Presnosť a razancia po zemi, načasovanie, prihrávka do vzdialenejšej nohy.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
+  },
+  {
+    "id": "C037",
+    "name": "Prienik do zóny za obranu",
+    "theme": "Prienikovou prihrávkou",
+    "phase": "HČ",
+    "age": "U11–U18",
+    "players": "10–16",
+    "space": "35×25 m",
+    "time": "18´",
+    "gear": "rozlišováky, 2 bránky",
+    "steps": "Hra 6v6 s cieľovou zónou za obranou. Bod za prihrávku po zemi, ktorá prejde medzi obrancami a hráč ju spracuje v cieľovej zóne.",
+    "coach": "Trpezlivosť, čakanie na okno medzi obrancami, načasovanie nábehu, prihrávka do behu.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C038",
+    "name": "Zápas s prienikovým bonusom",
+    "theme": "Prienikovou prihrávkou",
+    "phase": "ZČ",
+    "age": "U11–U18",
+    "players": "10–14",
+    "space": "30×24 m",
+    "time": "14´",
+    "gear": "2 bránky+brankári",
+    "steps": "Voľná hra. Gól po predchádzajúcej prienikovej prihrávke cez líniu obrancov = 2 body.",
+    "coach": "Hľadať kolmicu namiesto bezpečnej prihrávky do strany, odvážne riešenie.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
+  },
+  {
+    "id": "C039",
+    "name": "Nábeh za chrbát",
+    "theme": "Prihrávkou do behu (za brániaceho hráča)",
+    "phase": "PČ",
+    "age": "U10–U16",
+    "players": "8–14",
+    "space": "25×18 m",
+    "time": "12´",
+    "gear": "méty, lopty",
+    "steps": "Dvojice: hráč A vedie loptu, hráč B nabieha za métu (imitácia obrancu). A posiela loptu do behu, B spracuje a zakončí do malej bránky.",
+    "coach": "Načasovanie nábehu (nie predčasne), prihrávka do priestoru pred hráča, prvý dotyk dopredu.",
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C040",
+    "name": "Zápas s líniou ofsajdu",
+    "theme": "Prihrávkou do behu (za brániaceho hráča)",
+    "phase": "ZČ",
+    "age": "U12–U19",
+    "players": "12–16",
+    "space": "35×28 m",
+    "time": "16´",
+    "gear": "2 bránky+brankári, rozlišováky",
+    "steps": "Bežná hra so zavedeným ofsajdom. Obrancovia držia líniu, útočníci trénujú načasovanie nábehu za obranu.",
+    "coach": "Pohyb do ofsajdovej línie a späť, komunikácia očami, prihrávka v správnom momente.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C041",
+    "name": "Narážačka v trojici",
+    "theme": "Hrou na jeden dotyk (narážačka / na tretieho)",
+    "phase": "PČ",
+    "age": "U10–U16",
+    "players": "6–12",
+    "space": "18×12 m",
+    "time": "12´",
+    "gear": "kužele, lopty",
+    "steps": "Trojice: A prihrá B, B narazí na prvý dotyk späť, A posunie na tretieho hráča C. Rotácia pozícií po každej sérii.",
+    "coach": "Prvý dotyk pod uhlom, pevný členok, tempo bez zbytočných dotykov, komunikácia.",
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru"
+    ]
+  },
+  {
+    "id": "C042",
+    "name": "Hra na dva dotyky",
+    "theme": "Hrou na jeden dotyk (narážačka / na tretieho)",
+    "phase": "ZČ",
+    "age": "U11–U18",
+    "players": "10–14",
+    "space": "28×22 m",
+    "time": "14´",
+    "gear": "2 bránky+brankári",
+    "steps": "Malá hra s pravidlom maximálne dva dotyky (pokročilí jeden dotyk vo vlastnej polovici). Gól po narážačke = 2 body.",
+    "coach": "Príprava pred prijatím, rýchle rozhodovanie, pohyb po prihrávke.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru",
+      "Spracovanie do voľného priestoru vnútrajškom/vonkajškom",
+      "Spracovanie stlmením"
+    ]
+  },
+  {
+    "id": "C043",
+    "name": "Chráň a otoč sa",
+    "theme": "Krytie lopty (jednotlivca)",
+    "phase": "ZČ",
+    "age": "U9–U16",
+    "players": "8–14",
+    "space": "25×20 m",
+    "time": "12´",
+    "gear": "rozlišováky, 2 bránky",
+    "steps": "Malá hra, v ktorej hráč po prijatí lopty musí najskôr loptu udržať pod tlakom aspoň 2 sekundy (krytie), až potom môže hrať dopredu.",
+    "coach": "Telo medzi loptu a súpera, nízke ťažisko, hlava hore pri hľadaní riešenia.",
+    "skills": [
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení",
+      "Zasekávačky (Cruyff turn)",
+      "Zasekávačky (napr. Cruyff turn)",
+      "Spracovanie do voľného priestoru",
+      "Spracovanie do voľného priestoru vnútrajškom/vonkajškom"
+    ]
+  },
+  {
+    "id": "C044",
+    "name": "Rondo 5v2 s prechodom",
+    "theme": "Držanie lopty (skupinou hráčov)",
+    "phase": "PČ",
+    "age": "U10–U18",
+    "players": "7–9",
+    "space": "12×12 m",
+    "time": "12´",
+    "gear": "kužele, lopta",
+    "steps": "Klasické rondo 5v2, po 8 úspešných prihrávkach tím prenesie loptu do druhého štvorca a pokračuje.",
+    "coach": "Otvorené telo, prihrávka do vzdialenejšej nohy, pohyb do medzery po prihrávke.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C045",
+    "name": "Držanie 6v4 na dve zóny",
+    "theme": "Držanie lopty (skupinou hráčov)",
+    "phase": "HČ",
+    "age": "U12–U19",
+    "players": "10–14",
+    "space": "30×24 m",
+    "time": "18´",
+    "gear": "rozlišováky, kužele",
+    "steps": "Šesť útočiacich proti štyrom brániacim v jednej zóne. Po 6 prihrávkach môžu preniesť loptu do druhej zóny, kde čakajú ďalší brániaci.",
+    "coach": "Trpezlivosť, šírka a hĺbka, zmena strany hry, prepnutie po strate.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C046",
+    "name": "Vedenie a strela na čas",
+    "theme": "Zakončenie po vedení lopty / kľučke",
+    "phase": "PČ",
+    "age": "U9–U15",
+    "players": "8–14",
+    "space": "20×16 m",
+    "time": "12´",
+    "gear": "bránka+brankár, kužele",
+    "steps": "Hráč vedie loptu slalomom a zakončuje z hranice vápna. Meria sa čas od štartu po streľbu, počíta sa len presná strela.",
+    "coach": "Posledný dotyk pred strelou do strany (uvoľnenie priestoru), spevnený členok, mieriť k tyči.",
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty"
+    ]
+  },
+  {
+    "id": "C047",
+    "name": "1v1 s brankárom po kľučke",
+    "theme": "Zakončenie po vedení lopty / kľučke",
+    "phase": "ZČ",
+    "age": "U10–U17",
+    "players": "8–14",
+    "space": "20×18 m",
+    "time": "14´",
+    "gear": "bránka+brankár",
+    "steps": "Hráč prijme loptu v strede, vedie na brankára, urobí kľučku alebo strelí. Súťaž v počte gólov, rýchle striedanie.",
+    "coach": "Rozhodnúť sa skoro, po kľučke pokojné dokončenie, nezavrieť oči, sledovať brankára.",
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore",
+      "Kľučky (napr. bicykel)",
+      "Kľučky (zmena smeru na bránku — napr. bicykel)"
+    ]
+  },
+  {
+    "id": "C048",
+    "name": "Center a zakončenie",
+    "theme": "Zakončenie po prihrávke / z prvého dotyku",
+    "phase": "PČ",
+    "age": "U10–U17",
+    "players": "8–14",
+    "space": "25×20 m",
+    "time": "14´",
+    "gear": "bránka+brankár, lopty",
+    "steps": "Z krídla prichádza center (po zemi aj vzduchom), dvaja hráči nabiehajú na prednú a zadnú tyč a zakončujú prvým dotykom.",
+    "coach": "Načasovanie nábehu, oddeliť sa od obrancu, telo nad loptou, smerovať na bránu.",
+    "skills": [
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
+  },
+  {
+    "id": "C049",
+    "name": "Rozohrávka od brankára",
+    "theme": "Zakladanie útoku",
+    "phase": "PČ",
+    "age": "U11–U19",
+    "players": "8–12",
+    "space": "30×25 m",
+    "time": "14´",
+    "gear": "bránka+brankár, méty",
+    "steps": "Brankár rozohráva na krajného obrancu, ktorý prihráva do stredu a lopta putuje k métam v prednej zóne. Bez tlaku, potom s pasívnym napádaním.",
+    "coach": "Šírka pri rozohrávke, otvorené telo prijímajúceho, prvá myšlienka dopredu, komunikácia.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Spracovanie do voľného priestoru",
+      "Spracovanie do voľného priestoru vnútrajškom/vonkajškom",
+      "Spracovanie stlmením",
+      "Spracovanie stlmením podrážkou/vnútrajškom"
+    ]
+  },
+  {
+    "id": "C050",
+    "name": "Posun bloku",
+    "theme": "Základy priestorovej obrany",
+    "phase": "ZČ",
+    "age": "U11–U19",
+    "players": "10–16",
+    "space": "32×26 m",
+    "time": "14´",
+    "gear": "rozlišováky, 2 bránky",
+    "steps": "Hra 6v6, brániaci tím sa musí pohybovať ako celok. Bod za zisk lopty do 6 sekúnd od straty.",
+    "coach": "Kompaktnosť medzi líniami, tlak na loptu a istenie, komunikácia, prepnutie po zisku.",
+    "skills": []
+  },
+  {
+    "id": "C051",
+    "name": "Priamy kop – nácvik variantov",
+    "theme": "Štandardné situácie (roh, priamy kop, aut)",
+    "phase": "ZČ",
+    "age": "U12–U19",
+    "players": "10–16",
+    "space": "polovica ihriska",
+    "time": "14´",
+    "gear": "bránka+brankár, múr z figurín",
+    "steps": "Nácvik dvoch variantov priameho kopu: priama strela cez múr a rozohrávka nakrátko s centrom. Striedanie strán a vzdialeností.",
+    "coach": "Kvalita zásahu lopty, nacvičený signál, obsadenie priestoru pred bránkou, druhá vlna.",
+    "skills": [
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
+  },
+  {
+    "id": "C052",
+    "name": "Koordinačná dráha s loptou",
+    "theme": "Rýchlym vedením lopty",
+    "phase": "PČ",
+    "age": "U6–U12",
+    "players": "8–16",
+    "space": "20×10 m",
+    "time": "10´",
+    "gear": "rebrík/kužele, lopty",
+    "steps": "Hráč prejde koordinačnú dráhu (preskoky, bočné kroky) a hneď potom vedie loptu slalomom do cieľa. Dva rady, súťaž.",
+    "coach": "Rýchle nohy v dráhe, plynulý prechod do vedenia, kontrola prvého dotyku po dráhe.",
+    "skills": [
+      "Vedenie lopty priamym priehlavkom",
+      "Vedenie lopty priamym priehlavkom vo voľnom priestore",
+      "Vedenie priamym priehlavkom",
+      "Vedenie vnútrajškom/vonkajškom na malom priestore"
+    ]
+  },
+  {
+    "id": "C053",
+    "name": "Štvorec prihrávok",
+    "theme": "Prienikovou prihrávkou",
+    "phase": "ZČ",
+    "age": "U9–U16",
+    "players": "8–12",
+    "space": "20×20 m",
+    "time": "12´",
+    "gear": "kužele, lopty",
+    "steps": "Hráči na rohoch štvorca, lopta koluje po obvode, na signál trénera musí ísť prihrávka cez stred (prienik) na protiľahlého hráča.",
+    "coach": "Prihrávka po zemi razantne, príjem s otvoreným telom, pohyb po prihrávke.",
+    "skills": [
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C054",
+    "name": "Držanie lopty pod tlakom 4v4+2",
+    "theme": "Držanie lopty (skupinou hráčov)",
+    "phase": "ZČ",
+    "age": "U11–U19",
+    "players": "10",
+    "space": "26×22 m",
+    "time": "14´",
+    "gear": "rozlišováky",
+    "steps": "Dva tímy po štyroch plus dvaja neutráli. Cieľ je 10 prihrávok za sebou = bod. Po strate okamžitý pressing.",
+    "coach": "Ponuka do medzier, tempo prihrávok, kľud pod tlakom, prepnutie.",
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C055",
+    "name": "Prvý dotyk pod tlakom",
+    "theme": "Prvým dotykom (ofenzívny / otvorený)",
+    "phase": "ZČ",
+    "age": "U10–U17",
+    "players": "8–14",
+    "space": "25×20 m",
+    "time": "12´",
+    "gear": "2 bránky, rozlišováky",
+    "steps": "Malá hra s pravidlom: kto prijme loptu, má maximálne 3 sekundy. Núti kvalitný a rýchly prvý dotyk.",
+    "coach": "Skenovať pred prijatím, prvý dotyk do voľného priestoru, hneď hlava hore.",
+    "skills": [
+      "Prihrávka z prvého dotyku",
+      "Spracovanie do voľného priestoru",
+      "Spracovanie do voľného priestoru vnútrajškom/vonkajškom",
+      "Spracovanie stlmením",
+      "Spracovanie stlmením podrážkou/vnútrajškom"
+    ]
+  },
+  {
+    "id": "C056",
+    "name": "Krytie a súboj o loptu",
+    "theme": "Krytie lopty (jednotlivca)",
+    "phase": "HČ",
+    "age": "U10–U16",
+    "players": "8–14",
+    "space": "20×15 m",
+    "time": "14´",
+    "gear": "lopty, rozlišováky",
+    "steps": "Dvojice v koridore: útočník musí udržať loptu 15 s pod tlakom obrancu, potom prejsť čiaru. Striedanie rolí.",
+    "coach": "Predlaktie na kontakt so súperom, lopta na vzdialenejšej nohe, obrátky, trpezlivosť.",
+    "skills": [
+      "Krytie lopty telom",
+      "Krytie lopty telom pri vedení"
+    ]
+  },
+  {
+    "id": "C057",
+    "name": "Zakončenie po narážačke",
+    "theme": "Zakončenie po prihrávke / z prvého dotyku",
+    "phase": "ZČ",
+    "age": "U11–U18",
+    "players": "8–14",
+    "space": "22×18 m",
+    "time": "14´",
+    "gear": "bránka+brankár",
+    "steps": "Dvojica postupuje na bránku, narazí si loptu (dá-bež) a zakončuje prvým dotykom. Súťaž dvojíc o počet gólov.",
+    "coach": "Rýchla narážačka, nábeh do priestoru, dokončenie prvým dotykom bez váhania.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Prihrávka z prvého dotyku",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
+  },
+  {
+    "id": "C058",
+    "name": "Prechod cez tri zóny na čas",
+    "theme": "Zakladanie útoku",
+    "phase": "ZČ",
+    "age": "U12–U19",
+    "players": "12–16",
+    "space": "40×30 m",
+    "time": "16´",
+    "gear": "rozlišováky, 2 bránky",
+    "steps": "Hra so zónami, tím musí dostať loptu z vlastnej do útočnej zóny do 12 sekúnd. Gól po rýchlom prechode = 2 body.",
+    "coach": "Rýchla cirkulácia, prvá myšlienka dopredu, podpora z hĺbky, zmena strany.",
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)"
+    ]
+  },
+  {
+    "id": "C059",
+    "name": "Obranné postavenie 2v2",
+    "theme": "Základy priestorovej obrany",
+    "phase": "PČ",
+    "age": "U10–U16",
+    "players": "8–12",
+    "space": "20×15 m",
+    "time": "12´",
+    "gear": "méty, lopty",
+    "steps": "Dvaja obrancovia bránia proti dvom útočníkom v koridore. Nácvik tlaku na loptu a istenia partnera.",
+    "coach": "Jeden tlačí, druhý istí a komunikuje, nedať sa prekonať jednou prihrávkou, držať kompaktnú vzdialenosť.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
+  },
+  {
+    "id": "C060",
+    "name": "Aut ako zbraň v útočnej tretine",
+    "theme": "Štandardné situácie (roh, priamy kop, aut)",
+    "phase": "HČ",
+    "age": "U12–U19",
+    "players": "10–14",
+    "space": "útočná tretina",
+    "time": "12´",
+    "gear": "lopty, méty",
+    "steps": "Nácvik vhadzovania v útočnej tretine: signál na nábeh k lopte, do behu za obranu a spätná prihrávka.",
+    "coach": "Rýchlosť rozohrania, nacvičený pohyb, presnosť vhadzovania, obsadenie priestoru pred bránkou.",
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty",
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)"
+    ]
+  },
+  {
+    "id": "C061",
+    "name": "Brankár v rozohrávke",
+    "theme": "Zakladanie útoku",
+    "phase": "HČ",
+    "age": "U11–U19",
+    "players": "10–14",
+    "space": "35×28 m",
+    "time": "16´",
+    "gear": "bránka+brankár, rozlišováky",
+    "steps": "Tím zakladá útok od brankára proti napádajúcemu súperovi (najskôr 2, potom 3 hráči). Cieľ prejsť cez prvú líniu pressingu.",
+    "coach": "Trojuholníky pri rozohrávke, kľud pod tlakom, brankár ako hráč navyše, dlhá lopta ako alternatíva.",
+    "skills": []
+  },
+  {
+    "id": "C062",
+    "name": "1v1 obranca vs útočník na čas",
+    "theme": "1v1 SO/SSH/SÚ (v čelnom postavení)",
+    "phase": "PČ",
+    "age": "U9–U15",
+    "players": "8–14",
+    "space": "16×12 m",
+    "time": "12´",
+    "gear": "méty, lopty",
+    "steps": "Útočník má 10 sekúnd na prekonanie obrancu a zastavenie lopty za čiarou. Rýchla rotácia, počítajú sa body oboch.",
+    "coach": "Útočník: útočiť na nohu obrancu, meniť rýchlosť. Obranca: bočný postoj, oddialiť, trpezlivosť.",
+    "skills": [
+      "Zmeny rýchlosti pri vedení",
+      "Zmeny rýchlosti pri vedení lopty"
+    ]
+  },
+  {
+    "id": "C063",
+    "name": "Prihrávka do behu v trojiciach",
+    "theme": "Prihrávkou do behu (za brániaceho hráča)",
+    "phase": "HČ",
+    "age": "U11–U18",
+    "players": "9–15",
+    "space": "30×22 m",
+    "time": "16´",
+    "gear": "méty, bránka+brankár",
+    "steps": "Trojice postupujú ihriskom, stredný hráč posiela kolmicu do behu krajnému, ten centruje na tretieho a ten zakončuje.",
+    "coach": "Načasovanie, prihrávka pred hráča do priestoru, kvalita finálnej prihrávky, dobehnutie do vápna.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom",
+      "Zakončenie priamym priehlavkom (dlhšia vzdialenosť)",
+      "Zakončenie vnútrajškom (kratšia vzdialenosť)",
+      "Zakončenie vnútrajškom/priehlavkom z prvého dotyku"
+    ]
+  },
+  {
+    "id": "C064",
+    "name": "Rondo 3v1 pre najmenších",
+    "theme": "Hrou na jeden dotyk (narážačka / na tretieho)",
+    "phase": "HČ",
+    "age": "U7–U11",
+    "players": "4",
+    "space": "8×8 m",
+    "time": "10´",
+    "gear": "kužele, lopta",
+    "steps": "Jednoduché rondo 3v1 s dvoma dotykmi. Kto stratí loptu, ide do stredu. Krátke série po 2 minúty.",
+    "coach": "Prihrávka vnútrajškom, ponuka do voľného miesta, pohyb po prihrávke, hlava hore.",
+    "skills": [
+      "Prihrávka po zemi",
+      "Prihrávka po zemi vnútrajškom / priehlavkom"
+    ]
   }
 ]
