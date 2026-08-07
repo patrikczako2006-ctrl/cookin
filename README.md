@@ -45,13 +45,17 @@ Statická stránka — stačí otvoriť `index.html` alebo nasadiť na akýkoľv
 
 ## Cviky (databáza)
 
-**Aktuálne v databáze: 139 cvikov** (PČ 45 · HČ 49 · ZČ 45) — každá z 15 tém má aspoň
-3 cviky v každej časti. Prehľad v `cviky-databaza.pdf`.
+**Aktuálne v databáze: 169 cvikov** (PČ 54 · HČ 62 · ZČ 53) — každá z 15 tém má aspoň
+3 cviky v každej časti, vrátane cvikov pre prípravku (U6–U9) aj dorast (U16–U19).
 
 Cviky sú dáta v `exercises.json` a súčasne vložené v `index.html` medzi značkami
 `__EXERCISES_START__/__EXERCISES_END__` (aby fungovali aj v single-file náhľade).
 Generátor pre danú tému + časť zobrazí reálne cviky (podľa `theme` alebo `skill`);
 ak pre tému/časť ešte žiadne nie sú, použije dočasné placeholder varianty.
+
+**Filtrovanie podľa veku:** každý cvik má vekový rozsah (napr. `U8–U12`). Generátor ukáže
+najprv cviky presne pre zvolenú kategóriu, potom cviky z blízkych kategórií (±2 roky)
+označené štítkom „blízka kategória“.
 
 **Nákresy:** ku každému cviku sa automaticky generuje nákres ihriska (`scripts/diagram.js`)
 — kužele, hráči, brániaci, prihrávky a pohyb. Šablóna sa vyberá podľa názvu, témy a popisu
