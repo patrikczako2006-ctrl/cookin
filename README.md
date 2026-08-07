@@ -10,8 +10,12 @@ Funkčný jednostránkový web (SPA) — všetko sa deje plynulo bez reloadov, s
 ## Čo funguje
 
 - **Generátor tréningov** — kategória → téma → jednotka po častiach so zručnosťami, piliermi a princípmi.
-- **Plány Basic a Pro** — Basic ukáže 3 tréningy na každú časť; Pro odomkne všetky (desiatky).
-  Zamknuté tréningy vedú na cenník (upsell brána).
+- **Tri plány** — Basic (zdarma, 5 tréningov na časť), **Tréner** (9,90 €/mes) a **Klub**
+  (39 €/mes, viac trénerov, klubová knižnica, tímy a dochádzka). Zamknuté tréningy vedú na cenník.
+- **Vlastné cviky (`/moje-cviky`)** — tréner si uloží cvik súkromne, alebo ho zdieľa s komunitou.
+  Pri zdieľaní musí potvrdiť, že je to jeho vlastný cvik (ochrana pred kopírovaným obsahom).
+- **Moderácia v admine** — fronta odoslaných cvikov, schválenie/zamietnutie s dôvodom.
+  Za schválený cvik dostane autor **mesiac zadarmo** (a cvik sa objaví v generátore).
 - **Webshop flow** — cenník (mesačne/ročne) → registrácia → pokladňa → odomknutie Pro.
   Platba je zatiaľ **demo** (bez reálnej brány — napojí sa neskôr, napr. Stripe/GoPay).
 - **Účet** — registrácia/prihlásenie, správa plánu (demo, cez `localStorage`).
