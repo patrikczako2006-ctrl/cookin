@@ -53,11 +53,16 @@ Cviky sú dáta v `exercises.json` a súčasne vložené v `index.html` medzi zn
 Generátor pre danú tému + časť zobrazí reálne cviky (podľa `theme` alebo `skill`);
 ak pre tému/časť ešte žiadne nie sú, použije dočasné placeholder varianty.
 
+**Nákresy:** ku každému cviku sa automaticky generuje nákres ihriska (`scripts/diagram.js`)
+— kužele, hráči, brániaci, prihrávky a pohyb. Šablóna sa vyberá podľa názvu, témy a popisu
+cviku. Rovnaký generátor sa používa v appke (tmavá paleta) aj v PDF (svetlá).
+
 **Hromadné nahrávanie:**
 1. Vyplň `cviky-sablona.xlsx` (hárok „Cviky“, rozbaľovacie zoznamy).
-2. Spusti prevodník:
+2. Spusti prevodník a vlož dáta do appky:
    ```bash
    python3 scripts/excel_to_json.py
+   python3 scripts/inject.py
    ```
    Prepíše `exercises.json` a vloží dáta do `index.html`. Excel je zdroj pravdy.
 3. Commitni a pushni — appka má cviky okamžite.
