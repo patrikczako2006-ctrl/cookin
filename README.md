@@ -22,9 +22,7 @@ Funkčný jednostránkový web (SPA) — všetko sa deje plynulo bez reloadov, s
 - **Právne stránky** — Obchodné podmienky, Ochrana osobných údajov (GDPR), Cookies (+ cookie lišta),
   Odstúpenie od zmluvy. So SK vzorovými textami a miestami `[...]` na doplnenie údajov firmy.
 
-> ⚠️ Cviky (drilly) sú zatiaľ placeholdery — štruktúra a rozdelenie tréningov funguje,
-> konkrétne cviky (popis/video/diagram) sa doplnia do databázy neskôr.
-> Právne texty sú vzory — pred spustením doplniť reálne údaje a dať skontrolovať právnikovi.
+> ⚠️ Právne texty sú vzory — pred spustením doplniť reálne údaje a dať skontrolovať právnikovi.
 
 ## Dizajn
 
