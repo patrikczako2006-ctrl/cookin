@@ -62,8 +62,16 @@ najprv cviky presne pre zvolenú kategóriu, potom cviky z blízkych kategórií
 označené štítkom „blízka kategória“.
 
 **Nákresy:** ku každému cviku sa automaticky generuje nákres ihriska (`scripts/diagram.js`)
-— kužele, hráči, brániaci, prihrávky a pohyb. Šablóna sa vyberá podľa názvu, témy a popisu
-cviku. Rovnaký generátor sa používa v appke (tmavá paleta) aj v PDF (svetlá).
+— kužele, hráči, brániaci, prihrávky a pohyb. Z **28 šablón** (slalom, brány, rondo, pozičná hra,
+narážačka, kolmica, ofsajd, zakončenie, center, 1v1 s brankárom, malá hra, obranný blok, pressing,
+rozohrávka, roh, priamy kop, aut, …) sa vyberá tá, ktorá sedí názvu, téme a popisu cviku
+(váhované pravidlá s prioritou — špecifické šablóny prebijú generické).
+
+Každý cvik má vlastný „seed“ odvodený z `id` + názvu, ktorým sa parametrizuje rozostavenie
+(počet hráčov a kužeľov, veľkosť zón, strana ihriska, tvar obranného bloku, pozícia lopty…).
+Vďaka tomu má **všetkých 300 cvikov vlastný, odlišný nákres** aj keď zdieľajú šablónu, a nákres
+je zároveň stabilný — pri každom načítaní vyzerá rovnako. Rovnaký generátor sa používa v appke
+(tmavá paleta) aj v PDF (svetlá).
 
 **Hromadné nahrávanie:**
 1. Vyplň `cviky-sablona.xlsx` (hárok „Cviky“, rozbaľovacie zoznamy).
