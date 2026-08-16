@@ -47,6 +47,25 @@
     const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1;
     return Arr(a[0]+dx/L*g,a[1]+dy/L*g,b[0]-dx/L*g,b[1]-dy/L*g,c,dash,m);}
 
+  /* rozostavenie n hráčov do 1–3 stĺpcov (aby 3v3 a 8v8 vyzerali naozaj inak) */
+  function squad(n,x0,step,i,key){
+    const cols=n<=3?1:(n<=6?2:3), per=Math.ceil(n/cols), out=[];
+    for(let k=0;k<n;k++){
+      const c=Math.floor(k/per), r=k%per, inCol=Math.min(per,n-c*per);
+      const gap=Math.min(17,42/Math.max(1,inCol));
+      out.push([x0+c*step+i.J(key+k,1.8), 31-((inCol-1)/2)*gap+r*gap+i.J(key+40+k,1.8)]);
+    }
+    return out;
+  }
+
+  /* z ponuky pozícií vyber tie, ktoré nekolidujú s už obsadenými (hráč má r=3) */
+  function avoid(cands,taken,n,minD){const d=minD||7.5,out=[];
+    for(const c of cands){ if(out.length>=n) break;
+      if(![...taken,...out].some(t=>Math.hypot(t[0]-c[0],t[1]-c[1])<d)) out.push(c);}
+    let k=0; while(out.length<n&&k<cands.length){ const c=cands[k++];
+      if(!out.includes(c)) out.push([c[0],c[1]]);}
+    return out.slice(0,n);}
+
   /* ---------------- rozbor cviku ---------------- */
   function seedOf(s){let h=0;for(let i=0;i<String(s).length;i++)h=(h*31+String(s).charCodeAt(i))>>>0;return h;}
   function mix(a,b){let h=(a^Math.imul(b+1,2654435761))>>>0;
@@ -57,7 +76,7 @@
     const sd=seedOf((ex.id||'')+'|'+(ex.name||'')+'|'+(ex.phase||''));
     const txt=((ex.name||'')+' '+(ex.steps||'')+' '+(ex.setup||'')+' '+(ex.players||'')).toLowerCase();
     const all=((ex.name||'')+' '+(ex.theme||'')+' '+(ex.setup||'')+' '+(ex.steps||'')+' '+(ex.constraints||'')+' '+(ex.coach||'')).toLowerCase();
-    const fmt=txt.match(/(\d+)\s*v\s*(\d+)(?:\s*\+\s*(\d+))?/);
+    const fmt=txt.match(/(\d+)\s*v(?:s)?\s*(\d+)(?:\s*\+\s*(\d+))?/);
     const R=k=>mix(sd,k)/4294967296;          // 0..1
     const I=(k,n)=>mix(sd,k)%n;               // celé číslo 0..n-1
     const J=(k,a)=>Math.round((R(k)-.5)*2*a*10)/10;  // posun ±a
@@ -124,25 +143,30 @@
     tag(p,i){let s='';
       const all=[[20,18],[46,14],[74,22],[30,44],[62,46],[84,38],[52,30],[16,36]];
       const n=5+i.I(1,4);
+      const pos=[];
       all.slice(0,n).forEach(([x,y],k)=>{const px=x+i.J(10+k,3),py=y+i.J(20+k,3);
-        s+=P(px,py,p.att,'',p.attTxt)+Ball(px+4.3,py,p.ball,p.line);});
-      const hunters=[[52,31],[70,36],[36,26]].slice(0,1+i.I(2,3));
-      hunters.forEach(([x,y],k)=>s+=Df(x+i.J(30+k,3),y+i.J(40+k,3),p.def));
+        pos.push([px,py]); s+=P(px,py,p.att,'',p.attTxt)+Ball(px+4.3,py,p.ball,p.line);});
+      const hunters=avoid([[52,31],[70,36],[36,26],[58,44],[40,40],[66,16]]
+        .map((q,k)=>[q[0]+i.J(30+k,3),q[1]+i.J(40+k,3)]),pos,1+i.I(2,3));
+      hunters.forEach(([x,y])=>s+=Df(x,y,p.def));
       s+=Arr(hunters[0][0]+3,hunters[0][1],hunters[0][0]+15,hunters[0][1]-6,p.arrow,false,'ar');
       if(i.I(3,2)) s+=Zone(8,8,84,46,p,true);
       return s;},
 
-    /* 1v1 na dve malé bránky */
+    /* 1v1 na dve malé bránky — podporní hráči podľa formátu */
     duel(p,i){let s='';
       const g=i.I(1,4);
       if(g===0){s+=Goal(80,16,13,p.goal)+Goal(80,46,13,p.goal);}
       else if(g===1){s+=Goal(88,31,16,p.goal,true);}
       else if(g===2){s+=Cone(84,16,p.cone)+Cone(84,31,p.cone)+Cone(84,46,p.cone);}
       else {s+=Goal(90,18,12,p.goal,true)+Goal(90,44,12,p.goal,true);}
+      const extra=Math.max(0,Math.min((i.a||1)-1,3));
       const dx=44+i.I(2,4)*4, dy=31+i.J(3,6);
       s+=P(22+i.J(4,4),31,p.att,'',p.attTxt)+Ball(28.5,31,p.ball,p.line)+Df(dx,dy,p.def);
       s+=Arr(32,29,dx-4,18,p.arrow,false,'ar')+Arr(32,33,dx-4,44,p.arrow,true,'ap');
-      if(i.I(5,2)) s+=P(14,50,p.att,'',p.attTxt)+P(14,12,p.att,'',p.attTxt);
+      [[14,13],[14,49],[34,8]].slice(0,extra).forEach((q,k)=>s+=P(q[0]+i.J(20+k,2.5),q[1]+i.J(30+k,2.5),p.att,'',p.attTxt));
+      [[dx+10,14],[dx+10,48],[dx+16,31]].slice(0,extra).forEach((q,k)=>s+=Df(q[0]+i.J(50+k,2.5),q[1]+i.J(60+k,2.5),p.def));
+      if(!extra&&i.I(5,2)) s+=P(14,50,p.att,'',p.attTxt)+P(14,12,p.att,'',p.attTxt);
       return s;},
 
     /* vlny 1v1 na bránku s brankárom */
@@ -186,7 +210,7 @@
       for(let k=0;k<arrows;k++){const a=pts[k],b=pts[(k+1)%out];
         s+=link(a,b,p.pass,true,'ap',3.6);}
       pts.forEach((q,k)=>s+=P(q[0],q[1],p.att,String(k+1),p.attTxt));
-      ring(cx,cy,inn>1?5.5:0,inn,rot+.5).forEach(q=>s+=Df(q[0],q[1],p.def));
+      ring(cx,cy,inn>1?3.4+inn*2.3:0,inn,rot+.5).forEach(q=>s+=Df(q[0],q[1],p.def));
       const st=i.I(6,out);
       s+=Ball(pts[st][0]+4,pts[st][1]+2,p.ball,p.line);
       if(i.I(8,3)===0) s+=P(cx,cy+r*.86+9,p.neu,'N',p.neuTxt);
@@ -197,11 +221,14 @@
       const z=i.zones===4?4:(i.zones===2?2:(2+i.I(1,3))), w=(W-12)/z;
       for(let k=0;k<z;k++) s+=Zone(6+k*w,8,w,46,p,true);
       const na=Math.max(5,Math.min(i.a||(5+i.I(2,4)),8));
+      const ap=[];
       [[18,18],[18,44],[34,31],[50,16],[50,46],[66,31],[82,20],[82,42]].slice(0,na)
-        .forEach((q,k)=>s+=P(q[0]+i.J(10+k,2.5),q[1]+i.J(20+k,2.5),p.att,'',p.attTxt));
+        .forEach((q,k)=>{const x=q[0]+i.J(10+k,2.5),y=q[1]+i.J(20+k,2.5);
+          ap.push([x,y]); s+=P(x,y,p.att,'',p.attTxt);});
       const nd=Math.max(2,Math.min(i.b||(2+i.I(3,3)),4));
-      [[40,20],[42,42],[60,24],[62,40]].slice(0,nd)
-        .forEach((q,k)=>s+=Df(q[0]+i.J(30+k,2.5),q[1]+i.J(40+k,2.5),p.def));
+      avoid([[40,20],[42,42],[60,24],[62,40],[28,31],[74,31]]
+        .map((q,k)=>[q[0]+i.J(30+k,2.5),q[1]+i.J(40+k,2.5)]),ap,nd)
+        .forEach(q=>s+=Df(q[0],q[1],p.def));
       const nn=i.n||i.I(4,3);
       if(nn) [[50,5],[50,57],[6,31]].slice(0,nn).forEach(q=>s+=P(q[0],q[1],p.neu,'N',p.neuTxt));
       if(i.I(5,2)) s+=Arr(37,31,47,18,p.pass,true,'ap')+Arr(53,17,64,30,p.pass,true,'ap');
@@ -251,19 +278,21 @@
       if(i.I(6,2)) s+=Goal(94,31,14,p.goal,true);
       return s;},
 
-    /* cieľový hráč chrbtom (pivot) */
+    /* cieľový hráč chrbtom (pivot) — podpora podľa formátu */
     pivot(p,i){let s='';
       const zw=22+i.I(1,3)*4, zx=W-4-zw;
       s+=Zone(zx,10,zw,42,p,true);
       const px=zx+zw/2+i.J(2,3);
       s+=P(px,31,p.att,'P',p.attTxt)+Df(px+6,31+i.J(3,4),p.def);
-      const sup=[[20,20],[20,44],[36,31]].slice(0,2+i.I(4,2));
-      sup.forEach((q,k)=>s+=P(q[0],q[1]+i.J(10+k,3),p.att,'',p.attTxt));
-      s+=Ball(24.5,20,p.ball,p.line);
-      s+=Arr(25,21,px-6,29,p.pass,true,'ap');
-      s+=Arr(px-3,36,56,46,p.pass,true,'ap');
-      s+=Arr(24,46,56,50,p.arrow,false,'ar');
-      if(i.I(5,2)) s+=Df(46,24+i.J(6,6),p.def);
+      const ns=Math.max(2,Math.min((i.a||3)-1,5));
+      squad(ns,16,15,i,10).forEach(q=>s+=P(q[0],q[1],p.att,'',p.attTxt));
+      s+=Ball(22,18,p.ball,p.line);
+      s+=Arr(24,20,px-6,29,p.pass,true,'ap');
+      s+=Arr(px-3,36,54,46,p.pass,true,'ap');
+      s+=Arr(22,46,52,50,p.arrow,false,'ar');
+      const nd=Math.max(0,Math.min((i.b||1)-1,3));
+      [[42,20],[42,44],[56,31]].slice(0,nd).forEach((q,k)=>s+=Df(q[0],q[1]+i.J(70+k,3),p.def));
+      if(!nd&&i.I(5,2)) s+=Df(44,24+i.J(6,6),p.def);
       return s;},
 
     /* kolmica za obranu */
@@ -288,8 +317,10 @@
       const nd=3+i.I(2,2), ys=nd===4?[12,24,38,50]:[14,31,48];
       ys.forEach((y,k)=>s+=Df(lx+i.J(10+k,2),y,p.def));
       s+=P(22,31+i.J(3,5),p.att,'',p.attTxt)+Ball(26.5,31,p.ball,p.line);
-      const na=2+i.I(4,2);
-      [[lx-4,16],[lx-4,46],[lx-8,31]].slice(0,na).forEach((q,k)=>s+=P(q[0],q[1]+i.J(20+k,3),p.att,'',p.attTxt));
+      const dpos=ys.map((y,k)=>[lx+i.J(10+k,2),y]);
+      avoid([[lx-8,16],[lx-8,46],[lx-9,31],[lx-7,36],[lx-7,22]]
+        .map((q,k)=>[q[0],q[1]+i.J(20+k,3)]),dpos,2+i.I(4,2))
+        .forEach(q=>s+=P(q[0],q[1],p.att,'',p.attTxt));
       s+=Arr(29,30,78,22,p.pass,true,'ap');
       s+=Arr(lx-1,15,76,20,p.arrow,false,'ar');return s;},
 
@@ -311,10 +342,11 @@
       const wy=30+i.I(2,3)*4;
       s+=P(X(10),wy,p.att,'',p.attTxt)+Ball(X(14.5),wy,p.ball,p.line);
       s+=Arr(X(16),wy-1,X(42),17,p.pass,true,'ap');
-      const na=2+i.I(3,3);
-      [[38,26],[58,24],[50,40],[68,34]].slice(0,na).forEach((q,k)=>s+=P(X(q[0]),q[1]+i.J(10+k,2.5),p.att,'',p.attTxt));
-      const ndf=1+i.I(4,2);
-      [[46,20],[60,30]].slice(0,ndf).forEach(q=>s+=Df(X(q[0]),q[1],p.def));
+      const na=2+i.I(3,3), ap=[];
+      [[38,26],[58,24],[50,40],[68,34]].slice(0,na).forEach((q,k)=>{
+        const y=q[1]+i.J(10+k,2.5); ap.push([X(q[0]),y]); s+=P(X(q[0]),y,p.att,'',p.attTxt);});
+      avoid([[46,20],[62,32],[40,36],[54,16],[68,22]].map(q=>[X(q[0]),q[1]]),ap,1+i.I(4,2))
+        .forEach(q=>s+=Df(q[0],q[1],p.def));
       s+=Arr(X(38),23,X(42),14,p.arrow,false,'ar')+Arr(X(58),21,X(54),13,p.arrow,false,'ar');
       if(i.I(5,2)) s+=P(X(90),wy,p.att,'',p.attTxt);
       return s;},
@@ -330,21 +362,21 @@
       if(i.I(5,2)) s+=Cone(sx-10,52,p.cone)+Cone(sx+10,52,p.cone);
       return s;},
 
-    /* malá hra na dve bránky */
+    /* malá hra na dve bránky — počet hráčov podľa formátu cviku */
     ssg(p,i){let s='';
-      const big=i.I(1,3)!==0;
+      const n=Math.max(3,Math.min(i.a||(3+i.I(3,4)),8));
+      const big=n>=5||i.I(1,3)!==0;
       if(big){s+=Goal(5,31,17,p.goal,true)+Goal(95,31,17,p.goal,true);}
       else {s+=Goal(5,20,11,p.goal,true)+Goal(5,42,11,p.goal,true)+Goal(95,20,11,p.goal,true)+Goal(95,42,11,p.goal,true);}
-      if(i.gk&&big){s+=GK(11,31,p.goal)+GK(89,31,p.goal);}
+      if((i.gk||n>=6)&&big){s+=GK(11,31,p.goal)+GK(89,31,p.goal);}
       if(i.I(2,2)) s+=`<line x1="50" y1="5" x2="50" y2="57" stroke="${p.line}" stroke-width=".8" stroke-dasharray="2.5 2"/>`;
-      const n=Math.max(3,Math.min(i.a||(3+i.I(3,3)),5));
-      const shapeA=[[[24,15],[24,47],[36,31],[30,31],[18,31]],
-                    [[20,31],[32,16],[32,46],[42,24],[42,40]],
-                    [[26,12],[26,50],[38,22],[38,42],[20,31]]][i.I(4,3)];
-      shapeA.slice(0,n).forEach((q,k)=>s+=P(q[0]+i.J(10+k,2),q[1]+i.J(20+k,2),p.att,'',p.attTxt));
-      shapeA.slice(0,n).forEach((q,k)=>s+=Df(100-q[0]+i.J(30+k,2),q[1]+i.J(40+k,2),p.def));
+      const x0=n<=3?26:(n<=6?22:18), step=n<=6?15:13;
+      const A=squad(n,x0,step,i,10), B=squad(n,100-x0,-step,i,60);
+      A.forEach(q=>s+=P(q[0],q[1],p.att,'',p.attTxt));
+      B.forEach(q=>s+=Df(q[0],q[1],p.def));
       if(i.n) s+=P(50,i.I(5,2)?6:56,p.neu,'N',p.neuTxt);
-      s+=Arr(41,31,59,31,p.pass,true,'ap')+Ball(36,26,p.ball,p.line);return s;},
+      const a=A[A.length-1], b=B[B.length-1];
+      s+=link(a,b,p.pass,true,'ap')+Ball(a[0]-4,a[1]-4,p.ball,p.line);return s;},
 
     /* hra na štyri bránky */
     ssg4(p,i){let s='';
@@ -365,19 +397,20 @@
       if(i.I(3,2)) s+=P(W-4-zw/2,31,p.att,'',p.attTxt);
       s+=Arr(47,31,W-6-zw,31,p.pass,true,'ap')+Ball(40,27,p.ball,p.line);return s;},
 
-    /* obranný blok */
+    /* obranný blok — počet a tvar podľa formátu */
     block(p,i){let s='';
       s+=Goal(50,6,22,p.goal)+GK(50,11,p.goal);
-      const shp=[[4,3],[4,4],[5,3],[3,4]][i.I(1,4)];
+      const tot=Math.max(4,Math.min(i.b||i.a||7,9));
+      const back=Math.min(5,Math.max(2,Math.round(tot/2))), mid=Math.max(2,tot-back);
       const y1=20+i.I(2,3)*4, y2=y1+14;
-      const row=(n,y,key)=>{let o='';const step=68/(n-1);
-        for(let k=0;k<n;k++) o+=Df(16+k*step+i.J(key+k,1.8),y+i.J(key+50+k,1.8),p.def);return o;};
-      s+=row(shp[0],y1,10)+row(shp[1],y2,60);
+      const row=(n,y,key)=>{let o='';const step=n>1?68/(n-1):0, x0=n>1?16:50;
+        for(let k=0;k<n;k++) o+=Df(x0+k*step+i.J(key+k,1.8),y+i.J(key+50+k,1.8),p.def);return o;};
+      s+=row(back,y1,10)+row(mid,y2,60);
       s+=`<line x1="14" y1="${y1}" x2="86" y2="${y1}" stroke="${p.def}" stroke-width=".7" stroke-dasharray="2 2" opacity=".5"/>`;
       s+=`<line x1="20" y1="${y2}" x2="80" y2="${y2}" stroke="${p.def}" stroke-width=".7" stroke-dasharray="2 2" opacity=".5"/>`;
-      const na=2+i.I(3,2);
-      [[34,52],[64,52],[50,58]].slice(0,na).forEach(q=>s+=P(q[0],q[1],p.att,'',p.attTxt));
-      s+=Ball(38,50,p.ball,p.line)+Arr(41,50,60,50,p.pass,true,'ap');return s;},
+      const na=Math.max(2,Math.min(i.a||3,4));
+      [[30,52],[58,52],[44,58],[74,50]].slice(0,na).forEach(q=>s+=P(q[0],q[1],p.att,'',p.attTxt));
+      s+=Ball(34,50,p.ball,p.line)+Arr(37,50,55,50,p.pass,true,'ap');return s;},
 
     /* pressing / counter-pressing */
     press(p,i){let s='';
@@ -392,20 +425,22 @@
       else s+=P(74,31,p.att,'',p.attTxt)+Arr(72,28,60,22,p.pass,true,'ap');
       return s;},
 
-    /* rozohrávka od brankára */
+    /* rozohrávka od brankára — počet hráčov podľa formátu */
     buildup(p,i){let s='';
       s+=Goal(6,31,18,p.goal,true)+GK(14,31,p.goal)+Ball(18,31,p.ball,p.line);
-      const wide=i.I(1,2)===1;
-      const cb=[[30,14],[30,48]], mid=wide?[46,31]:[42,31];
-      cb.forEach((q,k)=>s+=P(q[0]+i.J(10+k,2.5),q[1]+i.J(20+k,2.5),p.att,'',p.attTxt));
-      s+=P(mid[0],mid[1]+i.J(3,4),p.att,'',p.attTxt);
-      if(wide) s+=P(58,12,p.att,'',p.attTxt)+P(58,50,p.att,'',p.attTxt);
-      const nd=Math.max(2,Math.min(i.b||(2+i.I(4,2)),3));
-      [[40,20],[40,42],[56,31]].slice(0,nd).forEach((q,k)=>s+=Df(q[0]+i.J(30+k,2.5),q[1]+i.J(40+k,2.5),p.def));
-      s+=Arr(20,30,27,16,p.pass,true,'ap')+Arr(33,15,mid[0]-3,mid[1]-3,p.pass,true,'ap');
+      const na=Math.max(3,Math.min(i.a||4,7));
+      const A=squad(na,30,16,i,10);
+      A.forEach(q=>s+=P(q[0],q[1],p.att,'',p.attTxt));
+      const nd=Math.max(1,Math.min(i.b||2,4));
+      const cand=[[46,14],[46,48],[60,31],[60,10],[60,52],[72,20],[72,42],[52,31]]
+        .map((q,k)=>[q[0]+i.J(30+k,2),q[1]+i.J(40+k,2)]);
+      avoid(cand,A,nd).forEach(q=>s+=Df(q[0],q[1],p.def));
+      s+=Arr(20,30,A[0][0]-4,A[0][1],p.pass,true,'ap');
+      if(A[1]) s+=link(A[0],A[1],p.pass,true,'ap');
       if(i.I(5,3)===0){s+=Goal(96,31,16,p.goal,true);}
-      else {s+=Cone(86,20,p.cone)+Cone(86,42,p.cone);}
-      s+=Arr(mid[0]+4,31,84,31,p.pass,true,'ap');return s;},
+      else {s+=Cone(88,20,p.cone)+Cone(88,42,p.cone);}
+      const last=A[A.length-1];
+      s+=Arr(last[0]+4,last[1],86,31,p.pass,true,'ap');return s;},
 
     /* rohový kop */
     corner(p,i){let s='';const flip=i.I(1,2)===1, X=x=>flip?100-x:x;
@@ -469,25 +504,26 @@
     ['buildup',  /rozohrávk|rozohráv|zaklada|od brankára|brankár.*rozohr|4\+gk/, 1.6],
     ['press',    /counter-press|counterpress|pressing|presing|spúšťa|napádan|rest defence|6 sekúnd|zisk lopty do/, 1.5],
     ['rondo',    /\brondo\b|\brondá\b|\brond[eu]\b/, 2.0],
-    ['gk1v1',    /s brankárom|1v1 s brankár|sám na brankára|rieši brankára/, 2.0],
+    ['gk1v1',    /1v1 s brankár|sám na brankára|rieši brankára|proti vybiehajúcemu brankár|obídení brankár/, 2.0],
     ['duelWave', /\bvln[ay]?\b|rad útočník|rad obranc|striedavo.*bránk/, 2.0],
-    ['cross',    /center|centr(uje|om|y)|na prednú|zadnú tyč|krídl.*center/, 1.7],
+    ['cross',    /center|centri|centr(uje|om|y)|spätn[áúej]+ prihrávk|na prednú|zadnú tyč|na tyče|krídl.*center/, 1.7],
     ['offside',  /ofsajd|vysok[áúa] líni|drž.*líniu/, 1.7],
     ['mastery',  /ball mastery|žonglov|podrážk.*prešľap|séria: podrážky/, 1.8],
-    ['tag',      /naháňačk|lovec|rybár|vypichnú|zbieran|poklad|kráľ zvierat|domček/, 1.8],
-    ['gates',    /brán[ay] z mét|métov[éa].*brán|farebn[éý].*(brán|mét)|prejsť bránou|semafor|farbu/, 1.7],
+    ['tag',      /naháňačk|lovec|rybár|vypichnú|zbieran|poklad|kráľ zvierat|vlci|vlk|krokodíl/, 1.8],
+    ['gates',    /farebn[éý].*(brán|mét)|brán[ay] danej farby|prejsť bránou|cez most|mostom|mosty|semafor|zavolá farbu|ukáže farb/, 1.7],
     ['channel',  /koridor|v koridore|prejsť.*čiar.*súper/, 1.6],
+    ['duel',     /1v1 na (dve|tri|štyri)|súboj na štyri|turnaj 1v1|turnaj súboj/, 2.4],
     ['ssg4',     /štyri (malé )?bránk|štyroch bránok|4 (malé )?bránk|na 4 bránky/, 1.8],
     ['targetZone',/cieľov[ýáéu][a-z]*\s*(zón|líni|čiar)|za líniu|za súperovu líniu|dovedie.*za|cieľovej zóne/, 1.5],
-    ['pivot',    /pivot|cieľov[ýe] hráč|chrbtom k (bránke|hre)|otoč.*chrbtom|medzi líniami.*chrbtom/, 1.6],
+    ['pivot',    /pivot|cieľov[ýe] hráč|\bchrbtom\b|hrot|otoč.*chrbtom|medzi líniami/, 1.6],
     ['wall',     /narážačk|dá-bež|prihraj a bež|na tretieho|wall pass/, 1.6],
-    ['rondo',    /rondo|\d+v\d+ v štvorci|kruh|držan.*lopt|udrž.*prihráv/, 1.3],
+    ['rondo',    /rondo|\d+v\d+ v štvorci|kruh|držan.*lopt|udržan\w* lopt|na udržanie|udrž.*prihráv/, 1.3],
     ['positional',/poziční|pozičn|neutrál|obsadenie priestoru|\d+v\d+\s*\+\s*\d/, 1.5],
-    ['zones',    /tri zón|troch zón|štyri zón|tretin[ye]?|cez zón|postup.*zón|prechod.*zón/, 1.4],
-    ['block',    /\bblok\b|priestorov|obrann[áéy]|posun bloku|kompakt|istenie|bránen|tieň/, 1.2],
+    ['zones',    /tri zón|troch zón|štyri zón|cez zón|cez všetky.*zón|postup.*zón|prechod.*zón|zóny vpred/, 1.4],
+    ['block',    /\bblok\b|priestorov|obrann[áéy]|posun bloku|kompakt|istenie|bránen|bráň |brániť|tieň|medzi loptu a svoju|za úrovňou lopty|isť[ií]|zomkn/, 1.3],
     ['through',  /kolmic|prienikov|prienik|do behu|za obranu|za chrbát|medzi líniami/, 1.2],
     ['shoot',    /zakonč|strel(a|y|ba|ou)|volej|finish|na bránu/, 1.1],
-    ['slalom',   /slalom|vedeni|vedie|dribl|prekáž|pretek|štafet|koordina/, 1.1],
+    ['slalom',   /slalom|\bvedeni|\bvedie|dribl|prekáž|pretek|štafet|koordina/, 1.1],
     ['grid',     /kryti|chráň|chrán|mriežk|štvorc|súboj o loptu|chrániť/, 1.1],
     ['duel',     /1v1|duel|súboj|kľučk|zaseká|obísť|prekona|zrkadl|dvere/, 0.9],
     ['pass3',    /prihráv|prihrá|spracov|prvý dotyk|jeden dotyk|otvor.*telo|skenov/, 0.8],

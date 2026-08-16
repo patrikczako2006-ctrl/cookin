@@ -43,47 +43,72 @@ Statická stránka — stačí otvoriť `index.html` alebo nasadiť na akýkoľv
 
 ## Cviky (databáza)
 
-**Aktuálne v databáze: 300 cvikov** (PČ 98 · HČ 107 · ZČ 95), z toho **135 elitných**
-(Foundation U6–U11 · Development U12–U15 · Pro U16–U19 — každá úroveň pokrýva všetkých 15 tém × 3 časti).
+**360 cvikov, každý postavený na konkrétnu tému.** Databáza je matica
+**15 tém × 3 časti (PČ/HČ/ZČ) × vekové pásma** — každá zo 45 kombinácií
+téma×časť má 7–9 cvikov pokrývajúcich celý rozsah U6 – U19.
 
-Cviky sú dáta v `exercises.json` a súčasne vložené v `index.html` medzi značkami
-`__EXERCISES_START__/__EXERCISES_END__` (aby fungovali aj v single-file náhľade).
-Generátor pre danú tému + časť zobrazí reálne cviky (podľa `theme` alebo `skill`);
-ak pre tému/časť ešte žiadne nie sú, použije dočasné placeholder varianty.
+Každý cvik má kompletnú metodickú štruktúru:
 
-**Elitná sada (135 cvikov):** postavená podľa metodiky elitných akadémií — každý cvik má
-`why` (prenos do zápasu), `setup`, `steps`, `constraints` (podmienky v duchu constraints-led
-approach), `progression`/`regression` a `load` (dávkovanie). Zdrojové súbory sú v `data/`.
-Pre každú tému existuje iná verzia cviku pre každé vekové pásmo — generátor vyberá tú, ktorá
-sedí zvolenej kategórii.
+| pole | čo obsahuje |
+|---|---|
+| `why` | jedna veta — čo sa tým prenáša do zápasu |
+| `setup` | rozostavenie hráčov a pomôcok |
+| `steps` | priebeh cviku |
+| `constraints` | pravidlo, ktoré hráča núti robiť tému (constraints-led approach) |
+| `progression` / `regression` | sťaženie pre lepších, zjednodušenie pre slabších |
+| `coach` | na čo sa tréner sústredí |
+| `load` | dávkovanie — série, opakovania, pauzy |
 
-**Filtrovanie podľa veku:** každý cvik má vekový rozsah (napr. `U8–U12`). Generátor ukáže
-najprv cviky presne pre zvolenú kategóriu, potom cviky z blízkych kategórií (±2 roky)
-označené štítkom „blízka kategória“.
+**Cvik musí sedieť k téme.** Nie je to len štítok — pravidlo cviku (`constraints`)
+je vždy postavené tak, aby hráča do danej témy prinútilo. Napr. v téme
+*Prienikovou prihrávkou* sa bod počíta len za prihrávku, ktorá prešla **pomedzi
+dvoch súperov**; v téme *Rýchlym vedením lopty* len za priestor prekonaný
+**vedením**, nie prihrávkou. Kontroluje to skript `scripts/audit_db.py`.
 
-**Nákresy:** ku každému cviku sa automaticky generuje nákres ihriska (`scripts/diagram.js`)
-— kužele, hráči, brániaci, prihrávky a pohyb. Z **28 šablón** (slalom, brány, rondo, pozičná hra,
-narážačka, kolmica, ofsajd, zakončenie, center, 1v1 s brankárom, malá hra, obranný blok, pressing,
-rozohrávka, roh, priamy kop, aut, …) sa vyberá tá, ktorá sedí názvu, téme a popisu cviku
-(váhované pravidlá s prioritou — špecifické šablóny prebijú generické).
+**Veková primeranosť:** cvik pre U6 je iná hra než cvik pre U18, aj keď je téma
+rovnaká. Pásma sú U6–U9 (foundation), U9–U13, U12–U16, U13–U17 a U16–U19 (pro).
+Generátor ukáže najprv cviky presne pre zvolenú kategóriu, potom cviky z blízkych
+kategórií (±2 roky) označené štítkom „blízka kategória“.
 
-Každý cvik má vlastný „seed“ odvodený z `id` + názvu, ktorým sa parametrizuje rozostavenie
-(počet hráčov a kužeľov, veľkosť zón, strana ihriska, tvar obranného bloku, pozícia lopty…).
-Vďaka tomu má **všetkých 300 cvikov vlastný, odlišný nákres** aj keď zdieľajú šablónu, a nákres
-je zároveň stabilný — pri každom načítaní vyzerá rovnako. Rovnaký generátor sa používa v appke
-(tmavá paleta) aj v PDF (svetlá).
+**Nákresy:** ku každému cviku sa generuje nákres ihriska (`scripts/diagram.js`).
+Šablóna sa vyberá váhovanými pravidlami podľa názvu, témy a popisu, rozostavenie
+podľa formátu (4v1, 8v8+3), počtu hráčov, zón a bránok. Každý cvik má vlastný
+„seed“ z `id` + názvu — **všetkých 360 nákresov je odlišných** a zároveň stabilných
+(pri každom načítaní rovnaký). Rovnaký generátor beží v appke (tmavá paleta)
+aj v PDF (svetlá). Kontroluje to `scripts/audit_diagrams.js`.
 
-**Hromadné nahrávanie:**
-1. Vyplň `cviky-sablona.xlsx` (hárok „Cviky“, rozbaľovacie zoznamy).
-2. Spusti prevodník a vlož dáta do appky:
-   ```bash
-   python3 scripts/excel_to_json.py
-   python3 scripts/inject.py
+### Ako sa databáza skladá
+
+Zdroj pravdy sú súbory v `data/`, `exercises.json` je zostavený výstup:
+
+```
+data/elite_foundation.json      45 cvikov  (U7–U11)
+data/elite_development.json     45 cvikov  (U12–U15)
+data/elite_pro.json             45 cvikov  (U16–U19)
+data/temy/tema_01..15.json     180 cvikov  (12 na tému: 3 časti × 4 pásma)
+data/temy/tema_16..17_u6*.json  45 cvikov  (najmladšia kategória)
+```
+
+```bash
+python3 scripts/build_db.py     # zloží data/ -> exercises.json + skontroluje polia
+python3 scripts/inject.py       # vloží dáta a nákresy do index.html
+python3 scripts/audit_db.py     # sedí každý cvik k téme? pokrytie kategórií?
+node    scripts/audit_diagrams.js  # sedí nákres k téme? je unikátny?
+```
+
+### Vlastné cviky cez Excel
+
+1. Vyplň `cviky-sablona.xlsx` (hárok „Cviky“, 22 stĺpcov s rozbaľovacími zoznamami,
+   vzorový riadok ukazuje očakávanú kvalitu).
+2. ```bash
+   python3 scripts/excel_to_json.py   # -> data/temy/tema_90_excel.json
+   python3 scripts/build_db.py && python3 scripts/inject.py
    ```
-   Prepíše `exercises.json` a vloží dáta do `index.html`. Excel je zdroj pravdy.
+   Skript upozorní na cviky, ktorým chýbajú povinné polia — tie sa do appky nedostanú.
+   Ostatné sady zostávajú nedotknuté.
 3. Commitni a pushni — appka má cviky okamžite.
 
-Pár cvikov na časť stačí: generátor ich kombinuje (6+6+6 = 216 tréningov na tému).
+**PDF databáza:** `cviky-databaza.pdf` — všetkých 360 cvikov s nákresmi na tlač.
 
 ## Ďalšie kroky
 

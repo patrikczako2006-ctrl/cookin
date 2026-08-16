@@ -1,79 +1,86 @@
 #!/usr/bin/env python3
 """
-Prevodník: cviky-sablona.xlsx  ->  exercises.json  (+ vloží dáta do index.html)
+Prevodník: cviky-sablona.xlsx  ->  data/temy/tema_90_excel.json  -> exercises.json
 
-Použitie:
-    python3 scripts/excel_to_json.py [cesta_k_xlsx] [cesta_k_index.html]
+    python3 scripts/excel_to_json.py [cesta_k_xlsx]
+    python3 scripts/build_db.py && python3 scripts/inject.py
 
-Predvolene číta ./cviky-sablona.xlsx a zapisuje ./exercises.json a vloží
-dáta do ./index.html medzi značky __EXERCISES_START__ / __EXERCISES_END__.
-Excel je zdroj pravdy — po spustení sa cviky v appke nahradia obsahom z Excelu.
+Excel je zdroj pravdy pre cviky nahrané cez šablónu. Ostatné sady (elitná
+a tematické) zostávajú nedotknuté — build_db.py ich všetky zloží dokopy
+a skontroluje, či má každý cvik vyplnené povinné polia.
 """
 import sys, json, os
 
+COLS = ["ID","Názov","Časť","Zručnosť","Ďalšie zručnosti","Téma","Vek od","Vek do",
+        "Hráči","Priestor","Intenzita","Minúty","Pomôcky","Prečo","Rozostavenie",
+        "Priebeh","Podmienky","Sťaženie","Zjednodušenie","Na čo dbať","Dávkovanie","Úroveň"]
+
 def main():
     xlsx = sys.argv[1] if len(sys.argv) > 1 else "cviky-sablona.xlsx"
-    index = sys.argv[2] if len(sys.argv) > 2 else "index.html"
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     import openpyxl
     wb = openpyxl.load_workbook(xlsx, data_only=True)
     if "Cviky" not in wb.sheetnames:
         print("Chyba: hárok 'Cviky' nenájdený."); sys.exit(1)
     ws = wb["Cviky"]
-
-    def cell(r, c):
+    hdr = {str(ws.cell(row=1, column=c).value).strip(): c
+           for c in range(1, ws.max_column + 1) if ws.cell(row=1, column=c).value}
+    def cell(r, name):
+        c = hdr.get(name)
+        if not c: return ""
         v = ws.cell(row=r, column=c).value
         return "" if v is None else str(v).strip()
 
-    out = []
+    out, missing = [], []
     n = 0
     for r in range(2, ws.max_row + 1):
-        name = cell(r, 2)
-        if not name:               # prázdny riadok = koniec / preskoč
-            continue
+        name = cell(r, "Názov")
+        if not name: continue
         n += 1
-        vek_od, vek_do = cell(r, 7), cell(r, 8)
-        age = f"{vek_od}–{vek_do}" if vek_od and vek_do else (vek_od or vek_do)
-        mins = cell(r, 12)
-        time = (mins + "´") if mins else ""
-        extra = [s.strip() for s in cell(r, 5).replace(";", ",").split(",") if s.strip()]
+        od, do = cell(r,"Vek od"), cell(r,"Vek do")
+        mins = cell(r,"Minúty")
+        extra = [s.strip() for s in cell(r,"Ďalšie zručnosti").replace(";", ",").split(",") if s.strip()]
         ex = {
-            "id": cell(r, 1) or f"C{n:03d}",
+            "id": cell(r,"ID") or f"X{n:03d}",
             "name": name,
-            "phase": cell(r, 3),                 # PČ / HČ / ZČ
-            "skill": cell(r, 4),                 # hlavná zručnosť
-            "skills": ([cell(r, 4)] if cell(r, 4) else []) + extra,
-            "theme": cell(r, 6),                 # voliteľné
-            "age": age,
-            "players": cell(r, 9),
-            "space": cell(r, 10),
-            "intensity": cell(r, 11),
-            "mins": mins,
-            "time": time,
-            "gear": cell(r, 13),
-            "steps": cell(r, 14),
-            "coach": cell(r, 15),
-            "diagram": cell(r, 16),
-            "video": cell(r, 17),
+            "theme": cell(r,"Téma"),
+            "phase": cell(r,"Časť"),
+            "age": f"{od}–{do}" if od and do else (od or do),
+            "players": cell(r,"Hráči"),
+            "space": cell(r,"Priestor"),
+            "time": (mins + "´") if mins else "",
+            "gear": cell(r,"Pomôcky"),
+            "why": cell(r,"Prečo"),
+            "setup": cell(r,"Rozostavenie"),
+            "steps": cell(r,"Priebeh"),
+            "constraints": cell(r,"Podmienky"),
+            "progression": cell(r,"Sťaženie"),
+            "regression": cell(r,"Zjednodušenie"),
+            "coach": cell(r,"Na čo dbať"),
+            "load": cell(r,"Dávkovanie"),
+            "level": cell(r,"Úroveň") or "foundation",
+            "intensity": cell(r,"Intenzita"),
         }
+        if cell(r,"Zručnosť"):
+            ex["skills"] = [cell(r,"Zručnosť")] + extra
+        chyba = [k for k in ("theme","phase","why","setup","steps","constraints",
+                             "progression","regression","coach","load") if not ex[k]]
+        if chyba: missing.append(f"  riadok {r} „{name}“ — nevyplnené: {', '.join(chyba)}")
         out.append(ex)
 
-    with open("exercises.json", "w", encoding="utf-8") as f:
+    os.makedirs(os.path.join(root,"data","temy"), exist_ok=True)
+    dest = os.path.join(root,"data","temy","tema_90_excel.json")
+    with open(dest, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
 
-    # vlož do index.html medzi značky
-    if os.path.exists(index):
-        html = open(index, encoding="utf-8").read()
-        s, e = "/*__EXERCISES_START__*/", "/*__EXERCISES_END__*/"
-        a, b = html.find(s), html.find(e)
-        if a >= 0 and b >= 0:
-            html = html[:a + len(s)] + json.dumps(out, ensure_ascii=False) + html[b:]
-            open(index, "w", encoding="utf-8").write(html)
-            print(f"OK: {len(out)} cvikov -> exercises.json + vložené do {index}")
-        else:
-            print(f"OK: {len(out)} cvikov -> exercises.json (značky v {index} nenájdené)")
+    print(f"OK: {len(out)} cvikov -> data/temy/tema_90_excel.json")
+    if missing:
+        print(f"\n⚠ {len(missing)} cvikov nemá vyplnené všetky polia — build_db.py ich odmietne:")
+        for m in missing[:20]: print(m)
+        print("\nDoplň ich v Exceli a spusti skript znova.")
     else:
-        print(f"OK: {len(out)} cvikov -> exercises.json")
+        print("Ďalej: python3 scripts/build_db.py && python3 scripts/inject.py")
 
 if __name__ == "__main__":
     main()
