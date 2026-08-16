@@ -45,13 +45,19 @@ Statická stránka — stačí otvoriť `index.html` alebo nasadiť na akýkoľv
 
 ## Cviky (databáza)
 
-**Aktuálne v databáze: 169 cvikov** (PČ 54 · HČ 62 · ZČ 53) — každá z 15 tém má aspoň
-3 cviky v každej časti, vrátane cvikov pre prípravku (U6–U9) aj dorast (U16–U19).
+**Aktuálne v databáze: 300 cvikov** (PČ 98 · HČ 107 · ZČ 95), z toho **135 elitných**
+(Foundation U6–U11 · Development U12–U15 · Pro U16–U19 — každá úroveň pokrýva všetkých 15 tém × 3 časti).
 
 Cviky sú dáta v `exercises.json` a súčasne vložené v `index.html` medzi značkami
 `__EXERCISES_START__/__EXERCISES_END__` (aby fungovali aj v single-file náhľade).
 Generátor pre danú tému + časť zobrazí reálne cviky (podľa `theme` alebo `skill`);
 ak pre tému/časť ešte žiadne nie sú, použije dočasné placeholder varianty.
+
+**Elitná sada (135 cvikov):** postavená podľa metodiky elitných akadémií — každý cvik má
+`why` (prenos do zápasu), `setup`, `steps`, `constraints` (podmienky v duchu constraints-led
+approach), `progression`/`regression` a `load` (dávkovanie). Zdrojové súbory sú v `data/`.
+Pre každú tému existuje iná verzia cviku pre každé vekové pásmo — generátor vyberá tú, ktorá
+sedí zvolenej kategórii.
 
 **Filtrovanie podľa veku:** každý cvik má vekový rozsah (napr. `U8–U12`). Generátor ukáže
 najprv cviky presne pre zvolenú kategóriu, potom cviky z blízkych kategórií (±2 roky)
