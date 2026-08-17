@@ -6,7 +6,7 @@
     "age": "U16–U19",
     "players": "12–18",
     "space": "36×28 m",
-    "time": "12´",
+    "time": "11´",
     "gear": "farebné méty, lopty",
     "why": "Na tejto úrovni nejde o techniku vedenia, ale o schopnosť vyhodnotiť situáciu počas vedenia v maximálnej rýchlosti.",
     "setup": "Hráči vedú loptu v priestore, po obvode stoja štyria hráči s farebnými métami, ktorí ich dvíhajú náhodne.",
@@ -16,7 +16,8 @@
     "regression": "Pomalšie tempo, jedna méta, dlhší reakčný čas.",
     "coach": "Periférne videnie počas vedenia. Vedenie vzdialenejšou nohou vo voľnom priestore. Explozívna zmena smeru.",
     "load": "4×2 min, pauza 45 s (aktívne).",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "mastery"
   },
   {
     "name": "Prienik v prechodovej fáze",
@@ -25,7 +26,7 @@
     "age": "U16–U19",
     "players": "14–20",
     "space": "50×36 m",
-    "time": "20´",
+    "time": "24´",
     "gear": "2 bránky + brankári, rozlišováky",
     "why": "V profesionálnej hre je vedenie lopty najhodnotnejšie v prechode, keď je súper nezorganizovaný.",
     "setup": "Hra 8v8 s brankármi na väčšom priestore.",
@@ -35,7 +36,8 @@
     "regression": "Zruš požiadavku minimálneho vedenia.",
     "coach": "Rozpoznať moment prechodu. Vedenie do voľného priestoru maximálnou rýchlosťou. Fixovať obrancu pred prihrávkou.",
     "load": "5×3,5 min, pauza 90 s.",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "ssg"
   },
   {
     "name": "Zápasová hra s prechodovým bonusom",
@@ -44,7 +46,7 @@
     "age": "U16–U19",
     "players": "16–22",
     "space": "55×40 m",
-    "time": "20´",
+    "time": "19´",
     "gear": "2 bránky + brankári",
     "why": "Finálna zápasová forma, v ktorej sa téma prenáša do plnej intenzity a únavy.",
     "setup": "Hra 9v9 alebo 10v10 na väčšom priestore s brankármi.",
@@ -53,7 +55,7 @@
     "progression": "Skráť intervaly na 4 min a zvýš intenzitu. / Pridaj ofsajd.",
     "regression": "Dlhšie intervaly, zruš bonus.",
     "coach": "Zápasové tempo. Rozhodnutie vedenie vs. prihrávka podľa priestoru. Kvalita pod únavou.",
-    "load": "4×5 min, pauza 2 min.",
+    "load": "3 × 5 min, pauza 2 min.",
     "level": "pro"
   },
   {
@@ -139,7 +141,7 @@
     "age": "U16–U19",
     "players": "16–20",
     "space": "46×34 m",
-    "time": "22´",
+    "time": "20´",
     "gear": "rozlišováky, méty",
     "why": "Prekonanie kompaktného bloku prebieha najčastejšie cez hráča medzi líniami, ktorý stojí chrbtom.",
     "setup": "Poziční hra 8v8 s vyznačenou zónou medzi líniami.",
@@ -168,7 +170,8 @@
     "regression": "Zruš podmienku, len bonusové body.",
     "coach": "Ponuka medzi líniami v správnom momente. Krytie lopty. Rýchla otočka alebo návrat a nábeh.",
     "load": "4×5 min.",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "ssg"
   },
   {
     "name": "Duel v maximálnej rýchlosti",
@@ -206,7 +209,8 @@
     "regression": "Predĺž čas, zruš zóny.",
     "coach": "Skenovanie pred prijatím. Rýchle vyhodnotenie. Po prekonaní okamžité dokončenie akcie.",
     "load": "5×4 min.",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "zones"
   },
   {
     "name": "Zápasová hra s duelmi",
@@ -225,7 +229,8 @@
     "regression": "Zruš požiadavku na počet súbojov.",
     "coach": "Odvaha v súbojoch aj pri únave. Kvalita rozhodnutia. Okamžitá reakcia po strate.",
     "load": "4×5 min.",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "ssg"
   },
   {
     "name": "Prvý dotyk pod tlakom z troch strán",
@@ -253,7 +258,7 @@
     "age": "U16–U19",
     "players": "16–22",
     "space": "50×38 m",
-    "time": "24´",
+    "time": "26´",
     "gear": "rozlišováky, kužele",
     "why": "Poziční hra na profesionálnej úrovni spája technickú presnosť, taktické postavenie a fyzickú záťaž.",
     "setup": "Ihrisko na tri zóny, hra 8v8 s tromi neutrálmi.",
@@ -310,7 +315,7 @@
     "age": "U16–U19",
     "players": "16–22",
     "space": "50×38 m",
-    "time": "22´",
+    "time": "20´",
     "gear": "rozlišováky, 2 bránky",
     "why": "Prekonanie kompaktného bloku je najťažšia úloha modernej útočnej hry.",
     "setup": "Útočiaci tím 8 hráčov proti organizovanému bloku 6 hráčov v dvoch líniách.",
@@ -339,7 +344,8 @@
     "regression": "Zruš podmienku, len bonus.",
     "coach": "Rozpoznanie momentu prieniku. Odvaha hrať vertikálne. Podpora po prieniku.",
     "load": "4×5 min.",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "ssg"
   },
   {
     "name": "Kolmica proti vysokej línii",
@@ -367,7 +373,7 @@
     "age": "U16–U19",
     "players": "16–22",
     "space": "55×40 m",
-    "time": "22´",
+    "time": "20´",
     "gear": "2 bránky + brankári, rozlišováky",
     "why": "Najviac gólov na profesionálnej úrovni padá po rýchlom prechode s prihrávkou za obranu.",
     "setup": "Hra 8v8 s brankármi na väčšom priestore, platí ofsajd.",
@@ -396,7 +402,8 @@
     "regression": "Zruš požiadavku na výšku línie.",
     "coach": "Načasovanie na hranici ofsajdu. Komunikácia. Kvalita prihrávky pod tlakom a únavou.",
     "load": "4×5 min.",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "ssg"
   },
   {
     "name": "Rondo 6v3 na jeden dotyk",
@@ -405,7 +412,7 @@
     "age": "U16–U19",
     "players": "9–14",
     "space": "16×16 m",
-    "time": "14´",
+    "time": "13´",
     "gear": "kužele, lopty",
     "why": "Rondo na jeden dotyk je štandardný denný nástroj elitných klubov — buduje tempo aj presnosť.",
     "setup": "Šesť hráčov po obvode, traja obrancovia v strede.",
@@ -414,7 +421,7 @@
     "progression": "Zmenši priestor na 14×14 m. / Štyria obrancovia.",
     "regression": "Povoľ dva dotyky, väčší priestor.",
     "coach": "Príprava tela pred príchodom lopty. Prihrávka do vzdialenejšej nohy. Neustály pohyb ponuky.",
-    "load": "5×2,5 min, pauza 60 s.",
+    "load": "4 × 2,5 min, pauza 60 s.",
     "level": "pro"
   },
   {
@@ -424,7 +431,7 @@
     "age": "U16–U19",
     "players": "16–22",
     "space": "50×38 m",
-    "time": "22´",
+    "time": "20´",
     "gear": "bránka + brankár, rozlišováky",
     "why": "V tesnom priestore finálnej tretiny je kombinácia na jeden dotyk často jediným riešením.",
     "setup": "Hra 8v8 s vyznačenou finálnou tretinou.",
@@ -472,7 +479,8 @@
     "regression": "Obranca s obmedzeným kontaktom.",
     "coach": "Nízke ťažisko, široká báza. Kontakt predlaktím v pravidlách. Otáčanie okolo lopty, nie cúvanie.",
     "load": "8 opakovaní po 20 s, pomer 1:3.",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "channel"
   },
   {
     "name": "Udržanie lopty proti pressingu",
@@ -519,7 +527,7 @@
     "age": "U16–U19",
     "players": "11–16",
     "space": "20×20 m",
-    "time": "14´",
+    "time": "13´",
     "gear": "kužele, lopty",
     "why": "Vyšší počet obrancov núti presnosť, tempo a neustálu ponuku — presne to, čo vyžaduje profesionálny zápas.",
     "setup": "Sedem hráčov po obvode a v strede, štyria obrancovia.",
@@ -547,7 +555,7 @@
     "progression": "Limit dvoch dotykov pre všetkých. / Zmenši zóny.",
     "regression": "Zruš požiadavky na obsadenie zón a zmenu strany.",
     "coach": "Obsadenie priestoru namiesto zhlukovania. Trpezlivosť. Zmena strany pri tlaku.",
-    "load": "5×4,5 min, pauza 2 min.",
+    "load": "4 × 4,5 min, pauza 2 min.",
     "level": "pro"
   },
   {
@@ -595,7 +603,7 @@
     "age": "U16–U19",
     "players": "16–22",
     "space": "50×38 m",
-    "time": "22´",
+    "time": "20´",
     "gear": "bránka + brankár, rozlišováky",
     "why": "Prekonanie posledného obrancu vedením lopty je často jediný spôsob, ako otvoriť zablokovanú obranu.",
     "setup": "Útočiaci tím 8 hráčov proti kompaktnému bloku 6 hráčov pred vápnom.",
@@ -614,7 +622,7 @@
     "age": "U16–U19",
     "players": "16–22",
     "space": "55×42 m",
-    "time": "20´",
+    "time": "18´",
     "gear": "2 bránky + brankári",
     "why": "V závere zápasu rozhoduje schopnosť zakončiť presne aj pri vysokej únave.",
     "setup": "Hra 9v9 s brankármi po predchádzajúcej záťaži.",
@@ -623,11 +631,12 @@
     "progression": "Pridaj šprint pred vstupom do hry. / Skráť pauzy medzi intervalmi.",
     "regression": "Dlhšie pauzy, nižšia intenzita.",
     "coach": "Technika pod únavou. Rozhodnosť. Dokončenie akcie aj pri vyčerpaní.",
-    "load": "4×5 min, pauza 90 s.",
-    "level": "pro"
+    "load": "3 × 5 min, pauza 90 s.",
+    "level": "pro",
+    "diagram": "ssg"
   },
   {
-    "name": "Zakončenie z centra proti obrancovi",
+    "name": "Zakončenie po centri od koncovej čiary",
     "theme": "Zakončenie po prihrávke / z prvého dotyku",
     "phase": "PČ",
     "age": "U16–U19",
@@ -636,9 +645,9 @@
     "time": "16´",
     "gear": "bránka + brankár, méty, lopty",
     "why": "Väčšina gólov na profesionálnej úrovni padá z centra na prvý dotyk pod tlakom obrancu.",
-    "setup": "Krídla z oboch strán, traja nabiehajúci hráči, dvaja obrancovia vo vápne.",
-    "steps": "Krídlo centruje rôznymi spôsobmi (po zemi, polovysoko, vzduchom), útočníci nabiehajú a zakončujú prvým dotykom.",
-    "constraints": "Zakončenie musí byť na jeden dotyk. Nábehy sa musia začať až po odohratí centra a musia pokryť tri zóny (predná tyč, stred, zadná tyč).",
+    "setup": "Krídelník s loptou pri koncovej čiare, dvaja nabiehajúci hráči a dvaja obrancovia vo vápne, bránka s brankárom.",
+    "steps": "Krídelník obehne métu pri koncovej čiare a zahrá spätnú prihrávku po zemi na hranicu vápna. Nabiehajúci hráč zakončuje z prvého dotyku proti aktívnym obrancom.",
+    "constraints": "Spätná prihrávka musí ísť po zemi a zakončenie z prvého dotyku.",
     "progression": "Pridaj tretieho obrancu. / Centre prichádzajú bez ohlásenia z oboch strán.",
     "regression": "Menej obrancov, predvídateľné centre po zemi.",
     "coach": "Nábeh oblúkom, oddelenie od obrancu. Telo nad loptou. Zakončiť do zeme, na vzdialenejšiu tyč.",
@@ -652,7 +661,7 @@
     "age": "U16–U19",
     "players": "16–22",
     "space": "50×38 m",
-    "time": "22´",
+    "time": "20´",
     "gear": "bránka + brankár, rozlišováky",
     "why": "Spája kombináciu, prienik aj zakončenie — celý útočný reťazec v jednom cvičení.",
     "setup": "Útočiaci tím 8 hráčov proti šiestim brániacim pred vápnom.",
@@ -690,7 +699,7 @@
     "age": "U16–U19",
     "players": "10–16",
     "space": "36×26 m",
-    "time": "16´",
+    "time": "15´",
     "gear": "bránka + brankár, méty",
     "why": "Zakladanie útoku proti pressingu je dnes základná zručnosť obrannej štvorice aj brankára.",
     "setup": "Štvorica obrancov a brankár proti trom napádajúcim, cieľové méty na druhej strane.",
@@ -699,22 +708,22 @@
     "progression": "Štyria napádajúci. / Limit dvoch dotykov pri rozohrávke.",
     "regression": "Dvaja napádajúci, väčší priestor.",
     "coach": "Šírka a trojuholníky. Brankár ako hráč navyše. Vylákať pressing a hrať za neho.",
-    "load": "6×2,5 min, pauza 90 s.",
+    "load": "4 × 2,5 min, pauza 90 s.",
     "level": "pro"
   },
   {
-    "name": "Zakladanie cez línie 10v8",
+    "name": "Zakladanie proti dvom líniám 10v8",
     "theme": "Zakladanie útoku",
     "phase": "HČ",
     "age": "U16–U19",
     "players": "18–22",
     "space": "60×44 m",
-    "time": "24´",
+    "time": "23´",
     "gear": "2 bránky + brankári, rozlišováky",
     "why": "Kontrolovaný postup cez línie súpera je základ hernej identity každého moderného tímu.",
-    "setup": "Ihrisko na tri zóny, desať hráčov zakladá útok proti ôsmim brániacim v organizovanom bloku.",
-    "steps": "Tím postupuje od brankára cez strednú do útočnej zóny a zakončuje.",
-    "constraints": "Postup do útočnej zóny je možný len prihrávkou cez líniu súpera. Po prekonaní línie musí prísť zakončenie do 12 sekúnd.",
+    "setup": "Hra 10v8 s brankármi. Brániaci tím drží dve organizované línie — štyroch napádajúcich vpredu a štyroch v strede.",
+    "steps": "Útočiaci tím zakladá od brankára a musí prekonať obe línie súpera. Bod za prekonanie prvej línie, tri body za prekonanie oboch a doručenie lopty útočníkovi.",
+    "constraints": "Prekonanie línie platí len prihrávkou alebo vedením cez ňu — nie dlhou loptou ponad ňu.",
     "progression": "Pridaj deviateho brániaceho. / Limit dvoch dotykov v strednej zóne.",
     "regression": "Menej brániacich, povoľ postup vedením.",
     "coach": "Trpezlivosť vzadu, rýchlosť po prekonaní línie. Ponuka medzi líniami. Rest defence počas útoku.",
@@ -747,7 +756,7 @@
     "age": "U16–U19",
     "players": "14–20",
     "space": "50×36 m",
-    "time": "18´",
+    "time": "15´",
     "gear": "rozlišováky, kužele",
     "why": "Organizovaný pressing má jasné spúšťače — bez nich je to len neefektívne behanie.",
     "setup": "Šesť až osem brániacich hráčov v dvoch líniách proti nahrávačom cirkulujúcim loptu.",
@@ -766,7 +775,7 @@
     "age": "U16–U19",
     "players": "16–22",
     "space": "55×40 m",
-    "time": "22´",
+    "time": "20´",
     "gear": "2 bránky + brankári, rozlišováky",
     "why": "Rest defence — postavenie počas držania lopty — rozhoduje o tom, či tím prežije protiútok.",
     "setup": "Hra 9v9 s brankármi.",

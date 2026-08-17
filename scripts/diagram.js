@@ -241,10 +241,12 @@
       if(i.I(1,3)===0){s+=Goal(4,31,16,p.goal,true)+Goal(96,31,16,p.goal,true);}
       else if(i.I(1,3)===1){s+=Goal(96,31,16,p.goal,true)+GK(90,31,p.goal);}
       else {s+=Zone(90,10,8,42,p,true);}
-      s+=P(16,31+i.J(2,5),p.att,'',p.attTxt)+Ball(20.5,31,p.ball,p.line);
-      s+=P(44,18+i.J(3,4),p.att,'',p.attTxt)+P(44,44+i.J(4,4),p.att,'',p.attTxt)+P(72,31+i.J(5,6),p.att,'',p.attTxt);
+      const ap=[[16,31+i.J(2,5)],[44,18+i.J(3,4)],[44,44+i.J(4,4)],[72,31+i.J(5,6)]];
+      ap.forEach(q=>s+=P(q[0],q[1],p.att,'',p.attTxt));
+      s+=Ball(20.5,31,p.ball,p.line);
       const nd=2+i.I(6,3);
-      [[32,31],[58,22],[58,42],[76,31]].slice(0,nd).forEach((q,k)=>s+=Df(q[0],q[1]+i.J(7+k,3),p.def));
+      avoid([[32,31],[58,22],[58,42],[76,31],[46,10],[46,52]]
+        .map((q,k)=>[q[0],q[1]+i.J(7+k,3)]),ap,nd).forEach(q=>s+=Df(q[0],q[1],p.def));
       s+=Arr(23,30,41,19,p.pass,true,'ap')+Arr(47,20,69,29,p.pass,true,'ap');return s;},
 
     /* trojuholník / kosoštvorec prihrávok */
@@ -531,6 +533,8 @@
   ];
   const WEIGHT={name:5,theme:2,setup:2,steps:1,coach:1};
   function pick(ex){
+    /* cvik si môže šablónu určiť sám poľom `diagram` — pravidlá nižšie sú len odhad */
+    if(ex && ex.diagram && T[ex.diagram]) return ex.diagram;
     const f={name:(ex.name||'').toLowerCase(),theme:(ex.theme||'').toLowerCase(),
              setup:(ex.setup||'').toLowerCase(),steps:(ex.steps||'').toLowerCase(),
              coach:((ex.coach||'')+' '+(ex.constraints||'')).toLowerCase()};

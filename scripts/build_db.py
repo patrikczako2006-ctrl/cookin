@@ -25,6 +25,9 @@ THEME_SKILLS = {
  "Štandardné situácie (roh, priamy kop, aut)":[],
 }
 PHASES=("PČ","HČ","ZČ")
+TEMPLATES={"slalom","gates","mastery","tag","duel","duelWave","channel","rondo","positional","zones",
+ "pass3","wall","pivot","through","offside","shoot","cross","gk1v1","ssg","ssg4","targetZone","block",
+ "press","buildup","corner","freekick","throwin","grid"}
 REQ=["id","name","theme","phase","age","players","space","time","gear",
      "why","setup","steps","constraints","progression","regression","coach","load","level"]
 
@@ -49,6 +52,8 @@ def main():
             if not e.get(f): errs.append(f"{e.get('id','?')}: chýba '{f}'")
         if e.get("theme") not in THEME_SKILLS: errs.append(f"{e.get('id')}: neznáma téma {e.get('theme')!r}")
         if e.get("phase") not in PHASES: errs.append(f"{e.get('id')}: neznáma časť {e.get('phase')!r}")
+        if e.get("diagram") and e["diagram"] not in TEMPLATES:
+            errs.append(f"{e.get('id')}: neznáma šablóna nákresu {e['diagram']!r}")
         if e.get("id") in ids: errs.append(f"duplicitné id {e['id']}")
         ids.add(e.get("id"))
         if not e.get("skills"): e["skills"]=list(THEME_SKILLS.get(e.get("theme"),[]))
