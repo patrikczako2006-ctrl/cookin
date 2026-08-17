@@ -137,7 +137,8 @@
     "regression": "Hráč v strednej zóne má tri dotyky a obranca ho len tieni.",
     "coach": "Sken pred prijatím — vieš, či sa môžeš otočiť, ešte kým lopta letí. Telo polobokom. Po otočke hraj dopredu, nie naspäť.",
     "load": "4 × 4,5 min, pauza 2 min.",
-    "theme": "1v1 SÚ/SSH/KÚ (chrbtom k bránke)"
+    "theme": "1v1 SÚ/SSH/KÚ (chrbtom k bránke)",
+    "diagram": "zones"
   },
   {
     "id": "N032",
@@ -157,7 +158,8 @@
     "regression": "Podmienka platí pri každej piatej akcii a hrot má tri dotyky.",
     "coach": "Príjem s nízkym ťažiskom a širokou základňou. Rameno do súpera skôr, než príde lopta. Rozhodnutie otočiť sa alebo zjednodušiť padá pred prijatím.",
     "load": "4 × 5 min, pauza 2 min.",
-    "theme": "1v1 SÚ/SSH/KÚ (chrbtom k bránke)"
+    "theme": "1v1 SÚ/SSH/KÚ (chrbtom k bránke)",
+    "diagram": "ssg"
   },
   {
     "id": "N033",

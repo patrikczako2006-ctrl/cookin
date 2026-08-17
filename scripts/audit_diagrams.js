@@ -6,7 +6,7 @@ const ex=JSON.parse(require('fs').readFileSync(__dirname+'/../exercises.json','u
 const OK={
  'Rýchlym vedením lopty':['slalom','gates','channel','through','ssg','duel','grid','tag','press','zones','mastery','targetZone'],
  '1v1 KÚ/KO':['duel','channel','cross','ssg','duelWave','gk1v1','shoot','zones'],
- '1v1 SÚ/SSH/KÚ (chrbtom k bránke)':['pivot','through','grid','ssg','duel'],
+ '1v1 SÚ/SSH/KÚ (chrbtom k bránke)':['pivot','through','grid','ssg','duel','positional','zones'],
  '1v1 SO/SSH/SÚ (v čelnom postavení)':['duel','grid','ssg','channel','zones'],
  'Prvým dotykom (ofenzívny / otvorený)':['pass3','positional','zones','ssg','grid','through','rondo','pivot','mastery'],
  'Prienikovou prihrávkou':['through','pass3','wall','positional','zones','targetZone','ssg'],

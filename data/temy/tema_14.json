@@ -1,7 +1,7 @@
 [
   {
     "id": "N157",
-    "name": "Tieň kamaráta",
+    "name": "Nedaj mu prejsť",
     "phase": "PČ",
     "age": "U7–U9",
     "level": "foundation",
@@ -10,11 +10,11 @@
     "time": "10´",
     "gear": "lopty, méty, rozlišováky",
     "why": "Dieťa sa učí prvý princíp obrany: byť medzi súperom a bránkou. Bez toho sa nedá naučiť nič ďalšie.",
-    "setup": "Dvojice. Jeden má loptu, druhý ho tieni. Za nimi malá brána z mét.",
-    "steps": "Hráč s loptou sa pomaly pohybuje a mení smer, brániaci ho stále tieni tak, aby stál medzi ním a bránou. Na signál sa hráč s loptou pokúsi prejsť.",
-    "constraints": "Brániaci sa nesmie pokúšať odobrať loptu — má len držať správnu pozíciu.",
-    "progression": "Brániaci smie po signáli odoberať. / Pribudne druhá brána.",
-    "regression": "Hráč s loptou sa pohybuje len chôdzou.",
+    "setup": "Trojice: jedno dieťa vedie loptu pomedzi dve méty vzdialené osem metrov, druhé ho bráni, tretie čaká.",
+    "steps": "Útočník sa snaží prejsť s loptou popri brániacom dieťati k ľubovoľnej méte. Brániace dieťa sa mu snaží zatarasiť cestu telom, bez odoberania.",
+    "constraints": "Brániace dieťa nesmie hrať loptu — má sa naučiť len správne postavenie medzi loptou a métou.",
+    "progression": "Brániace dieťa smie po piatich sekundách odobrať loptu. / Méty sa priblížia.",
+    "regression": "Útočník ide len chôdzou.",
     "coach": "Stoj vždy medzi loptou a bránou. Nízko na nohách, bokom. Nechoď prvý do zeme — čakaj na chybu.",
     "load": "8–10 opakovaní, potom výmena rolí.",
     "theme": "Základy priestorovej obrany",
@@ -178,7 +178,8 @@
     "regression": "Stačí, ak sa vrátia dvaja hráči.",
     "coach": "Po strate okamžite naspäť. Bež medzi loptu a svoju bránu. Kto je najbližšie k lopte, ide na ňu.",
     "load": "4 × 3 min, pauza 1 min.",
-    "theme": "Základy priestorovej obrany"
+    "theme": "Základy priestorovej obrany",
+    "diagram": "ssg"
   },
   {
     "id": "N166",

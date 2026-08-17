@@ -57,7 +57,8 @@
     "regression": "Prihrávka príde po zemi presne do nohy a obranca začína o meter ďalej.",
     "coach": "Prvý dotyk už mimo obrancu — smerom k čiare alebo dovnútra. Klam telom, nie len nohou. Po prekonaní zdvihni hlavu skôr, než centruješ.",
     "load": "10–12 opakovaní, pomer práca:pauza 1:4.",
-    "theme": "1v1 KÚ/KO"
+    "theme": "1v1 KÚ/KO",
+    "diagram": "cross"
   },
   {
     "id": "N016",
@@ -77,7 +78,8 @@
     "regression": "Obranca štartuje o štyri metre vzadu.",
     "coach": "Rozhodnutie padá ešte pred prvým dotykom. Útoč do priestoru, kam obranca nestíha. Posledný dotyk pred centrom musí byť pripravený, nie náhodný.",
     "load": "8–10 opakovaní pri plnej intenzite, pauza 45 s.",
-    "theme": "1v1 KÚ/KO"
+    "theme": "1v1 KÚ/KO",
+    "diagram": "cross"
   },
   {
     "id": "N017",

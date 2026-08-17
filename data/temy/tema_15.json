@@ -97,7 +97,8 @@
     "regression": "Nesprávny aut sa smie zopakovať.",
     "coach": "Obe nohy na zemi, lopta spoza hlavy. Kamaráti sa musia hýbať, nie stáť. Vhadzuj tomu, kto je voľný.",
     "load": "5 × 2,5 min so striedaním.",
-    "theme": "Štandardné situácie (roh, priamy kop, aut)"
+    "theme": "Štandardné situácie (roh, priamy kop, aut)",
+    "diagram": "ssg"
   },
   {
     "id": "N174",
@@ -177,7 +178,8 @@
     "regression": "Časový limit sa neuplatňuje.",
     "coach": "Rozohrávaj rýchlo, kým súper nestojí. Pozri sa, kto je voľný. Po rozohraní sa hneď zapoj do hry.",
     "load": "4 × 3 min, pauza 1 min.",
-    "theme": "Štandardné situácie (roh, priamy kop, aut)"
+    "theme": "Štandardné situácie (roh, priamy kop, aut)",
+    "diagram": "ssg"
   },
   {
     "id": "N178",
@@ -197,7 +199,8 @@
     "regression": "Limit sa predĺži na šesť sekúnd.",
     "coach": "Najbližší hráč k lopte rozohráva. Pozri sa dopredu skôr, než loptu položíš. Ostatní sa musia hýbať, nie čakať na signál.",
     "load": "3 × 5 min, pauza 90 s.",
-    "theme": "Štandardné situácie (roh, priamy kop, aut)"
+    "theme": "Štandardné situácie (roh, priamy kop, aut)",
+    "diagram": "ssg"
   },
   {
     "id": "N179",
@@ -217,7 +220,8 @@
     "regression": "Improvizácia je povolená.",
     "coach": "Signál pred rozbehom, nie počas neho. Obrana: každý svoju zónu a prvý dotyk na loptu. Po štandardke okamžite prechod.",
     "load": "2 × 6 min, pauza 2 min.",
-    "theme": "Štandardné situácie (roh, priamy kop, aut)"
+    "theme": "Štandardné situácie (roh, priamy kop, aut)",
+    "diagram": "ssg"
   },
   {
     "id": "N180",
@@ -237,6 +241,7 @@
     "regression": "Rozostavenie bez časového limitu.",
     "coach": "Koncentrácia pri každej štandardke aj pri únave. Obrana: zóna, komunikácia, prvý dotyk na loptu. Útok: signál a pohyb naraz.",
     "load": "3 × 5 min, pauza 2 min.",
-    "theme": "Štandardné situácie (roh, priamy kop, aut)"
+    "theme": "Štandardné situácie (roh, priamy kop, aut)",
+    "diagram": "ssg"
   }
 ]

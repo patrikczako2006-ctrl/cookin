@@ -78,7 +78,8 @@
     "progression": "Strážca smie odoberať. / Ulička sa zúži.",
     "regression": "Strážca stojí na mieste.",
     "coach": "Choď tam, kde strážca nie je. Po obídení hneď zrýchli. Potom strieľaj.",
-    "load": "10–12 opakovaní."
+    "load": "10–12 opakovaní.",
+    "diagram": "channel"
   },
   {
     "age": "U6–U8",
@@ -98,7 +99,8 @@
     "progression": "Ulička sa zúži. / Hrá sa 2v2.",
     "regression": "Ulička sa rozšíri a obranca len tieni.",
     "coach": "Choď smelo do súpera. Zmeň smer a hneď utekaj. Po prekonaní strieľaj.",
-    "load": "5 × 2,5 min so striedaním."
+    "load": "5 × 2,5 min so striedaním.",
+    "diagram": "channel"
   },
   {
     "age": "U6–U8",
@@ -475,7 +477,7 @@
     "space": "22×16 m",
     "gear": "rozlišováky, méty, lopty",
     "why": "Bonus za narážačku vo voľnej hre ukáže deťom, že spoluhráč je najrýchlejšia cesta okolo súpera.",
-    "setup": "Hra 3v3 na malé bránky z mét.",
+    "setup": "Hra 3v3 na dve malé bránky z mét, bez brankárov — deti tak majú maximum dotykov s loptou.",
     "steps": "Hrá sa voľne. Keď dvaja hráči zahrajú narážačku — prihrávka a okamžité vrátenie do behu — tím má bod navyše.",
     "constraints": "Vrátená lopta musí ísť na jeden dotyk.",
     "progression": "Gól po narážačke platí za tri body. / Bránky sa zúžia.",
