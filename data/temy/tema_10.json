@@ -181,7 +181,7 @@
   },
   {
     "id": "N118",
-    "name": "Hra s bránami na udržanie",
+    "name": "Udrž a nájdi cieľového hráča",
     "phase": "ZČ",
     "age": "U10–U12",
     "level": "foundation",
@@ -189,15 +189,16 @@
     "space": "32×24 m",
     "time": "18´",
     "gear": "méty, rozlišováky, lopty",
-    "why": "Brány z mét dávajú držaniu lopty smer — tím nemôže len krúžiť dokola, musí hľadať cestu vpred.",
-    "setup": "Hra 5v5 v priestore so štyrmi bránami z mét rozmiestnenými po ihrisku.",
-    "steps": "Tím získa bod za prevedenie lopty ktoroukoľvek bránou k spoluhráčovi. Tou istou bránou nesmie prejsť dvakrát za sebou.",
-    "constraints": "Prihrávka bránou sa počíta len vtedy, ak ju spoluhráč na druhej strane spracuje.",
-    "progression": "Brány sa zúžia. / Povolené sú dva dotyky.",
-    "regression": "Brány sa rozšíria a je ich šesť.",
-    "coach": "Hľadaj bránu, ktorá je voľná, nie tú najbližšiu. Ponúkaj sa za bránou skôr, než príde lopta. Po prihrávke sa hneď posuň.",
+    "why": "Držanie lopty má cieľ — dostať ju k hráčovi, ktorý je najďalej vpredu. Bez toho je to hra pre hru.",
+    "setup": "Hra 5v5 v ohraničenom priestore. Za oboma koncovými čiarami stojí pre každý tím jeden cieľový hráč.",
+    "steps": "Tím drží loptu a po piatich prihrávkach v rade sa smie pokúsiť doručiť ju svojmu cieľovému hráčovi. Za doručenie je bod a hra pokračuje na opačnú stranu.",
+    "constraints": "Pokus o doručenie pred piatimi prihrávkami znamená stratu lopty v prospech súpera.",
+    "progression": "Za bod treba osem prihrávok. / Cieľového hráča stráži obranca.",
+    "regression": "Za bod stačia tri prihrávky a cieľový hráč je voľný.",
+    "coach": "Najprv upokoj hru, potom hľadaj cieľového hráča. Ponúkaj sa v uhle. Po prihrávke sa hneď posuň.",
     "load": "3 × 5 min, pauza 90 s.",
-    "theme": "Držanie lopty (skupinou hráčov)"
+    "theme": "Držanie lopty (skupinou hráčov)",
+    "diagram": "targetZone"
   },
   {
     "id": "N119",
@@ -207,7 +208,7 @@
     "level": "development",
     "players": "12–16",
     "space": "50×34 m",
-    "time": "14´",
+    "time": "15´",
     "gear": "bránky, rozlišováky",
     "why": "Zápasová forma s odmenou za sériu prihrávok učí tím upokojiť hru vtedy, keď je pod tlakom — namiesto panického odkopnutia.",
     "setup": "Hra 6v6 s brankármi na plnom priestore.",
@@ -216,7 +217,7 @@
     "progression": "Séria musí obsahovať prenos hry z jednej strany na druhú. / Povolené sú dva dotyky.",
     "regression": "Za bod stačí päť prihrávok.",
     "coach": "Otvor ihrisko do šírky, keď máš loptu. Vzdialenosti medzi hráčmi desať až pätnásť metrov. Zrýchli až vtedy, keď sa otvorí priestor.",
-    "load": "2 × 6 min, pauza 2 min.",
+    "load": "3 × 4 min, pauza 90 s.",
     "theme": "Držanie lopty (skupinou hráčov)"
   },
   {

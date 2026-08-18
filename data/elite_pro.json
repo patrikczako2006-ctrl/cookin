@@ -427,7 +427,7 @@
     "level": "pro"
   },
   {
-    "name": "Kombinačný prienik do finálnej tretiny",
+    "name": "Tretí hráč vo finálnej tretine",
     "theme": "Hrou na jeden dotyk (narážačka / na tretieho)",
     "phase": "HČ",
     "age": "U16–U19",
@@ -436,12 +436,12 @@
     "time": "20´",
     "gear": "bránka + brankár, rozlišováky",
     "why": "V tesnom priestore finálnej tretiny je kombinácia na jeden dotyk často jediným riešením.",
-    "setup": "Hra 8v8 s vyznačenou finálnou tretinou.",
-    "steps": "Tím postupuje k finálnej tretine, kde musí kombinovať na obmedzený počet dotykov a zakončiť.",
-    "constraints": "Vo finálnej tretine platí maximálne jeden dotyk — vedenie lopty tam nie je povolené.",
-    "progression": "Rozšír zónu jedného dotyku. / Pridaj obrancu navyše.",
-    "regression": "Povoľ dva dotyky vo finálnej tretine.",
-    "coach": "Načasovanie ponuky. Narážačka pri tlaku. Tretí hráč vždy pripravený.",
+    "setup": "Hra 8v8 s brankármi a vyznačenou finálnou tretinou. Brániaci tím v nej drží kompaktný blok.",
+    "steps": "Gól platí len vtedy, ak akcia vo finálnej tretine prešla cez tretieho hráča — teda lopta išla na jedného, ten ju zjednodušil a skóroval alebo asistoval niekto tretí.",
+    "constraints": "Prostredný hráč v kombinácii smie mať najviac jeden dotyk.",
+    "progression": "Kombinácia musí prebehnúť do troch sekúnd. / Blok pridá obrancu.",
+    "regression": "Prostredný hráč smie mať dva dotyky.",
+    "coach": "Tretí hráč sa rozbieha ešte pred prvou prihrávkou. Prostredný hrá naslepo, podľa dohovoru. Zakončenie z prvej.",
     "load": "5×4 min.",
     "level": "pro"
   },
@@ -462,7 +462,8 @@
     "regression": "Limit klesá len z troch na dva.",
     "coach": "Anticipácia — riešenie pred loptou. Neustály pohyb ponuky. Kvalita pod únavou.",
     "load": "4×5 min.",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "ssg"
   },
   {
     "name": "Silový súboj o loptu",
@@ -629,8 +630,8 @@
     "gear": "2 bránky + brankári",
     "why": "V závere zápasu rozhoduje schopnosť zakončiť presne aj pri vysokej únave.",
     "setup": "Hra 9v9 s brankármi po predchádzajúcej záťaži.",
-    "steps": "Zápasová forma v závere tréningu, keď sú hráči unavení.",
-    "constraints": "Gól po sólovom prieniku platí dvojnásobne. Intervaly sa hrajú pri maximálnej intenzite.",
+    "steps": "Zápasová forma zaradená na koniec tréningu, keď sú hráči unavení. Hrá sa v krátkych intervaloch maximálnej intenzity.",
+    "constraints": "Gól po sólovom prieniku platí dvojnásobne; strela z diaľky bez prekonania súpera sa nepočíta.",
     "progression": "Pridaj šprint pred vstupom do hry. / Skráť pauzy medzi intervalmi.",
     "regression": "Dlhšie pauzy, nižšia intenzita.",
     "coach": "Technika pod únavou. Rozhodnosť. Dokončenie akcie aj pri vyčerpaní.",
@@ -674,10 +675,11 @@
     "regression": "Predĺž čas, povoľ dva dotyky vo vápne.",
     "coach": "Kvalita finálnej prihrávky. Načasovanie nábehov do vápna. Dokončenie bez prípravy.",
     "load": "5×4 min.",
-    "level": "pro"
+    "level": "pro",
+    "diagram": "ssg"
   },
   {
-    "name": "Zápas s pravidlom prvej lopty",
+    "name": "Zápas s dvomi dotykmi na tíme",
     "theme": "Zakončenie po prihrávke / z prvého dotyku",
     "phase": "ZČ",
     "age": "U16–U19",
@@ -686,12 +688,12 @@
     "time": "20´",
     "gear": "2 bránky + brankári",
     "why": "Prenos princípu do zápasu — vo vápne rozhoduje rýchlosť riešenia, nie technická príprava.",
-    "setup": "Hra 9v9 s brankármi, vápna vyznačené métami.",
-    "steps": "Zápasová forma. Gól strelený z prvého dotyku po prihrávke platí dvojnásobne.",
-    "constraints": "Vo vápne platí len gól z prvého dotyku. Gól po centri z prvého dotyku platí dvojnásobne.",
-    "progression": "Rozšír zónu prvého dotyku pred vápno. / Skráť intervaly.",
-    "regression": "Zruš pravidlo vápna.",
-    "coach": "Načasovanie nábehov. Kvalita centra. Rozhodnutie o zakončení pred príchodom lopty.",
+    "setup": "Hra 9v9 s brankármi, vápna vyznačené métami. Tréner sleduje počet dotykov v poslednej fáze akcie.",
+    "steps": "Akcia vo finálnej tretine smie mať najviac dva dotyky celého tímu — teda napríklad prihrávka a strela. Tretí dotyk znamená stratu lopty.",
+    "constraints": "Limit sa počíta na tím, nie na hráča — tím sa tak musí dohodnúť, kto rieši prihrávku a kto strelu.",
+    "progression": "Limit sa zníži na jeden dotyk tímu. / Finálna tretina sa rozšíri.",
+    "regression": "Limit sú tri dotyky tímu.",
+    "coach": "Rozhodni sa, kým lopta cestuje. Nabiehajúci musí byť pripravený trafiť, nie spracovať. Presnosť pred silou.",
     "load": "4×5 min.",
     "level": "pro"
   },

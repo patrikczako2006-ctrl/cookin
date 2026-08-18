@@ -212,7 +212,7 @@
     "level": "development",
     "players": "12–16",
     "space": "50×34 m",
-    "time": "14´",
+    "time": "15´",
     "gear": "bránky, rozlišováky, méty",
     "why": "Zápasová forma spája krídelnú hru so zakončením z prvého dotyku — presne tak, ako gól vzniká v skutočnom zápase.",
     "setup": "Hra 6v6 s brankármi, krídelné koridory vyznačené métami.",
@@ -221,7 +221,7 @@
     "progression": "Bonus platí len pri centri po zemi. / Zakončenie do troch sekúnd po centri.",
     "regression": "Bonus platí aj pri zakončení z druhého dotyku.",
     "coach": "Traja do vápna: predná tyč, zadná tyč, hranica vápna. Center po zemi je nebezpečnejší. Trafiť loptu prvým dotykom.",
-    "load": "2 × 6 min, pauza 2 min.",
+    "load": "3 × 4 min, pauza 90 s.",
     "theme": "Zakončenie po prihrávke / z prvého dotyku",
     "diagram": "ssg"
   },

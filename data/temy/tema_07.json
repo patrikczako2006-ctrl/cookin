@@ -209,7 +209,7 @@
     "level": "development",
     "players": "12–16",
     "space": "52×36 m",
-    "time": "14´",
+    "time": "15´",
     "gear": "bránky, rozlišováky, méty",
     "why": "Ofsajdové pravidlo robí z nábehu do hĺbky presnú zručnosť. Bez neho sa hráči naučia zlé návyky.",
     "setup": "Hra 6v6 s brankármi, ofsajdová línia vyznačená na polovici ihriska.",
@@ -218,7 +218,7 @@
     "progression": "Ofsajdová línia sa posunie vyššie. / Zakončenie do štyroch sekúnd po prihrávke.",
     "regression": "Ofsajd sa píska len vo vápne.",
     "coach": "Nábeh oblúkom udrží hráča v hre. Nahrávač: prihrávka v momente, keď hráč mení smer. Prvý dotyk po nábehu vždy smerom k bránke.",
-    "load": "2 × 6 min, pauza 2 min.",
+    "load": "3 × 4 min, pauza 90 s.",
     "theme": "Prihrávkou do behu (za brániaceho hráča)",
     "diagram": "ssg"
   },

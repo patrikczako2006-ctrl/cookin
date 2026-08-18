@@ -396,7 +396,7 @@
     "time": "12´",
     "gear": "2 bránky + brankári",
     "why": "Vysoká obranná línia prirodzene vytvára priestor za obranou — ideálne prostredie na tému.",
-    "setup": "Bežná hra, brániaci tím má pokyn držať líniu vysoko.",
+    "setup": "Hra 5v5 s brankármi na dve bránky. Brániaci tím má pokyn držať obrannú líniu vysoko, aby vznikal priestor za ňou.",
     "steps": "Hrá sa normálne, útočiaci tím hľadá priestor za obranou.",
     "constraints": "Brániaci tím musí držať líniu aspoň na polovici — nesmie zaliezť pred vlastnú bránku.",
     "progression": "Zaveď ofsajd. / Gól po prieniku za obranu = 2 body.",
@@ -558,7 +558,8 @@
     "regression": "Zvýš počet prihrávok, zmenši počet obrancov na dvoch.",
     "coach": "Šírka pri držaní. Trpezlivosť. Zmena strany, keď je tlak na jednej strane.",
     "load": "4×3,5 min.",
-    "level": "foundation"
+    "level": "foundation",
+    "diagram": "positional"
   },
   {
     "name": "Hra na udržanie s bránami",
@@ -577,7 +578,8 @@
     "regression": "Viac brán, zruš pravidlo opakovania.",
     "coach": "Hlava hore — hľadaj voľnú bránu. Zmena strany. Pohyb do voľného priestoru.",
     "load": "4×3 min.",
-    "level": "foundation"
+    "level": "foundation",
+    "diagram": "positional"
   },
   {
     "name": "Zakončenie z troch uhlov",
@@ -608,7 +610,7 @@
     "time": "16´",
     "gear": "bránka + brankár, méty",
     "why": "Najčastejšia gólová situácia v mládežníckom futbale — hráč sám na brankára.",
-    "setup": "Hráč štartuje 20 metrov od bránky, obranca dobieha zozadu.",
+    "setup": "Hráč štartuje dvadsať metrov od bránky s loptou. Osem metrov pred ním stojí pasívny obranca, bránka s brankárom vzadu.",
     "steps": "Útočník vedie loptu na figurínu alebo pasívneho obrancu, obíde ho zvolenou kľučkou a rieši zakončenie proti vybiehajúcemu brankárovi.",
     "constraints": "Kľučka musí prísť v rýchlosti — zo státia sa opakovanie nepočíta.",
     "progression": "Obranca štartuje bližšie. / Po zakončení nasleduje dobiehajúca lopta na druhý pokus.",
@@ -630,7 +632,7 @@
     "why": "Odmeňujeme odvahu ísť do 1v1 a zakončiť — v tomto veku dôležitejšie než 'bezpečná' hra.",
     "setup": "Hra 5v5 s brankármi na dve bránky.",
     "steps": "Hrá sa voľne. Gól po akcii, v ktorej hráč prekonal súpera vedením lopty a hneď zakončil, platí dvojnásobne.",
-    "constraints": "Gól, ktorému predchádzalo prekonanie súpera vedením lopty, platí dvojnásobne.",
+    "constraints": "Bonus platí len vtedy, ak medzi prekonaním súpera a strelou neprišla prihrávka.",
     "progression": "Gól po prekonaní dvoch súperov = 3 body. / Zmenši ihrisko.",
     "regression": "Zruš bonus.",
     "coach": "Odvaha v útočnej tretine. Po prekonaní hneď zakončenie. Nebáť sa chyby.",
@@ -674,7 +676,8 @@
     "regression": "Povoľ dva dotyky, bez obrancu.",
     "coach": "Výbušný nábeh po prihrávke. Návrat pod uhlom. Zakončiť bez váhania.",
     "load": "10–12 opakovaní na hráča.",
-    "level": "foundation"
+    "level": "foundation",
+    "diagram": "wall"
   },
   {
     "name": "Hra s pravidlom prvej lopty",
@@ -686,7 +689,7 @@
     "time": "12´",
     "gear": "2 bránky + brankári",
     "why": "Vo vápne nie je čas na prípravu — hra to musí odzrkadliť.",
-    "setup": "Bežná malá hra s vyznačenou zónou pred bránkou.",
+    "setup": "Malá hra 5v5 s brankármi na dve bránky. Pred každou bránkou je métami vyznačená zóna šesť metrov hlboká.",
     "steps": "Hrá sa normálne, ale v zóne pred bránkou platí len gól z prvého dotyku.",
     "constraints": "Mimo zóny žiadny limit — hráči sa učia rozlišovať, kedy zrýchliť riešenie.",
     "progression": "Zmenši zónu. / Gól z prvého dotyku po centri = 2 body.",
@@ -715,7 +718,7 @@
     "level": "foundation"
   },
   {
-    "name": "Zakladanie cez tri zóny",
+    "name": "Zakladanie s povinným prenosom",
     "theme": "Zakladanie útoku",
     "phase": "HČ",
     "age": "U10–U11",
@@ -724,14 +727,15 @@
     "time": "14´",
     "gear": "rozlišováky, 2 bránky",
     "why": "Učí postupný postup ihriskom namiesto dlhého nakopávania — základ modernej hry.",
-    "setup": "Ihrisko rozdelené na tri zóny, hra 5v5.",
-    "steps": "Tím zakladá útok od vlastnej bránky a postupuje cez zóny k súperovej.",
-    "constraints": "V každej zóne musí padnúť aspoň jedna prihrávka pred postupom do ďalšej.",
-    "progression": "Zvýš požiadavku na dve prihrávky v strednej zóne. / Pridaj presing v prvej zóne.",
-    "regression": "Zruš požiadavku prihrávok, povoľ priamy postup.",
-    "coach": "Ponuka do šírky aj hĺbky. Prvá myšlienka dopredu, ale bez rizika vzadu. Podpora spoluhráča s loptou.",
+    "setup": "Ihrisko rozdelené pozdĺžne na tri koridory, hra 5v5 s brankármi.",
+    "steps": "Tím zakladá od brankára. Predtým než smie zaútočiť, musí loptu aspoň raz preniesť z jedného krajného koridoru do druhého.",
+    "constraints": "Prenos musí prísť najviac po troch dotykoch stredového hráča — inak sa súper stihne posunúť.",
+    "progression": "Prenos musí prísť na jeden dotyk. / Vyžadujú sa dva prenosy.",
+    "regression": "Prenos môže prísť aj po viacerých dotykoch.",
+    "coach": "Vtiahni súpera na jednu stranu, potom preneste. Krajní hráči držia šírku. Po prenose okamžite dopredu.",
     "load": "4×3,5 min.",
-    "level": "foundation"
+    "level": "foundation",
+    "diagram": "zones"
   },
   {
     "name": "Zápas s bezpečnou zónou",
@@ -802,7 +806,7 @@
     "gear": "2 bránky + brankári",
     "why": "Obranné princípy majú zmysel až vtedy, keď ich hráč použije vo voľnej hre bez pokynov trénera — hra to overí.",
     "setup": "Malá hra 5v5 s brankármi na dve bránky, ihrisko o niečo užšie, aby si obrana musela držať tvar.",
-    "steps": "Hrá sa normálne, tréner sleduje obrannú organizáciu.",
+    "steps": "Hrá sa voľne na dve bránky. Brániaci tím musí držať kompaktný tvar; tréner sleduje vzdialenosť medzi krajnými hráčmi a upozorní, keď sa blok roztiahne.",
     "constraints": "Brániaci tím musí držať vzdialenosť medzi krajnými hráčmi max. 20 metrov — nesmie sa roztiahnuť.",
     "progression": "Zúž požiadavku na 15 metrov. / Bod za zisk lopty v súperovej polovici.",
     "regression": "Zruš požiadavku kompaktnosti.",
@@ -811,7 +815,7 @@
     "level": "foundation"
   },
   {
-    "name": "Rohový kop — nábeh na tyče",
+    "name": "Rohový kop — krátky a dlhý",
     "theme": "Štandardné situácie (roh, priamy kop, aut)",
     "phase": "PČ",
     "age": "U10–U11",
@@ -820,14 +824,15 @@
     "time": "12´",
     "gear": "bránka + brankár, lopty",
     "why": "Aj v mládeži padá veľa gólov po štandardkách — naučiť sa nábeh sa oplatí skoro.",
-    "setup": "Rohový kop, dvaja hráči nabiehajú na prednú a zadnú tyč, jeden na hranicu vápna.",
-    "steps": "Nacvičuje sa center a nábeh. Striedajú sa strany aj typy centrov.",
-    "constraints": "Nábeh sa musí začať až v momente kopu — nie skôr (inak hráča obranca zablokuje).",
-    "progression": "Pridaj pasívnych obrancov. / Pridaj krátku rozohrávku ako druhý variant.",
-    "regression": "Bez obrancov, pomalší center.",
-    "coach": "Nábeh oblúkom a s odstupom. Načasovanie. Zakončenie do zeme.",
+    "setup": "Rohový kop, dvaja hráči vo vápne a jeden hráč pripravený na krátku rozohrávku pri rohovom praporku.",
+    "steps": "Striedajú sa dve riešenia: krátka rozohrávka na spoluhráča pri praporku a následný center z lepšieho uhla, alebo priamy center do vápna.",
+    "constraints": "Ktoré riešenie príde, určí kopajúci zdvihnutím ruky až pri rozbehu.",
+    "progression": "Pridajú sa pasívni obrancovia. / Rozohranie musí prísť do troch sekúnd.",
+    "regression": "Riešenie je určené vopred a nikto nebráni.",
+    "coach": "Krátky roh otvára lepší uhol na center. Nábeh začni až pri kope. Zakončenie do zeme.",
     "load": "10–12 rohov.",
-    "level": "foundation"
+    "level": "foundation",
+    "diagram": "corner"
   },
   {
     "name": "Aut ako útočná zbraň",

@@ -394,7 +394,7 @@
     "time": "15´",
     "gear": "2 bránky + brankári",
     "why": "Najlepšia príležitosť na prihrávku do behu je hneď po zisku lopty, keď je obrana rozostavená.",
-    "setup": "Hra 7v7, dôraz na rýchly prechod.",
+    "setup": "Hra 7v7 s brankármi na väčšom priestore. Tréner priebežne vhadzuje nové lopty, aby vznikali rýchle prechody.",
     "steps": "Po zisku lopty má tím 10 sekúnd na zakončenie.",
     "constraints": "Prvá prihrávka po zisku lopty musí ísť dopredu — nie dozadu ani do strany.",
     "progression": "Skráť na 8 sekúnd. / Prvá prihrávka musí prekonať aspoň jednu líniu.",
@@ -420,7 +420,8 @@
     "regression": "Dva dotyky, väčší priestor, jeden obranca.",
     "coach": "Skenuj pred prijatím. Telo otvorené. Tretí hráč sa musí ponúknuť ešte pred prihrávkou.",
     "load": "5×2,5 min.",
-    "level": "development"
+    "level": "development",
+    "diagram": "rondo"
   },
   {
     "name": "Kombinačná hra do zóny",
@@ -439,7 +440,8 @@
     "regression": "Povoľ dva dotyky v strednej zóne.",
     "coach": "Príprava tela pred loptou. Narážačka pri tlaku. Pohyb hneď po prihrávke.",
     "load": "5×3,5 min.",
-    "level": "development"
+    "level": "development",
+    "diagram": "zones"
   },
   {
     "name": "Gól po troch dotykoch tímu",
@@ -458,7 +460,8 @@
     "regression": "Stačia dve prihrávky pred gólom.",
     "coach": "Skenovanie pred loptou. Ponuka do medzier. Pohyb po prihrávke — nie státie.",
     "load": "5×3,5 min.",
-    "level": "development"
+    "level": "development",
+    "diagram": "ssg"
   },
   {
     "name": "Krytie a otočka pod tlakom",
@@ -574,10 +577,11 @@
     "regression": "Zníž na päť prihrávok.",
     "coach": "Kombinácia trpezlivosti a rozhodnosti. Prepnutie po strate. Hľadanie voľnej brány.",
     "load": "5×3,5 min.",
-    "level": "development"
+    "level": "development",
+    "diagram": "positional"
   },
   {
-    "name": "Zakončenie z variabilných uhlov",
+    "name": "Zakončenie z rôznych vzdialeností",
     "theme": "Zakončenie po vedení lopty / kľučke",
     "phase": "PČ",
     "age": "U12–U15",
@@ -586,12 +590,12 @@
     "time": "16´",
     "gear": "bránka + brankár, kužele, lopty",
     "why": "Výskum ukazuje, že variabilita zakončenia je účinnejšia než opakovanie tej istej strely.",
-    "setup": "Tri štartovacie pozície v rôznych vzdialenostiach a uhloch.",
-    "steps": "Hráč vedie loptu z náhodne určenej pozície (tréner volá číslo) a zakončuje.",
-    "constraints": "Z každej pozície sa nesmie strieľať tým istým spôsobom dvakrát za sebou.",
-    "progression": "Pridaj obrancu, ktorý dobieha. / Skráť čas na zakončenie na 3 sekundy.",
-    "regression": "Bez obrancu, jedna pozícia, viac času.",
-    "coach": "Posledný dotyk uvoľňuje priestor. Pohľad na brankára pred strelou. Presnosť pred silou.",
+    "setup": "Tri štartovacie méty v jednej osi: osemnásť, dvanásť a šesť metrov od bránky.",
+    "steps": "Tréner zavolá métu, hráč z nej vedie loptu a zakončuje. Z každej vzdialenosti sa vyžaduje iná technika — z diaľky priehlavkom, z blízka placírkou.",
+    "constraints": "Z najbližšej méty sa nesmie strieľať silou — musí to byť umiestnená strela do rohu.",
+    "progression": "Pridá sa dobiehajúci obranca. / Čas na zakončenie sa skráti na tri sekundy.",
+    "regression": "Vzdialenosti sa skrátia a strieľa sa bez časového limitu.",
+    "coach": "Vzdialenosť určuje techniku, nie silu. Posledný dotyk uvoľňuje priestor na strelu. Pozri sa na brankára pred strelou.",
     "load": "15–18 striel na hráča.",
     "level": "development"
   },
@@ -650,7 +654,8 @@
     "regression": "Bez obrancu, pomalšie centre po zemi.",
     "coach": "Nábeh oblúkom a s odstupom od obrancu. Telo nad loptou. Zakončiť do zeme.",
     "load": "12–15 opakovaní.",
-    "level": "development"
+    "level": "development",
+    "diagram": "cross"
   },
   {
     "name": "Kombinácia a zakončenie na jeden dotyk",
@@ -669,7 +674,8 @@
     "regression": "Dvaja pasívni obrancovia, bez limitu dotykov.",
     "coach": "Rýchlosť kombinácie. Kvalita finálnej prihrávky. Dokončiť bez prípravy.",
     "load": "10–12 akcií.",
-    "level": "development"
+    "level": "development",
+    "diagram": "wall"
   },
   {
     "name": "Gól len z vápna",
@@ -688,10 +694,11 @@
     "regression": "Vo vápne sú povolené dva dotyky.",
     "coach": "Dostaň loptu do vápna po zemi, nie centrom naslepo. Nabiehaj na prednú aj zadnú tyč. Trafiť z prvej.",
     "load": "5×3,5 min.",
-    "level": "development"
+    "level": "development",
+    "diagram": "ssg"
   },
   {
-    "name": "Rozohrávka 4+GK v2 pod tlakom",
+    "name": "Rozohrávka na čas",
     "theme": "Zakladanie útoku",
     "phase": "PČ",
     "age": "U12–U15",
@@ -700,12 +707,12 @@
     "time": "15´",
     "gear": "bránka + brankár, méty",
     "why": "Zakladanie útoku od brankára je dnes súčasťou hry každého tímu — a musí sa trénovať s reálnym tlakom.",
-    "setup": "Štyria obrancovia a brankár proti dvom napádajúcim, cieľové méty na druhej strane.",
-    "steps": "Tím rozohráva od brankára a snaží sa dostať loptu k cieľovej méte.",
-    "constraints": "Ak napádajúci získajú loptu, majú 6 sekúnd na zakončenie do bránky — chyba vzadu je reálne potrestaná.",
-    "progression": "Traja napádajúci. / Limit dvoch dotykov pri rozohrávke.",
-    "regression": "Jeden napádajúci, väčší priestor.",
-    "coach": "Šírka a trojuholníky. Otvorené telo prijímajúceho. Brankár ako hráč navyše. Kľud pod tlakom.",
+    "setup": "Štyria obrancovia a brankár proti dvom napádajúcim. Cieľové méty na druhej strane, tréner meria čas.",
+    "steps": "Tím má osem sekúnd na to, aby loptu od brankára doviedol k cieľovej méte. Ak to nestihne, opakovanie sa počíta ako neúspešné.",
+    "constraints": "Ak napádajúci získajú loptu, majú šesť sekúnd na zakončenie — chyba vzadu je reálne potrestaná.",
+    "progression": "Čas sa skráti na šesť sekúnd. / Traja napádajúci.",
+    "regression": "Čas sa predĺži na dvanásť sekúnd a napáda jeden hráč.",
+    "coach": "Šírka a trojuholníky okolo lopty. Brankár je hráč navyše. Kľud pod tlakom, ale bez zdržiavania.",
     "load": "6×2,5 min.",
     "level": "development"
   },
@@ -776,7 +783,7 @@
     "time": "18´",
     "gear": "rozlišováky, 2 bránky",
     "why": "Šesť sekúnd po strate lopty je najlepšia príležitosť na jej získanie — súper je ešte neusporiadaný.",
-    "setup": "Hra 6v6 s brankármi alebo cieľovými zónami.",
+    "setup": "Hra 6v6 s brankármi na zmenšenom priestore, aby bol súper po strate vždy blízko lopty.",
     "steps": "Po strate lopty tím okamžite pressuje, cieľ je získať loptu do 6 sekúnd.",
     "constraints": "Zisk lopty do 6 sekúnd = 1 bod aj bez gólu. Ak sa nepodarí, tím sa musí stiahnuť do bloku.",
     "progression": "Skráť na 5 sekúnd. / Zmenši ihrisko — vyššia intenzita.",
@@ -796,7 +803,7 @@
     "gear": "2 bránky + brankári",
     "why": "Obrana musí byť odmeňovaná rovnako ako útok — inak ju hráči podceňujú.",
     "setup": "Hra 8v8 s brankármi na plnom priestore. Tréner alebo náhradník počíta obranné body oboch tímov.",
-    "steps": "Hrá sa normálne, tréner boduje obranné momenty.",
+    "steps": "Hrá sa zápasovou formou. Popri góloch sa zbierajú obranné body — za zisk lopty v súperovej polovici, za čistý blok strely a za counter-pressing do šiestich sekúnd.",
     "constraints": "Bod za zisk lopty v súperovej polovici, bod za čistý blok strely, bod za 6-sekundový counter-pressing.",
     "progression": "Vyžaduj kompaktnosť bloku max. 20 m. / Bod navyše za čisté konto.",
     "regression": "Zruš bodovanie, len pripomienky.",

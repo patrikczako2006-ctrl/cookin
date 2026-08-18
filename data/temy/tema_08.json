@@ -77,7 +77,8 @@
     "regression": "Povolené sú dva dotyky.",
     "coach": "Ponúkni sa skôr, než spoluhráč dostane loptu. Telo otvorené — na jeden dotyk sa nedá hrať zatvorený. Prihrávka do nohy, do ktorej spoluhráč pokračuje.",
     "load": "6 × 90 s, pauza 45 s.",
-    "theme": "Hrou na jeden dotyk (narážačka / na tretieho)"
+    "theme": "Hrou na jeden dotyk (narážačka / na tretieho)",
+    "diagram": "rondo"
   },
   {
     "id": "N089",
@@ -210,7 +211,7 @@
     "level": "development",
     "players": "12–16",
     "space": "50×34 m",
-    "time": "14´",
+    "time": "15´",
     "gear": "bránky, rozlišováky",
     "why": "Zápasová forma s limitom dotykov je najrýchlejší spôsob, ako zvýšiť tempo hry a kvalitu rozhodovania celého tímu.",
     "setup": "Hra 6v6 s brankármi na plnom priestore.",
@@ -219,7 +220,7 @@
     "progression": "Limit jeden dotyk na súperovej polovici. / Zakončenie do piatich sekúnd po kombinácii.",
     "regression": "Limit tri dotyky.",
     "coach": "Sken pred prijatím — inak dva dotyky nezvládneš. Ponuka skôr, než spoluhráč dostane loptu. Po prihrávke pohyb, nie státie.",
-    "load": "2 × 6 min, pauza 2 min.",
+    "load": "3 × 4 min, pauza 90 s.",
     "theme": "Hrou na jeden dotyk (narážačka / na tretieho)"
   },
   {

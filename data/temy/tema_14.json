@@ -38,7 +38,8 @@
     "regression": "Útočníci hrajú v polovičnom tempe.",
     "coach": "Kto je bližšie k lopte, tlačí. Druhý sa posúva dozadu a dovnútra. Zatvorte priestor medzi sebou.",
     "load": "10–12 opakovaní, pauza 30 s.",
-    "theme": "Základy priestorovej obrany"
+    "theme": "Základy priestorovej obrany",
+    "diagram": "duel"
   },
   {
     "id": "N159",
@@ -98,11 +99,12 @@
     "regression": "Vracať sa musia len dvaja hráči.",
     "coach": "Po strate hneď utekaj naspäť. Stoj medzi loptou a svojou bránou. Kto je najbližšie k lopte, ide na ňu.",
     "load": "5 × 2,5 min so striedaním.",
-    "theme": "Základy priestorovej obrany"
+    "theme": "Základy priestorovej obrany",
+    "diagram": "ssg"
   },
   {
     "id": "N162",
-    "name": "Bránenie 4v4 s pravidlom šiestich sekúnd",
+    "name": "Striedavý pressing 4v4",
     "phase": "HČ",
     "age": "U10–U12",
     "level": "foundation",
@@ -111,14 +113,15 @@
     "time": "21´",
     "gear": "rozlišováky, bránky, méty",
     "why": "Šesťsekundové pravidlo naučí deti napádať okamžite po strate — namiesto toho, aby sa vracali späť a čakali.",
-    "setup": "Hra 4v4 s brankármi na dve bránky.",
-    "steps": "Hrá sa voľne. Po každej strate má tím šesť sekúnd na to, aby loptu získal späť. Ak sa mu to podarí, získava bod navyše.",
-    "constraints": "Po uplynutí šiestich sekúnd sa musí tím stiahnuť za úroveň lopty a brániť kompaktne.",
-    "progression": "Čas sa skráti na štyri sekundy. / Za stratený súboj sa bod odpočíta.",
-    "regression": "Čas sa predĺži na osem sekúnd.",
-    "coach": "Najbližší hráč ide okamžite na loptu. Ostatní zatvárajú prihrávky, nie bežia za loptou. Po šiestich sekundách sa stiahnite a zomknite.",
+    "setup": "Hra 4v4 s brankármi na dve bránky. Tréner priebežne určuje, ktorý tím práve napáda vysoko.",
+    "steps": "Tím, ktorý tréner vyvolá, musí po strate lopty napádať vysoko; druhý sa musí okamžite stiahnuť do kompaktného bloku. Role sa menia každú minútu.",
+    "constraints": "Tím v bloku sa nesmie pokúsiť o zisk lopty vyššie než na polovici ihriska.",
+    "progression": "Role sa menia každých tridsať sekúnd. / Napádajúci tím má na zisk lopty päť sekúnd.",
+    "regression": "Role sa menia po každom góle.",
+    "coach": "Napádajúci: prvý hráč na loptu, ostatní zatvárajú prihrávky. V bloku: stiahnite sa spolu, nie po jednom.",
     "load": "4 × 4 min, pauza 90 s.",
-    "theme": "Základy priestorovej obrany"
+    "theme": "Základy priestorovej obrany",
+    "diagram": "ssg"
   },
   {
     "id": "N163",
@@ -183,7 +186,7 @@
   },
   {
     "id": "N166",
-    "name": "Hra s kompaktnou obranou",
+    "name": "Zatvor prihrávku",
     "phase": "ZČ",
     "age": "U10–U12",
     "level": "foundation",
@@ -193,17 +196,18 @@
     "gear": "bránky, rozlišováky, méty",
     "why": "Hráči sa učia brániť ako skupina, nie ako štyria jednotlivci. Bodovanie im ukáže rozdiel.",
     "setup": "Hra 5v5 s brankármi na dve bránky.",
-    "steps": "Hrá sa voľne. Brániaci tím získa bod za každé odobratie lopty, pri ktorom boli všetci hráči za úrovňou lopty.",
-    "constraints": "Ak sú v momente odobratia dvaja hráči pred loptou, bod neplatí.",
-    "progression": "Za odobratie na súperovej polovici sú dva body. / Po zisku musí prísť prihrávka dopredu.",
-    "regression": "Bod platí za akékoľvek odobratie lopty.",
-    "coach": "Posúvajte sa spolu, ako by ste boli spojení lanom. Kto je pri lopte, tlačí. Ostatní zatvárajú priestor za ním.",
+    "steps": "Brániaci tím zbiera body za zachytené prihrávky — teda za loptu získanú postavením, nie súbojom. Za odobratie v súboji je len polovičný bod.",
+    "constraints": "Bod za zachytenie platí len vtedy, ak hráč stál v prihrávkovej dráhe ešte pred odohratím lopty.",
+    "progression": "Za zachytenie na súperovej polovici sú dva body. / Po zisku musí prísť prihrávka dopredu.",
+    "regression": "Aj odobratie v súboji sa počíta za celý bod.",
+    "coach": "Stoj tak, aby si videl loptu aj svojho hráča. Zatvor dráhu, nebehaj za loptou. Nechoď prvý do zeme.",
     "load": "3 × 5 min, pauza 90 s.",
-    "theme": "Základy priestorovej obrany"
+    "theme": "Základy priestorovej obrany",
+    "diagram": "ssg"
   },
   {
     "id": "N167",
-    "name": "Zápas s bodmi za zisk lopty",
+    "name": "Každý má svoj obranný účet",
     "phase": "ZČ",
     "age": "U13–U15",
     "level": "development",
@@ -212,12 +216,12 @@
     "time": "14´",
     "gear": "bránky, rozlišováky",
     "why": "Ak sa body dávajú len za góly, hráči prestanú brániť. Obranné bodovanie postaví obranu na rovnakú úroveň ako útok.",
-    "setup": "Hra 6v6 s brankármi na plnom priestore.",
-    "steps": "Zápasová forma. Okrem gólov získava tím body za zisk lopty do šiestich sekúnd po strate a za odobratie lopty na súperovej polovici.",
-    "constraints": "Faul ruší získaný bod — obrana musí byť čistá.",
-    "progression": "Zisk lopty musí prísť do štyroch sekúnd. / Po zisku musí prísť zakončenie do ôsmich sekúnd.",
-    "regression": "Zisk lopty do ôsmich sekúnd.",
-    "coach": "Prvý hráč tlačí okamžite, ostatní zatvárajú prihrávky. Nechoď prvý do zeme. Po zisku lopty hneď dopredu.",
+    "setup": "Hra 6v6 s brankármi. Každý hráč si počas hry počíta vlastné obranné akcie.",
+    "steps": "Zápasová forma. Každý hráč si sám sleduje, koľkokrát získal loptu a koľkokrát ju pri ňom súper prešiel. Po hre sa výsledky nahlas povedia.",
+    "constraints": "Faul sa počíta ako prehratá akcia — obrana musí byť čistá.",
+    "progression": "Prehratá akcia sa odpočítava dvojnásobne. / Gól po vlastnom zisku lopty platí dvojnásobne.",
+    "regression": "Počítajú sa len zisky lopty.",
+    "coach": "Nechoď prvý do zeme — drž vzdialenosť. Zatvor dráhu skôr než súper vystrelí. Po zisku lopty hneď dopredu.",
     "load": "2 × 6 min, pauza 2 min.",
     "theme": "Základy priestorovej obrany"
   },
@@ -239,6 +243,7 @@
     "regression": "Povolená dĺžka bloku je tridsaťpäť metrov.",
     "coach": "Kompaktnosť aj pri únave — posun je lacnejší než šprint. Komunikuj: kto ide na loptu a kto istí. Bez spúšťača držte tvar.",
     "load": "3 × 5 min, pauza 2 min.",
-    "theme": "Základy priestorovej obrany"
+    "theme": "Základy priestorovej obrany",
+    "diagram": "ssg"
   }
 ]
