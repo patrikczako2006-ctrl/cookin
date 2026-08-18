@@ -174,14 +174,14 @@
       const gw=20+i.I(1,3)*3;
       s+=Goal(50,6,gw,p.goal)+GK(50,11,p.goal)+box(50,6,42,17,p);
       const q=2+i.I(2,2);
-      for(let k=0;k<q;k++) s+=P(22,50+k*6,p.att,'',p.attTxt);
-      s+=Ball(26.5,50,p.ball,p.line);
+      for(let k=0;k<q;k++) s+=P(22,47+k*5.5,p.att,'',p.attTxt);
+      s+=Ball(26.5,47,p.ball,p.line);
       const dx=40+i.I(3,4)*4, dy=30+i.J(4,6);
       s+=Df(dx,dy,p.def);
-      s+=Wave([[27,49],[dx-10,dy+8],[dx-2,dy]],p.arrow,'ar');
+      s+=Wave([[27,46],[dx-10,dy+8],[dx-2,dy]],p.arrow,'ar');
       s+=Arr(dx+1,dy-4,50,14,p.pass,false,'ap');
-      if(i.I(5,2)) for(let k=0;k<q;k++) s+=P(78,50+k*6,p.att,'',p.attTxt);
-      else s+=Cone(78,50,p.cone)+Cone(78,56,p.cone);
+      if(i.I(5,2)) for(let k=0;k<q;k++) s+=P(78,47+k*5.5,p.att,'',p.attTxt);
+      else s+=Cone(78,49,p.cone)+Cone(78,55,p.cone);
       return s;},
 
     /* súboj v koridore */

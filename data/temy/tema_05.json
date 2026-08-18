@@ -207,7 +207,7 @@
     "level": "development",
     "players": "12–16",
     "space": "50×34 m",
-    "time": "14´",
+    "time": "15´",
     "gear": "bránky, rozlišováky, méty",
     "why": "Zápasová forma s limitom v strede ihriska drží tému živú aj vtedy, keď hráči prestanú myslieť na techniku.",
     "setup": "Hra 6v6 s brankármi, stredová zóna vyznačená métami.",
@@ -216,7 +216,7 @@
     "progression": "V stredovej zóne je povolený jeden dotyk. / Zóna sa rozšíri na polovicu ihriska.",
     "regression": "V stredovej zóne sú povolené tri dotyky.",
     "coach": "Skenuj dvakrát, kým lopta letí. Prijímaj vzdialenejšou nohou. Prvý dotyk pripravuje druhý — nie je samostatný.",
-    "load": "2 × 6 min, pauza 2 min.",
+    "load": "3 × 4 min, pauza 90 s.",
     "theme": "Prvým dotykom (ofenzívny / otvorený)"
   },
   {

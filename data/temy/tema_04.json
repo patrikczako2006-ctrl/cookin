@@ -17,7 +17,8 @@
     "regression": "Hráč bez lopty sa pohybuje len chôdzou.",
     "coach": "Nízko na nohách, koleno pokrčené. Lopta blízko. Zmeň smer a hneď zrýchli — nie postupne.",
     "load": "8–10 opakovaní, potom výmena rolí.",
-    "theme": "1v1 SO/SSH/SÚ (v čelnom postavení)"
+    "theme": "1v1 SO/SSH/SÚ (v čelnom postavení)",
+    "diagram": "channel"
   },
   {
     "id": "N038",
@@ -46,7 +47,7 @@
     "age": "U13–U15",
     "level": "development",
     "players": "10–16",
-    "space": "22×16 m",
+    "space": "12×12 m na dvojicu",
     "time": "14´",
     "gear": "méty, lopty, dve malé bránky",
     "why": "V strede ihriska je súboj tvárou v tvár na malom priestore. Vyhráva ten, kto zvládne zmenu smeru na jeden dotyk a hneď zrýchli.",
@@ -57,7 +58,8 @@
     "regression": "Priestor sa zväčší a limit predĺži na desať sekúnd.",
     "coach": "Klam telom a ramenom, nie len nohou. Loptu si posúvaj vzdialenejšou nohou od obrancu. Po zmene smeru okamžite maximálna rýchlosť.",
     "load": "10–12 súbojov na hráča, pauza 30 s.",
-    "theme": "1v1 SO/SSH/SÚ (v čelnom postavení)"
+    "theme": "1v1 SO/SSH/SÚ (v čelnom postavení)",
+    "diagram": "grid"
   },
   {
     "id": "N040",
@@ -164,7 +166,7 @@
   },
   {
     "id": "N045",
-    "name": "Turnaj súbojov",
+    "name": "Súboj o postup do kruhu",
     "phase": "ZČ",
     "age": "U7–U9",
     "level": "foundation",
@@ -172,15 +174,16 @@
     "space": "12×10 m na pole",
     "time": "12´",
     "gear": "méty, lopty",
-    "why": "Súťaž s rýchlym striedaním udrží deti v maximálnom nasadení a zároveň im dá veľa opakovaní bez čakania v rade.",
-    "setup": "Dve až tri malé polia, na každom malá bránka z mét na oboch stranách. Na poli vždy dvojica.",
-    "steps": "Hrá sa 1v1 na 45 sekúnd, kto dá viac gólov, postupuje na vyššie pole. Po každom kole sa dvojice premiešajú.",
-    "constraints": "Po strate lopty musí hráč okamžite prejsť do bránenia.",
-    "progression": "Kolo sa skráti na 30 sekúnd. / Pridá sa druhá bránka na každej strane.",
-    "regression": "Kolo trvá minútu a bránky sú širšie.",
-    "coach": "Zmeň smer a hneď utekaj. Bráň nízko na nohách. Nebojte sa skúšať nové kľučky.",
-    "load": "8–10 kôl, pauza 30 s.",
-    "theme": "1v1 SO/SSH/SÚ (v čelnom postavení)"
+    "why": "Deti dostanú veľa krátkych súbojov a zároveň sa učia, že po strate lopty sa hneď bráni.",
+    "setup": "V strede ihriska je z mét vyznačený kruh. Deti stoja po obvode v dvojiciach, jedna dvojica hrá v kruhu.",
+    "steps": "Dvojica v kruhu hrá 1v1 o loptu. Kto ju udrží dvadsať sekúnd alebo vytlačí súpera z kruhu, zostáva; porazený sa strieda s ďalším z obvodu.",
+    "constraints": "Loptu treba udržať v kruhu — kto ju vykopne von, prehráva kolo.",
+    "progression": "Kruh sa zmenší. / Do kruhu vstúpi tretie dieťa a hrá sa 1v1v1.",
+    "regression": "Kruh sa zväčší a kolo trvá len desať sekúnd.",
+    "coach": "Telo medzi loptu a súpera. Zmeň smer a hneď zrýchli. Po strate lopty sa hneď snaž získať ju späť.",
+    "load": "10–12 kôl so striedaním.",
+    "theme": "1v1 SO/SSH/SÚ (v čelnom postavení)",
+    "diagram": "duel"
   },
   {
     "id": "N046",
@@ -211,7 +214,7 @@
     "level": "development",
     "players": "12–16",
     "space": "50×34 m",
-    "time": "14´",
+    "time": "15´",
     "gear": "bránky, rozlišováky",
     "why": "Bodovanie súbojov na oboch stranách učí hráčov, že 1v1 sa vyhráva aj bráni — a že oboje rozhoduje zápasy.",
     "setup": "Hra 6v6 s brankármi. Tréner alebo náhradník počíta vyhraté a prehraté súboje oboch tímov.",
@@ -220,7 +223,7 @@
     "progression": "Za prehratý súboj sa bod odpočítava. / Gól po vyhratom súboji platí dvojnásobne.",
     "regression": "Počítajú sa len vyhraté súboje, prehraté sa neodpočítavajú.",
     "coach": "Útočník: uvádzaj obrancu do pohybu skôr, než ideš. Obranca: nechoď prvý do zeme, drž vzdialenosť. Rýchlosť nohou po zmene smeru.",
-    "load": "2 × 6 min, pauza 2 min.",
+    "load": "3 × 4 min, pauza 90 s.",
     "theme": "1v1 SO/SSH/SÚ (v čelnom postavení)",
     "diagram": "ssg"
   },

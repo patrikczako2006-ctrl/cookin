@@ -201,7 +201,8 @@
     "regression": "Bonus platí za akékoľvek prekonanie súpera.",
     "coach": "Nebojte sa ísť do 1v1 pri čiare. Po prekonaní hlava hore. Nabiehajte na prednú aj zadnú tyč.",
     "load": "3 × 5 min, pauza 90 s.",
-    "theme": "1v1 KÚ/KO"
+    "theme": "1v1 KÚ/KO",
+    "diagram": "ssg"
   },
   {
     "id": "N023",
@@ -211,7 +212,7 @@
     "level": "development",
     "players": "12–16",
     "space": "50×34 m",
-    "time": "14´",
+    "time": "15´",
     "gear": "bránky, rozlišováky, méty",
     "why": "Krídelný súboj sa v zápase otvorí len vtedy, ak tím drží šírku. Pravidlo spája individuálnu tému s tímovou organizáciou.",
     "setup": "Hra 6v6 s brankármi. Po oboch stranách vyznačené krídelné koridory.",
@@ -220,7 +221,7 @@
     "progression": "Krídelník musí ísť do súboja do dvoch sekúnd od prijatia. / Gól musí padnúť do piatich sekúnd po centri.",
     "regression": "Šírku stačí držať na jednej strane.",
     "coach": "Krídelník stojí na čiare, nie v poli. Príjem s otvoreným telom. Do súboja vstupuj v pohybe, nie zo státia.",
-    "load": "2 × 6 min, pauza 2 min.",
+    "load": "3 × 4 min, pauza 90 s.",
     "theme": "1v1 KÚ/KO"
   },
   {

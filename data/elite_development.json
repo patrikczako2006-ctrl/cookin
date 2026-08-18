@@ -210,7 +210,7 @@
     "coach": "Najprv skús sám. Ak neprejde, využi podporu. Po prekonaní rýchle dokončenie.",
     "load": "5×3,5 min.",
     "level": "development",
-    "diagram": "zones"
+    "diagram": "ssg4"
   },
   {
     "name": "Zápas s bonusom za súboj",
@@ -224,9 +224,9 @@
     "why": "V staršom veku hráči prestávajú riskovať 1v1 — treba to cielene odmeňovať.",
     "setup": "Hra 6v6 s brankármi na plnom priestore.",
     "steps": "Zápasová forma. Gól po akcii, v ktorej hráč prekonal súpera v čelnom súboji, platí dvojnásobne.",
-    "constraints": "Gól po úspešnom 1v1 v útočnej tretine platí dvojnásobne. Neúspešný pokus sa netrestá.",
-    "progression": "Bonus platí len pri prekonaní v strede ihriska (najťažšie). / Zmenši ihrisko.",
-    "regression": "Zruš bonus.",
+    "constraints": "Prekonanie sa počíta len v čelnom postavení do troch metrov — obiehanie súpera zboku bez kontaktu neplatí.",
+    "progression": "Bonus platí len pri prekonaní v strede ihriska, kde je najťažšie. / Zmenši ihrisko.",
+    "regression": "Bonus platí za prekonanie kdekoľvek na ihrisku.",
     "coach": "Odvaha riskovať vpredu. Rozumnosť vzadu. Po strate okamžitá reakcia.",
     "load": "5×3 min.",
     "level": "development",
@@ -520,7 +520,7 @@
     "level": "development"
   },
   {
-    "name": "Rondo 6v3 s prechodom",
+    "name": "Rondo 6v3 s cieľovými bránami",
     "theme": "Držanie lopty (skupinou hráčov)",
     "phase": "PČ",
     "age": "U12–U15",
@@ -529,12 +529,12 @@
     "time": "13´",
     "gear": "kužele, lopty",
     "why": "Rondo s väčším počtom obrancov núti presnosť a rýchlosť rozhodovania na elitnej úrovni.",
-    "setup": "Šesť hráčov po obvode, traja obrancovia v strede.",
-    "steps": "Hráči držia loptu. Ak obrancovia získajú loptu, musia ju udržať tri prihrávky.",
-    "constraints": "Maximálne dva dotyky. Prihrávka cez stred (medzi obrancov) sa počíta dvojnásobne.",
-    "progression": "Jeden dotyk. / Zmenši priestor na 14×14 m.",
-    "regression": "Tri dotyky, dvaja obrancovia.",
-    "coach": "Skenovanie pred loptou. Ponuka do medzery, nie za obrancu. Prihrávka do vzdialenejšej nohy.",
+    "setup": "Šesť hráčov po obvode štvorca, traja obrancovia vnútri. Na dvoch protiľahlých stranách sú brány z mét.",
+    "steps": "Tím drží loptu a za prihrávku, ktorá prejde cez stred medzi obrancami priamo do brány, získava dva body. Za osem prihrávok po obvode je jeden bod.",
+    "constraints": "Prihrávka cez stred sa počíta len vtedy, ak prešla pomedzi dvoch obrancov.",
+    "progression": "Povolené sú dva dotyky. / Brány sa zúžia.",
+    "regression": "Povolené sú tri dotyky a pridá sa siedmy hráč.",
+    "coach": "Vtiahni obrancov nakrátko, potom hraj cez stred. Ponuka v uhle. Prvý dotyk už do smeru ďalšej prihrávky.",
     "load": "5×2,5 min.",
     "level": "development"
   },
@@ -672,7 +672,7 @@
     "level": "development"
   },
   {
-    "name": "Hra s pravidlom prvej lopty vo vápne",
+    "name": "Gól len z vápna",
     "theme": "Zakončenie po prihrávke / z prvého dotyku",
     "phase": "ZČ",
     "age": "U12–U15",
@@ -681,12 +681,12 @@
     "time": "18´",
     "gear": "2 bránky + brankári, kužele",
     "why": "Vo vápne nie je čas na spracovanie — hra to musí vynútiť.",
-    "setup": "Bežná hra 7v7 s vyznačeným vápnom.",
-    "steps": "Hrá sa normálne, vo vápne platí len gól z prvého dotyku.",
-    "constraints": "Mimo vápna bez limitu — hráči sa učia meniť rýchlosť riešenia podľa zóny.",
-    "progression": "Rozšír zónu prvého dotyku. / Gól po centri z prvého dotyku = 2 body.",
-    "regression": "Zruš pravidlo vápna.",
-    "coach": "Načasovanie nábehu. Kvalita finálnej prihrávky. Rozhodnutie o zakončení vopred.",
+    "setup": "Hra 6v6 s brankármi, vápna vyznačené métami.",
+    "steps": "Gól platí len vtedy, keď padne z priestoru vyznačeného vápna. Tím sa tak musí naučiť loptu do vápna doručiť, nie strieľať z diaľky.",
+    "constraints": "Vo vápne je povolený jeden dotyk — zakončenie musí byť z prvej.",
+    "progression": "Vápno sa zmenší. / Do vápna smú vojsť najviac dvaja útočiaci hráči.",
+    "regression": "Vo vápne sú povolené dva dotyky.",
+    "coach": "Dostaň loptu do vápna po zemi, nie centrom naslepo. Nabiehaj na prednú aj zadnú tyč. Trafiť z prvej.",
     "load": "5×3,5 min.",
     "level": "development"
   },

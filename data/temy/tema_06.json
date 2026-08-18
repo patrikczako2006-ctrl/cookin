@@ -1,7 +1,7 @@
 [
   {
     "id": "N061",
-    "name": "Trafiť medzeru",
+    "name": "Prihraj mi pomedzi neho",
     "phase": "PČ",
     "age": "U7–U9",
     "level": "foundation",
@@ -9,13 +9,13 @@
     "space": "16×12 m",
     "time": "10´",
     "gear": "méty, lopty",
-    "why": "Dieťa sa učí vidieť medzeru medzi dvoma súpermi a trafiť do nej — to je prvý krok k prienikovej prihrávke.",
-    "setup": "Dvojice oproti sebe vzdialené osem metrov. Medzi nimi dve méty tvoriace bránu širokú dva metre.",
-    "steps": "Hráči si prihrávajú po zemi cez bránu. Za každú prihrávku, ktorá prejde bránou a spoluhráč ju spracuje, je bod.",
-    "constraints": "Prihrávka musí ísť po zemi vnútrajškom nohy — nie špičkou a nie vzduchom.",
-    "progression": "Brána sa zúži na meter. / Do brány sa postaví pohyblivá méta, ktorú drží tréner.",
-    "regression": "Brána sa rozšíri na tri metre a vzdialenosť sa skráti.",
-    "coach": "Pozri sa na bránu skôr, než kopneš. Stojná noha smeruje k bráne. Prihrávka pevná, nie pomalá.",
+    "why": "Dieťa sa učí, že prihrávka musí prejsť popri súperovi — nie okolo neho veľkým oblúkom.",
+    "setup": "Trojice: dvaja hráči osem metrov od seba, medzi nimi tretí ako obranca.",
+    "steps": "Dvojica si prihráva po zemi tak, aby lopta prešla pomedzi nohy alebo tesne popri obrancovi v strede. Obranca sa snaží loptu zachytiť. Po piatich prihrávkach sa role menia.",
+    "constraints": "Obranca sa smie pohybovať len do strán, nesmie sa vrhať na zem.",
+    "progression": "Obranca smie chodiť aj dopredu. / Vzdialenosť sa predĺži na dvanásť metrov.",
+    "regression": "Obranca stojí na mieste a len naznačuje.",
+    "coach": "Počkaj, kým sa obranca pohne. Prihraj pevne po zemi. Kamarát sa musí ukázať na správnu stranu.",
     "load": "15–20 prihrávok na hráča.",
     "theme": "Prienikovou prihrávkou"
   },
@@ -37,7 +37,8 @@
     "regression": "Obrancovia stoja na mieste a okno je široké tri metre.",
     "coach": "Prihrávaj do nohy vzdialenejšej od obrancu. Načasovanie: lopta ide, keď sa hráč pohol. Prihrávka musí prejsť po zemi.",
     "load": "12–15 opakovaní, potom výmena rolí.",
-    "theme": "Prienikovou prihrávkou"
+    "theme": "Prienikovou prihrávkou",
+    "diagram": "through"
   },
   {
     "id": "N063",
@@ -209,7 +210,7 @@
     "level": "development",
     "players": "12–16",
     "space": "50×34 m",
-    "time": "14´",
+    "time": "15´",
     "gear": "bránky, rozlišováky",
     "why": "V zápasovej forme sa ukáže, či hráč prienik vidí aj pod tlakom a v pohybe — nie len v nacvičenej situácii.",
     "setup": "Hra 6v6 s brankármi na plnom priestore.",
@@ -218,7 +219,7 @@
     "progression": "Zakončenie musí padnúť do piatich sekúnd po prieniku. / Prijímajúci má dva dotyky.",
     "regression": "Prienik sa počíta kdekoľvek v akcii.",
     "coach": "Prenášaj hru, kým sa neotvorí okno. Prihrávka pevná a po zemi. Nabiehajúci si musí vypýtať loptu pohybom, nie rukou.",
-    "load": "2 × 6 min, pauza 2 min.",
+    "load": "3 × 4 min, pauza 90 s.",
     "theme": "Prienikovou prihrávkou",
     "diagram": "ssg"
   },
