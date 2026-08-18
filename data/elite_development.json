@@ -306,7 +306,8 @@
     "regression": "Obrancovia pasívni, povolené dva dotyky.",
     "coach": "Načasovanie pohybu tretieho hráča. Prihrávka do nohy pod uhlom. Rýchlosť celej kombinácie.",
     "load": "6×90 s, rotácia.",
-    "level": "development"
+    "level": "development",
+    "diagram": "wall"
   },
   {
     "name": "Poziční hra s prienikovými bodmi",
@@ -325,7 +326,8 @@
     "regression": "Povoľ prienik aj vzduchom a mimo súperov.",
     "coach": "Trpezlivá cirkulácia. Čakaj na otvorenie okna. Prienik v momente, keď sa obranca otočí.",
     "load": "5×3,5 min.",
-    "level": "development"
+    "level": "development",
+    "diagram": "positional"
   },
   {
     "name": "Tri prieniky pred gólom",

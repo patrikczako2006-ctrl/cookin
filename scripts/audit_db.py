@@ -64,6 +64,33 @@ def main():
     for k,v in seen.items():
         if len(v)>1: problems.append(f"duplicitný názov {k!r}: {', '.join(v)}")
 
+    # 2b) dva cviky v tej istej bunke nesmú byť ten istý cvik
+    #     (rovnaký názov, alebo rovnaký formát + rovnaké bodovanie + podobný text)
+    def words(t):
+        return {w for w in re.sub(r"[^a-záäčďéíĺľňóôŕšťúýž0-9 ]"," ",str(t).lower()).split() if len(w)>3}
+    def jac(a,b):
+        return len(a&b)/len(a|b) if (a|b) else 0.0
+    def fmt(e):
+        m=re.search(r"(\d+)v(\d+)",(e.get("setup","")+" "+e.get("steps","")).lower()); return m.group(0) if m else ""
+    SCORE=[r"cieľov\w* zón", r"cez brániacu líniu|cez líniu súper|pomedzi dvoch súperov|medzi dvoma súpermi",
+           r"platí dvojnásobne|za dva body|bod navyše", r"limit|dotyk", r"brankár",
+           r"otočk|otoč", r"narážačk", r"prenos|preniesť"]
+    def sig(e):
+        t=(e.get("setup","")+" "+e.get("steps","")+" "+e.get("constraints","")).lower()
+        return "".join("1" if re.search(r,t) else "0" for r in SCORE)
+    cells=defaultdict(list)
+    for e in ex: cells[(e["theme"],e["phase"])].append(e)
+    for key,L in cells.items():
+        for i in range(len(L)):
+            for j in range(i+1,len(L)):
+                A,B=L[i],L[j]
+                nm=jac(words(A["name"]),words(B["name"]))
+                tx=jac(words(A.get("setup","")+" "+A.get("steps","")),
+                       words(B.get("setup","")+" "+B.get("steps","")))
+                if nm>=0.55 or (fmt(A) and fmt(A)==fmt(B) and sig(A)==sig(B) and tx>0.18):
+                    problems.append(f"{A['id']} „{A['name']}“ a {B['id']} „{B['name']}“ sú ten istý cvik "
+                                    f"({key[0]} / {key[1]})")
+
     # 3) pokrytie vekových kategórií
     print("Pokrytie: koľko cvikov presne sedí danej kategórii (najhoršia téma×časť)")
     print(f"{'kat.':5} {'min':>4} {'priem':>6}   {'bez cviku (téma×časť)':<22}")

@@ -123,7 +123,7 @@
   },
   {
     "id": "N175",
-    "name": "Obrana štandardiek 6v6",
+    "name": "Roh a okamžitý protiútok",
     "phase": "HČ",
     "age": "U13–U15",
     "level": "development",
@@ -131,15 +131,16 @@
     "space": "polovica ihriska",
     "time": "24´",
     "gear": "bránky, rozlišováky, lopty",
-    "why": "Gól inkasovaný zo štandardky je najlacnejší gól v zápase. Obranná organizácia pri nich sa dá nacvičiť rýchlo a s veľkým efektom.",
-    "setup": "Striedavo rohy a priame kopy proti šesťčlennej obrane s brankárom.",
-    "steps": "Brániaci tím trénuje zónové bránenie: dvaja na tyčiach, traja v zóne pred bránkoviskom, jeden na hranici vápna. Po zisku lopty rozohráva rýchly protiútok do cieľových brán.",
-    "constraints": "Po zisku lopty musí protiútok skončiť do ôsmich sekúnd.",
-    "progression": "Útočiaci tím pridá šiesteho hráča do vápna. / Protiútok do šiestich sekúnd.",
-    "regression": "Útočiaci tím nabieha len troma hráčmi.",
-    "coach": "Každý má svoju zónu, nie svojho hráča. Atakuj loptu, nie súpera. Po odkope hneď dopredu — súper je rozostavený v útoku.",
+    "why": "Odvrátený roh je najlepšia príležitosť na protiútok — súper má vpredu polovicu tímu.",
+    "setup": "Rohové kopy proti šesťčlennej zónovej obrane s brankárom. Na polovici ihriska sú dve cieľové brány.",
+    "steps": "Brániaci tím odvráti roh a hneď rozohráva protiútok — dvaja hráči vyrážajú dopredu už v momente odkopu. Cieľom je doviesť loptu do brány do ôsmich sekúnd.",
+    "constraints": "Protiútok musí začať prvou prihrávkou dopredu — spätná prihrávka ho ruší.",
+    "progression": "Protiútok do šiestich sekúnd. / Útočiaci tím necháva dvoch na istenie.",
+    "regression": "Protiútok bez časového limitu.",
+    "coach": "Atakuj loptu, nie súpera. Odkop mimo stred ihriska. Dvaja vyrážajú už pri odkope.",
     "load": "4 × 4,5 min, pauza 2 min.",
-    "theme": "Štandardné situácie (roh, priamy kop, aut)"
+    "theme": "Štandardné situácie (roh, priamy kop, aut)",
+    "diagram": "corner"
   },
   {
     "id": "N176",

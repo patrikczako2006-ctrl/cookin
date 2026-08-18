@@ -8,7 +8,7 @@ const OK={
  '1v1 KÚ/KO':['duel','channel','cross','ssg','duelWave','gk1v1','shoot','zones'],
  '1v1 SÚ/SSH/KÚ (chrbtom k bránke)':['pivot','through','grid','ssg','duel','positional','zones'],
  '1v1 SO/SSH/SÚ (v čelnom postavení)':['duel','grid','ssg','channel','zones','ssg4'],
- 'Prvým dotykom (ofenzívny / otvorený)':['pass3','positional','zones','ssg','grid','through','rondo','pivot','mastery'],
+ 'Prvým dotykom (ofenzívny / otvorený)':['pass3','positional','zones','ssg','grid','through','rondo','pivot','mastery','gates','targetZone'],
  'Prienikovou prihrávkou':['through','pass3','wall','positional','zones','targetZone','ssg'],
  'Prihrávkou do behu (za brániaceho hráča)':['through','offside','targetZone','ssg','pass3','wall','zones','positional'],
  'Hrou na jeden dotyk (narážačka / na tretieho)':['wall','rondo','pass3','positional','zones','ssg','through'],

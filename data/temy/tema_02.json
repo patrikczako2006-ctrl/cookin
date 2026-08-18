@@ -165,7 +165,7 @@
   },
   {
     "id": "N021",
-    "name": "Turnaj 1v1 na dvoje dvere",
+    "name": "Dvojice na dvoch poliach 2v2",
     "phase": "ZČ",
     "age": "U7–U9",
     "level": "foundation",
@@ -173,15 +173,16 @@
     "space": "12×10 m na pole",
     "time": "12´",
     "gear": "méty, lopty",
-    "why": "Krátke súboje s okamžitým výsledkom držia deti v maximálnom nasadení a dajú im desiatky opakovaní 1v1 bez čakania.",
-    "setup": "Dve až tri malé polia vedľa seba, na každom dvoje dvere z mét. Na každom poli dvojica.",
-    "steps": "Hrá sa 1v1 na 45 sekúnd. Kto prevedie loptu dverami, má bod. Po každom kole sa víťaz posúva o pole vyššie, porazený nižšie.",
-    "constraints": "Po strate lopty musí hráč okamžite brániť — nesmie sa zastaviť a čakať.",
-    "progression": "Kolo sa skráti na 30 sekúnd. / Pribudnú tretie dvere.",
-    "regression": "Kolo trvá 60 sekúnd a dvere sú širšie.",
-    "coach": "Loptu drž blízko, keď je súper pri tebe. Zmeň smer a hneď zrýchli. Po strate sa vráť medzi loptu a dvere.",
+    "why": "V dvojici sa dieťa učí, že po prekonaní súpera má komu prihrať — súboj má pokračovanie.",
+    "setup": "Dve malé polia vedľa seba, na každom dvoje dvere z mét. Na poli vždy dve dvojice.",
+    "steps": "Hrá sa 2v2 na 90 sekúnd. Kto prevedie loptu dverami, má bod. Po kole sa dvojice posúvajú na vedľajšie pole.",
+    "constraints": "Prihrávka je povolená až po tom, čo sa hráč pokúsil súpera prekonať sám.",
+    "progression": "Kolo sa skráti na 60 sekúnd. / Dvere sa zúžia.",
+    "regression": "Prihrávka je povolená kedykoľvek.",
+    "coach": "Najprv skús sám, potom hľadaj kamaráta. Po prekonaní hneď dopredu. Po strate lopty okamžite bráň.",
     "load": "8–10 kôl po 45 s, pauza 30 s.",
-    "theme": "1v1 KÚ/KO"
+    "theme": "1v1 KÚ/KO",
+    "diagram": "duel"
   },
   {
     "id": "N022",

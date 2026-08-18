@@ -327,7 +327,8 @@
     "regression": "Zväčši cieľovú zónu, povoľ vstup kedykoľvek.",
     "coach": "Hlava hore pred prihrávkou. Prihrávka do priestoru pred spoluhráča. Nábeh až po prihrávke.",
     "load": "4×3,5 min.",
-    "level": "foundation"
+    "level": "foundation",
+    "diagram": "targetZone"
   },
   {
     "name": "Voľná hra s prienikovým bonusom",
@@ -387,7 +388,7 @@
     "level": "foundation"
   },
   {
-    "name": "Zápas s vysokou líniou",
+    "name": "Zápas s cieľovou čiarou za obranou",
     "theme": "Prihrávkou do behu (za brániaceho hráča)",
     "phase": "ZČ",
     "age": "U10–U11",
@@ -396,14 +397,15 @@
     "time": "12´",
     "gear": "2 bránky + brankári",
     "why": "Vysoká obranná línia prirodzene vytvára priestor za obranou — ideálne prostredie na tému.",
-    "setup": "Hra 5v5 s brankármi na dve bránky. Brániaci tím má pokyn držať obrannú líniu vysoko, aby vznikal priestor za ňou.",
-    "steps": "Hrá sa normálne, útočiaci tím hľadá priestor za obranou.",
-    "constraints": "Brániaci tím musí držať líniu aspoň na polovici — nesmie zaliezť pred vlastnú bránku.",
-    "progression": "Zaveď ofsajd. / Gól po prieniku za obranu = 2 body.",
-    "regression": "Zruš pokyn o vysokej línii.",
-    "coach": "Načasovanie nábehu. Komunikácia očami. Prihrávka do priestoru, nie do nôh.",
+    "setup": "Hra 5v5 s brankármi. Päť metrov pred každou bránkou je métami vyznačená čiara.",
+    "steps": "Hrá sa voľne. Okrem gólov získava tím dva body vždy, keď hráč dostane loptu do behu za vyznačenú čiaru a spracuje ju tam — aj bez gólu.",
+    "constraints": "Za čiaru sa smie vybehnúť až v momente prihrávky, nie skôr.",
+    "progression": "Čiara sa posunie ďalej od bránky. / Po prevzatí musí prísť strela do troch sekúnd.",
+    "regression": "Za čiarou smie hráč čakať.",
+    "coach": "Nabiehaj oblúkom, aby si zostal v hre. Prihrávka pred hráča, do priestoru. Po prevzatí hneď na bránku.",
     "load": "4×3 min.",
-    "level": "foundation"
+    "level": "foundation",
+    "diagram": "targetZone"
   },
   {
     "name": "Narážačka cez bránu",
@@ -699,7 +701,7 @@
     "level": "foundation"
   },
   {
-    "name": "Rozohrávka 4v2",
+    "name": "Rozohrávka cez brankára",
     "theme": "Zakladanie útoku",
     "phase": "PČ",
     "age": "U10–U11",
@@ -708,14 +710,15 @@
     "time": "10´",
     "gear": "méty, lopty",
     "why": "Zakladanie útoku sa začína kľudom pod tlakom — základ, ktorý sa dá trénovať už v prípravke.",
-    "setup": "Štyria hráči v tvare kosoštvorca, dvaja obrancovia v strede.",
-    "steps": "Hráči si prihrávajú a snažia sa dostať loptu k méte na druhej strane.",
-    "constraints": "Lopta sa musí aspoň raz vrátiť dozadu, než ide dopredu — učí trpezlivosť namiesto panického nakopnutia.",
-    "progression": "Traja obrancovia. / Limit dvoch dotykov.",
-    "regression": "Jeden obranca, väčší priestor.",
-    "coach": "Šírka pri rozohrávke. Otvorené telo. Kľud — nakopnutie nie je riešenie.",
+    "setup": "Brankár a traja obrancovia proti dvom napádajúcim. Cieľová méta na druhej strane.",
+    "steps": "Tím rozohráva a musí sa aspoň raz vrátiť loptu brankárovi, ktorý ju posunie na opačnú stranu — brankár je použitý ako spojka na zmenu strany.",
+    "constraints": "Brankár má najviac dva dotyky a nesmie loptu odkopnúť.",
+    "progression": "Brankár má jeden dotyk. / Traja napádajúci.",
+    "regression": "Brankár má voľné dotyky a napáda jeden hráč.",
+    "coach": "Spätná prihrávka brankárovi nie je chyba — je to zmena strany. Rozostúpte sa čo najviac. Brankár sa ponúka v uhle.",
     "load": "5×2 min.",
-    "level": "foundation"
+    "level": "foundation",
+    "diagram": "buildup"
   },
   {
     "name": "Zakladanie s povinným prenosom",
