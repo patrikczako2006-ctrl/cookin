@@ -344,8 +344,9 @@ textarea.inp{resize:vertical;font-family:var(--f-body);line-height:1.5}
 /* ---------- MODAL ---------- */
 .modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:22px}
 .modal.open{display:flex}
+body.noscroll{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .modal .ov{position:absolute;inset:0;background:rgba(3,4,7,.72);backdrop-filter:blur(6px)}
-.modal .box{position:relative;background:var(--surface);border:1px solid var(--line2);border-radius:20px;padding:30px;max-width:460px;width:100%;animation:pop .3s var(--ease)}
+.modal .box{position:relative;background:var(--surface);border:1px solid var(--line2);border-radius:20px;padding:30px;max-width:460px;width:100%;animation:pop .3s var(--ease);max-height:calc(100svh - 44px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 @keyframes pop{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:none}}
 .modal .x{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:10px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--muted)}
 .modal .x:hover{color:var(--text);border-color:var(--acc)}
@@ -435,7 +436,7 @@ footer .bottom .sp{flex:1}
   .card{padding:22px 18px}
   .page{padding-bottom:60px}
   .modal{padding:14px}
-  .modal .box{padding:24px 20px;max-height:88svh;overflow-y:auto}
+  .modal .box{padding:24px 20px;max-height:calc(100svh - 28px)}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001s!important;transition-duration:.001s!important}
@@ -2107,8 +2108,22 @@ function initAdmin(){
 /* =========================================================================
    MODAL
    ========================================================================= */
-function openModal(html){$('#modalBox').innerHTML=`<button class="x" data-close aria-label="Zavrieť"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l10 10M14 4L4 14"/></svg></button>${html}`;$('#modal').classList.add('open');}
-function closeModal(){$('#modal').classList.remove('open');}
+let modalScrollY=0;
+function openModal(html){
+  modalScrollY=window.scrollY||window.pageYOffset||0;
+  $('#modalBox').innerHTML=`<button class="x" data-close aria-label="Zavrieť"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l10 10M14 4L4 14"/></svg></button>${html}`;
+  $('#modal').classList.add('open');
+  $('#modalBox').scrollTop=0;
+  document.body.style.top=`-${modalScrollY}px`;
+  document.body.classList.add('noscroll');   // pozadie sa nesmie posúvať
+}
+function closeModal(){
+  if(!$('#modal').classList.contains('open'))return;
+  $('#modal').classList.remove('open');
+  document.body.classList.remove('noscroll');
+  document.body.style.top='';
+  window.scrollTo(0,modalScrollY);           // vráť sa tam, kde bol tréner
+}
 $('#modal').addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeModal();});
 addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
@@ -2167,6 +2182,7 @@ const routes={
   '/odstupenie':{render:odstupenieView,after:()=>{}},
 };
 function router(){
+  closeModal();
   stopCanvas();
   const path=(location.hash.slice(1)||'/').split('?')[0];
   const r=routes[path]||{render:notFound,after:()=>{}};
