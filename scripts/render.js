@@ -136,9 +136,14 @@
                     y:g.side==='t'?g.y+o:g.side==='b'?g.y-o:g.y};
   };
 
-  const gate=(m,p,g)=>{const half=(g.w||2)/2;
-    return g.dir==='h' ? cone(m,p,g.x-half,g.y)+cone(m,p,g.x+half,g.y)
-                       : cone(m,p,g.x,g.y-half)+cone(m,p,g.x,g.y+half);};
+  function gate(m,p,g){
+    const half=(g.w||2)/2, hor=(g.dir==='h');
+    const a=hor?[g.x-half,g.y]:[g.x,g.y-half], b=hor?[g.x+half,g.y]:[g.x,g.y+half];
+    return `<path d="M${f(m.X(a[0]))} ${f(m.Y(a[1]))}L${f(m.X(b[0]))} ${f(m.Y(b[1]))}"`
+      +` stroke="${p.cone}" stroke-opacity=".45" stroke-width="${f(m.U*0.13)}"`
+      +` stroke-dasharray="${f(m.U*0.32)} ${f(m.U*0.32)}"/>`
+      +cone(m,p,a[0],a[1])+cone(m,p,b[0],b[1]);
+  }
 
   function zone(m,p,z){
     const x=m.X(z.x),y=m.Y(z.y),w=m.L(z.w),h=m.L(z.h);
