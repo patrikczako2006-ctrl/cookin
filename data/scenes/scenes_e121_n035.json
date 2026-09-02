@@ -1,0 +1,631 @@
+{
+ "E121": {
+  "shape": "wave",
+  "w": 36,
+  "h": 28,
+  "queue": 4,
+  "def": 0
+ },
+ "E122": {
+  "shape": "finish",
+  "w": 50,
+  "h": 38,
+  "att": 3,
+  "def": 3,
+  "goalW": 7,
+  "marks": "box"
+ },
+ "E123": {
+  "shape": "ssg",
+  "w": 55,
+  "h": 42,
+  "att": 8,
+  "def": 8,
+  "goalW": 7,
+  "marks": "full"
+ },
+ "E124": {
+  "shape": "cross",
+  "w": 40,
+  "h": 30,
+  "goalW": 7
+ },
+ "E125": {
+  "shape": "finish",
+  "w": 50,
+  "h": 38,
+  "att": 6,
+  "def": 5,
+  "goalW": 7,
+  "marks": "box"
+ },
+ "E126": {
+  "shape": "ssg",
+  "w": 60,
+  "h": 42,
+  "att": 8,
+  "def": 8,
+  "goalW": 7,
+  "marks": "full",
+  "zones": [
+   {
+    "x": 0,
+    "y": 13,
+    "w": 13,
+    "h": 16,
+    "label": "vápno",
+    "tone": "target"
+   },
+   {
+    "x": 47,
+    "y": 13,
+    "w": 13,
+    "h": 16,
+    "label": "vápno",
+    "tone": "target"
+   }
+  ]
+ },
+ "E127": {
+  "shape": "build",
+  "w": 36,
+  "h": 26,
+  "att": 5,
+  "def": 3,
+  "labelTarget": "prenos na druhú stranu"
+ },
+ "E128": {
+  "shape": "build",
+  "w": 60,
+  "h": 44,
+  "att": 8,
+  "def": 8,
+  "labelTarget": "za druhou líniou"
+ },
+ "E129": {
+  "shape": "build",
+  "w": 60,
+  "h": 44,
+  "att": 8,
+  "def": 8,
+  "labelOwn": "krátka rozohrávka",
+  "labelTarget": "útočná tretina"
+ },
+ "E130": {
+  "shape": "press",
+  "w": 50,
+  "h": 36,
+  "att": 6,
+  "def": 7,
+  "label": "spúšťač pressingu"
+ },
+ "E131": {
+  "shape": "press",
+  "w": 55,
+  "h": 40,
+  "att": 8,
+  "def": 8,
+  "gk": true,
+  "goalW": 7,
+  "label": "istenie za loptou"
+ },
+ "E132": {
+  "shape": "ssg",
+  "w": 60,
+  "h": 44,
+  "att": 8,
+  "def": 8,
+  "goalW": 7,
+  "marks": "full"
+ },
+ "E133": {
+  "shape": "setpiece",
+  "kind": "corner",
+  "w": 40,
+  "h": 24
+ },
+ "E134": {
+  "shape": "setpiece",
+  "kind": "corner",
+  "w": 40,
+  "h": 26,
+  "side": "l"
+ },
+ "E135": {
+  "shape": "ssg",
+  "w": 60,
+  "h": 44,
+  "att": 8,
+  "def": 8,
+  "goalW": 7,
+  "marks": "full"
+ },
+ "N001": {
+  "shape": "gates",
+  "w": 20,
+  "h": 15,
+  "gates": 4,
+  "att": 6,
+  "via": "drib"
+ },
+ "N002": {
+  "shape": "gates",
+  "w": 26,
+  "h": 20,
+  "gates": 6,
+  "att": 5,
+  "via": "drib"
+ },
+ "N003": {
+  "shape": "duel",
+  "w": 30,
+  "h": 20,
+  "att": 1,
+  "def": 1,
+  "goalsN": 0,
+  "zones": [
+   {
+    "x": 24,
+    "y": 0,
+    "w": 6,
+    "h": 20,
+    "label": "cieľová zóna",
+    "tone": "target"
+   }
+  ]
+ },
+ "N004": {
+  "shape": "zones",
+  "w": 36,
+  "h": 26,
+  "att": 3,
+  "def": 3,
+  "zoneW": 4,
+  "into": "drib",
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 36,
+    "h": 8.6,
+    "label": "koridor"
+   },
+   {
+    "x": 0,
+    "y": 8.6,
+    "w": 36,
+    "h": 8.8,
+    "label": "voľný koridor",
+    "tone": "target"
+   },
+   {
+    "x": 0,
+    "y": 17.4,
+    "w": 36,
+    "h": 8.6,
+    "label": "koridor"
+   }
+  ]
+ },
+ "N005": {
+  "shape": "free",
+  "w": 22,
+  "h": 16,
+  "att": 7,
+  "def": 2
+ },
+ "N006": {
+  "shape": "zones",
+  "w": 30,
+  "h": 22,
+  "att": 4,
+  "def": 4,
+  "zoneW": 3,
+  "into": "drib"
+ },
+ "N007": {
+  "shape": "ssg",
+  "w": 40,
+  "h": 28,
+  "att": 6,
+  "def": 6,
+  "goalW": 6,
+  "zones": [
+   {
+    "x": 13,
+    "y": 0,
+    "w": 14,
+    "h": 28,
+    "label": "stredná zóna — len vedením",
+    "tone": "own"
+   }
+  ]
+ },
+ "N008": {
+  "shape": "ssg",
+  "w": 50,
+  "h": 36,
+  "att": 7,
+  "def": 7,
+  "goalW": 7,
+  "marks": "half",
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 50,
+    "h": 5,
+    "label": "koridor"
+   },
+   {
+    "x": 0,
+    "y": 31,
+    "w": 50,
+    "h": 5,
+    "label": "koridor"
+   }
+  ]
+ },
+ "N009": {
+  "shape": "zones",
+  "w": 20,
+  "h": 14,
+  "att": 3,
+  "def": 3,
+  "zoneW": 2.5,
+  "into": "drib",
+  "labelL": "dvere",
+  "labelR": "dvere"
+ },
+ "N010": {
+  "shape": "ssg",
+  "w": 32,
+  "h": 24,
+  "att": 5,
+  "def": 5,
+  "goalW": 5
+ },
+ "N011": {
+  "shape": "ssg",
+  "w": 45,
+  "h": 32,
+  "att": 6,
+  "def": 6,
+  "goalW": 6,
+  "marks": "half",
+  "zones": [
+   {
+    "x": 7,
+    "y": 0,
+    "w": 31,
+    "h": 32,
+    "label": "vyznačené pásmo"
+   }
+  ]
+ },
+ "N012": {
+  "shape": "ssg",
+  "w": 60,
+  "h": 45,
+  "att": 8,
+  "def": 8,
+  "goalW": 7,
+  "marks": "full"
+ },
+ "N013": {
+  "shape": "duel",
+  "w": 18,
+  "h": 12,
+  "att": 1,
+  "def": 1,
+  "goalsN": 2,
+  "goalW": 2.4
+ },
+ "N014": {
+  "shape": "duel",
+  "w": 22,
+  "h": 16,
+  "att": 1,
+  "def": 1,
+  "goalsN": 2,
+  "goalW": 2.6
+ },
+ "N015": {
+  "shape": "duel",
+  "w": 30,
+  "h": 22,
+  "att": 1,
+  "def": 1,
+  "goalsN": 1,
+  "gk": true,
+  "goalW": 5
+ },
+ "N016": {
+  "shape": "duel",
+  "w": 32,
+  "h": 24,
+  "att": 1,
+  "def": 1,
+  "goalsN": 1,
+  "gk": true,
+  "goalW": 5
+ },
+ "N017": {
+  "shape": "multi",
+  "fields": 2,
+  "cols": 2,
+  "fw": 10,
+  "fh": 16,
+  "att": 2
+ },
+ "N018": {
+  "shape": "ssg",
+  "w": 34,
+  "h": 26,
+  "att": 4,
+  "def": 4,
+  "goalW": 5,
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 34,
+    "h": 5,
+    "label": "krídelný koridor"
+   },
+   {
+    "x": 0,
+    "y": 21,
+    "w": 34,
+    "h": 5,
+    "label": "krídelný koridor"
+   }
+  ]
+ },
+ "N019": {
+  "shape": "ssg",
+  "w": 45,
+  "h": 32,
+  "att": 6,
+  "def": 6,
+  "goalW": 6,
+  "marks": "half",
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 45,
+    "h": 6,
+    "label": "krídelný koridor"
+   },
+   {
+    "x": 0,
+    "y": 26,
+    "w": 45,
+    "h": 6,
+    "label": "krídelný koridor"
+   }
+  ]
+ },
+ "N020": {
+  "shape": "ssg",
+  "w": 55,
+  "h": 40,
+  "att": 8,
+  "def": 8,
+  "goalW": 7,
+  "marks": "half",
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 55,
+    "h": 11,
+    "label": "krídelný koridor"
+   },
+   {
+    "x": 0,
+    "y": 29,
+    "w": 55,
+    "h": 11,
+    "label": "krídelný koridor"
+   }
+  ]
+ },
+ "N021": {
+  "shape": "multi",
+  "fields": 2,
+  "fw": 12,
+  "fh": 10,
+  "att": 2
+ },
+ "N022": {
+  "shape": "ssg",
+  "w": 36,
+  "h": 26,
+  "att": 5,
+  "def": 5,
+  "goalW": 5,
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 36,
+    "h": 5,
+    "label": "krídelný koridor"
+   },
+   {
+    "x": 0,
+    "y": 21,
+    "w": 36,
+    "h": 5,
+    "label": "krídelný koridor"
+   }
+  ]
+ },
+ "N023": {
+  "shape": "ssg",
+  "w": 50,
+  "h": 34,
+  "att": 6,
+  "def": 6,
+  "goalW": 7,
+  "marks": "half",
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 50,
+    "h": 6,
+    "label": "krídelný koridor"
+   },
+   {
+    "x": 0,
+    "y": 28,
+    "w": 50,
+    "h": 6,
+    "label": "krídelný koridor"
+   }
+  ]
+ },
+ "N024": {
+  "shape": "ssg",
+  "w": 64,
+  "h": 45,
+  "att": 8,
+  "def": 8,
+  "goalW": 7,
+  "marks": "full"
+ },
+ "N025": {
+  "shape": "back",
+  "w": 16,
+  "h": 12,
+  "label": "méty"
+ },
+ "N026": {
+  "shape": "back",
+  "w": 20,
+  "h": 16,
+  "label": "brány z mét"
+ },
+ "N027": {
+  "shape": "back",
+  "w": 24,
+  "h": 18,
+  "label": "malé bránky"
+ },
+ "N028": {
+  "shape": "back",
+  "w": 28,
+  "h": 20,
+  "support": 2,
+  "goal": true,
+  "goalW": 5
+ },
+ "N029": {
+  "shape": "zones",
+  "w": 22,
+  "h": 16,
+  "att": 3,
+  "def": 3,
+  "zoneW": 3,
+  "targets": true,
+  "into": "pass",
+  "labelL": "cieľové dieťa",
+  "labelR": "cieľové dieťa"
+ },
+ "N030": {
+  "shape": "ssg",
+  "w": 32,
+  "h": 24,
+  "att": 4,
+  "def": 4,
+  "goalW": 5,
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 6,
+    "h": 24,
+    "label": "zóna pivota",
+    "tone": "target"
+   },
+   {
+    "x": 26,
+    "y": 0,
+    "w": 6,
+    "h": 24,
+    "label": "zóna pivota",
+    "tone": "target"
+   }
+  ]
+ },
+ "N031": {
+  "shape": "ssg",
+  "w": 45,
+  "h": 32,
+  "att": 6,
+  "def": 6,
+  "goalW": 6,
+  "marks": "half",
+  "zones": [
+   {
+    "x": 15,
+    "y": 0,
+    "w": 15,
+    "h": 32,
+    "label": "stredná zóna",
+    "tone": "target"
+   }
+  ]
+ },
+ "N032": {
+  "shape": "ssg",
+  "w": 55,
+  "h": 40,
+  "att": 8,
+  "def": 8,
+  "goalW": 7,
+  "marks": "half",
+  "zones": [
+   {
+    "x": 38,
+    "y": 0,
+    "w": 17,
+    "h": 40,
+    "label": "zóna hrota",
+    "tone": "target"
+   }
+  ]
+ },
+ "N033": {
+  "shape": "zones",
+  "w": 24,
+  "h": 16,
+  "att": 3,
+  "def": 3,
+  "zoneW": 3,
+  "targets": true,
+  "into": "pass",
+  "labelL": "kráľ",
+  "labelR": "kráľ"
+ },
+ "N034": {
+  "shape": "ssg",
+  "w": 34,
+  "h": 26,
+  "att": 5,
+  "def": 5,
+  "goalW": 5
+ },
+ "N035": {
+  "shape": "ssg",
+  "w": 50,
+  "h": 34,
+  "att": 6,
+  "def": 6,
+  "goalW": 7,
+  "marks": "half"
+ }
+}

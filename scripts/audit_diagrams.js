@@ -1,45 +1,54 @@
-/* Kontrola, či nákres sedí k téme cviku:  node scripts/audit_diagrams.js */
-const D=require('./diagram.js');
-const ex=JSON.parse(require('fs').readFileSync(__dirname+'/../exercises.json','utf8'));
+/* Kontrola nákresov: sedí nákres k cviku a je čitateľný?
+   Beží nad `scenes.json`, ktorý zloží `scripts/build_scenes.js`. */
+const fs=require('fs'), path=require('path');
+const R=require(path.join(__dirname,'render.js'));
+const root=path.join(__dirname,'..');
+const ex=JSON.parse(fs.readFileSync(path.join(root,'exercises.json'),'utf8'));
+const sc=JSON.parse(fs.readFileSync(path.join(root,'scenes.json'),'utf8'));
 
-/* aké šablóny dávajú zmysel pre ktorú tému */
-const OK={
- 'Rýchlym vedením lopty':['slalom','gates','channel','through','ssg','duel','grid','tag','press','zones','mastery','targetZone'],
- '1v1 KÚ/KO':['duel','channel','cross','ssg','duelWave','gk1v1','shoot','zones'],
- '1v1 SÚ/SSH/KÚ (chrbtom k bránke)':['pivot','through','grid','ssg','duel','positional','zones'],
- '1v1 SO/SSH/SÚ (v čelnom postavení)':['duel','grid','ssg','channel','zones','ssg4'],
- 'Prvým dotykom (ofenzívny / otvorený)':['pass3','positional','zones','ssg','grid','through','rondo','pivot','mastery','gates','targetZone'],
- 'Prienikovou prihrávkou':['through','pass3','wall','positional','zones','targetZone','ssg'],
- 'Prihrávkou do behu (za brániaceho hráča)':['through','offside','targetZone','ssg','pass3','wall','zones','positional'],
- 'Hrou na jeden dotyk (narážačka / na tretieho)':['wall','rondo','pass3','positional','zones','ssg','through'],
- 'Krytie lopty (jednotlivca)':['grid','ssg','tag','press','duel','channel','mastery','pivot','zones'],
- 'Držanie lopty (skupinou hráčov)':['rondo','positional','ssg','grid','zones','targetZone'],
- 'Zakončenie po vedení lopty / kľučke':['shoot','duel','gk1v1','through','duelWave','ssg'],
- 'Zakončenie po prihrávke / z prvého dotyku':['shoot','cross','pass3','ssg','gk1v1','wall','zones'],
- 'Zakladanie útoku':['buildup','zones','ssg','positional','press'],
- 'Základy priestorovej obrany':['block','press','ssg','duel','zones'],
- 'Štandardné situácie (roh, priamy kop, aut)':['corner','freekick','throwin','ssg','block','cross'],
-};
-
-let bad=[],broken=0;
-const uniq=new Set(), tpl={};
-for(const e of ex){
-  const k=D.pick(e), svg=D.drillSVG(e);
-  uniq.add(svg); tpl[k]=(tpl[k]||0)+1;
-  if(/undefined|NaN/.test(svg)){broken++;bad.push(`${e.id}: chybný SVG`);}
-  const allow=OK[e.theme];
-  if(!allow) bad.push(`${e.id}: neznáma téma ${e.theme}`);
-  else if(!allow.includes(k)) bad.push(`${e.id} „${e.name}“ → šablóna '${k}' nesedí k téme „${e.theme}“`);
-  /* hráči musia zostať na ihrisku a nesmú sa prekrývať */
-  const pts=[...svg.matchAll(/<circle cx="([-\d.]+)" cy="([-\d.]+)" r="3"/g)].map(m=>[+m[1],+m[2]]);
-  for(const [x,y] of pts)
-    if(x<3.5||x>96.5||y<3.5||y>58.5) bad.push(`${e.id}: hráč mimo ihriska (${x},${y})`);
-  outer: for(let a=0;a<pts.length;a++) for(let c=a+1;c<pts.length;c++)
-    if(Math.hypot(pts[a][0]-pts[c][0],pts[a][1]-pts[c][1])<5){
-      bad.push(`${e.id} „${e.name}“: dvaja hráči sa prekrývajú`); break outer;}
+/* rozmery z nákresu musia sedieť s rozmermi napísanými v cviku */
+function stated(s){
+  const all=[...String(s||'').matchAll(/(\d+)\s*[×x]\s*(\d+)/g)];
+  if(!all.length) return null;
+  const m=all[all.length-1];
+  return [+m[1],+m[2]];
 }
-console.log(`cvikov ${ex.length} | unikátnych nákresov ${uniq.size} | šablón ${Object.keys(tpl).length} | chybných SVG ${broken}`);
-console.log(Object.entries(tpl).sort((a,b)=>b[1]-a[1]).map(x=>x[0]+':'+x[1]).join(' '));
-if(bad.length){console.log('\n❌ PROBLÉMY ('+bad.length+'):'); bad.slice(0,40).forEach(x=>console.log('  -',x)); process.exit(1);}
-if(uniq.size!==ex.length){console.log(`\n❌ ${ex.length-uniq.size} cvikov má rovnaký nákres ako iný`); process.exit(1);}
-console.log('\n✅ Každý nákres sedí k téme, je unikátny a celý sa zmestí na ihrisko.');
+/* bránka v nákrese <-> brankár alebo bránka spomenutá v texte */
+const wantsGoal=e=>/brankár/i.test(
+  [e.setup,e.steps,e.gear].join(' ').replace(/bez\s+brankár\w*/gi,''));
+
+let bad=0, warn=0;
+ex.forEach(e=>{
+  const s=sc[e.id], say=m=>{console.log(`${e.id} „${e.name}“ — ${m}`);};
+  if(!s){ bad++; say('chýba nákres'); return; }
+
+  const err=R.validate(s);
+  if(err.length){ bad++; err.forEach(x=>say(x)); }
+
+  const st=stated(e.space);
+  /* pri viacerých poliach a štandardkách je rozmer v cviku iný než celý nákres */
+  if(st && s.shape!=='multi' && s.shape!=='setpiece'
+     && (Math.abs(s.w-st[0])>0.6 || Math.abs(s.h-st[1])>0.6)){
+    /* pri cvikoch typu „12×10 m na pole“ je rozmer jedného poľa, nie celku */
+    if(!/pole|dvojic|polovic|vápno|ihrisk/i.test(e.space)){
+      warn++; say(`nákres ${s.w}×${s.h} m, v cviku je uvedené ${st[0]}×${st[1]} m`);
+    }
+  }
+  if(!(s.acts||[]).length){ warn++; say('nákres nemá ani jednu šípku'); }
+  if((s.players||[]).length<2){ warn++; say('nákres má menej než dvoch hráčov'); }
+  if(wantsGoal(e) && !(s.goals||[]).length && !(s.cones||[]).length){
+    warn++; say('cvik má brankára, nákres nemá bránku');
+  }
+});
+
+/* dva cviky nesmú mať úplne rovnaký nákres */
+const seen=new Map();
+Object.keys(sc).forEach(id=>{
+  const k=JSON.stringify(sc[id]);
+  if(seen.has(k)){ bad++; console.log(`${id} má rovnaký nákres ako ${seen.get(k)}`); }
+  else seen.set(k,id);
+});
+
+console.log(`\nnákresov: ${Object.keys(sc).length} / ${ex.length}`
+  +`  ·  chýb: ${bad}  ·  upozornení: ${warn}`);
+process.exit(bad?1:0);

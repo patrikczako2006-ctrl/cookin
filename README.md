@@ -70,12 +70,32 @@ rovnaká. Pásma sú U6–U9 (foundation), U9–U13, U12–U16, U13–U17 a U16�
 Generátor ukáže najprv cviky presne pre zvolenú kategóriu, potom cviky z blízkych
 kategórií (±2 roky) označené štítkom „blízka kategória“.
 
-**Nákresy:** ku každému cviku sa generuje nákres ihriska (`scripts/diagram.js`).
-Šablóna sa vyberá váhovanými pravidlami podľa názvu, témy a popisu, rozostavenie
-podľa formátu (4v1, 8v8+3), počtu hráčov, zón a bránok. Každý cvik má vlastný
-„seed“ z `id` + názvu — **všetkých 360 nákresov je odlišných** a zároveň stabilných
-(pri každom načítaní rovnaký). Rovnaký generátor beží v appke (tmavá paleta)
-aj v PDF (svetlá). Kontroluje to `scripts/audit_diagrams.js`.
+**Nákresy:** ku každému cviku patrí nákres v mierke — súradnice sú v metroch,
+takže ihrisko 40×30 m vyzerá inak než rondo 12×12 m. Nákres obsahuje čiary ihriska
+(pokutové územie, stredová čiara), bránky za bránkovou čiarou aj s brankárom,
+zóny s popisom, kužele, figuríny a **číslované poradie akcií**. Štyri typy akcií
+sa nedajú zameniť: prihrávka (plná čiara), vedenie lopty (vlnovka), beh bez lopty
+(čiarkovaná) a streľba (hrubá).
+
+Nákres sa **nehádа z textu cviku**. Každý cvik má v `data/scenes/*.json` vlastný
+predpis — tvar, rozmery, počty hráčov, zóny:
+
+```json
+"E017": {"shape":"zones","w":28,"h":22,"att":4,"def":4,"zoneW":3,"into":"pass"}
+```
+
+Rozostavenie z predpisu dopočíta `scripts/scenes.js`. Družstvo nestojí náhodne —
+má tvar, ktorý dáva vo futbale zmysel (trojuholník, kosoštvorec, 2-3-1), súper
+oproti nemu. Šípky sa vedú len tam, kde je čisto: prihrávka pomedzi hráčov (nie
+cez nich), dve šípky sa neprekrížia a prihrávka sa nevracia tam, odkiaľ prišla.
+Ak zostavený nákres neprejde kontrolou, skúsi sa iné rozloženie.
+
+Tvary: `rondo`, `grid`, `zones`, `ssg`, `finish`, `cross`, `duel`, `gates`,
+`pattern`, `press`, `build`, `thru`, `combo`, `back`, `free`, `wave`, `multi`,
+`setpiece`. Rovnaký vykresľovač (`scripts/render.js`) beží v appke (tmavá paleta)
+aj v PDF (svetlá). Kontroluje to `scripts/audit_diagrams.js` — prvok mimo ihriska,
+hráči na sebe, nečitateľne krátka šípka, čiara vedená cez hráča, rozmer nesediaci
+s textom cviku a dva rovnaké nákresy.
 
 ### Ako sa databáza skladá
 
@@ -87,13 +107,16 @@ data/elite_development.json     45 cvikov  (U12–U15)
 data/elite_pro.json             45 cvikov  (U16–U19)
 data/temy/tema_01..15.json     180 cvikov  (12 na tému: 3 časti × 4 pásma)
 data/temy/tema_16..17_u6*.json  45 cvikov  (najmladšia kategória)
+data/scenes/*.json             360 predpisov nákresov (jeden na cvik)
 ```
 
 ```bash
-python3 scripts/build_db.py     # zloží data/ -> exercises.json + skontroluje polia
-python3 scripts/inject.py       # vloží dáta a nákresy do index.html
-python3 scripts/audit_db.py     # sedí každý cvik k téme? pokrytie kategórií?
-node    scripts/audit_diagrams.js  # sedí nákres k téme? je unikátny?
+python3 scripts/build_db.py        # zloží data/ -> exercises.json + skontroluje polia
+node    scripts/build_scenes.js   # zloží data/scenes/ -> scenes.json (nákresy)
+python3 scripts/inject.py         # vloží cviky aj nákresy do index.html
+python3 scripts/audit_db.py       # sedí každý cvik k téme? pokrytie kategórií?
+node    scripts/audit_diagrams.js # je nákres čitateľný a sedí k cviku?
+node    scripts/build_pdf.js      # -> cviky-databaza.pdf (svetlá paleta, na tlač)
 ```
 
 ### Vlastné cviky cez Excel
@@ -102,13 +125,14 @@ node    scripts/audit_diagrams.js  # sedí nákres k téme? je unikátny?
    vzorový riadok ukazuje očakávanú kvalitu).
 2. ```bash
    python3 scripts/excel_to_json.py   # -> data/temy/tema_90_excel.json
-   python3 scripts/build_db.py && python3 scripts/inject.py
+   python3 scripts/build_db.py && node scripts/build_scenes.js && python3 scripts/inject.py
    ```
    Skript upozorní na cviky, ktorým chýbajú povinné polia — tie sa do appky nedostanú.
    Ostatné sady zostávajú nedotknuté.
 3. Commitni a pushni — appka má cviky okamžite.
 
-**PDF databáza:** `cviky-databaza.pdf` — všetkých 360 cvikov s nákresmi na tlač.
+**PDF databáza:** `cviky-databaza.pdf` — všetkých 360 cvikov s nákresmi na tlač
+(zostaví `node scripts/build_pdf.js`).
 
 ## Ďalšie kroky
 
