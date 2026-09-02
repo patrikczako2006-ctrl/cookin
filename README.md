@@ -10,6 +10,7 @@ Funkčný jednostránkový web (SPA) — všetko sa deje plynulo bez reloadov, s
 ## Čo funguje
 
 - **Generátor tréningov** — kategória → téma → jednotka po častiach so zručnosťami, piliermi a princípmi.
+  540 cvikov, na každú kombináciu kategória × téma × časť tri rôzne tréningy.
 - **Tri plány** — Basic (zdarma, 5 tréningov na časť), **Tréner** (9,90 €/mes) a **Klub**
   (39 €/mes, viac trénerov, klubová knižnica, tímy a dochádzka). Zamknuté tréningy vedú na cenník.
 - **Vlastné cviky (`/moje-cviky`)** — tréner si uloží cvik súkromne, alebo ho zdieľa s komunitou.
@@ -43,9 +44,11 @@ Statická stránka — stačí otvoriť `index.html` alebo nasadiť na akýkoľv
 
 ## Cviky (databáza)
 
-**360 cvikov, každý postavený na konkrétnu tému.** Databáza je matica
+**540 cvikov, každý postavený na konkrétnu tému.** Databáza je matica
 **15 tém × 3 časti (PČ/HČ/ZČ) × vekové pásma** — každá zo 45 kombinácií
-téma×časť má 7–9 cvikov pokrývajúcich celý rozsah U6 – U19.
+téma×časť má 11–13 cvikov pokrývajúcich celý rozsah U6 – U19.
+Tréner tak na jednu kategóriu a časť tréningu dostane 3 rôzne tréningy,
+nie jeden.
 
 Každý cvik má kompletnú metodickú štruktúru:
 
@@ -65,8 +68,25 @@ je vždy postavené tak, aby hráča do danej témy prinútilo. Napr. v téme
 dvoch súperov**; v téme *Rýchlym vedením lopty* len za priestor prekonaný
 **vedením**, nie prihrávkou. Kontroluje to skript `scripts/audit_db.py`.
 
+**Moderná metodika.** Novšia časť databázy (180 cvikov, `data/temy/tema_2*_pro_*.json`
+a `tema_3*_pro_*.json`) je postavená na tom, ako sa trénuje dnes:
+
+- **prechodová fáza** — šesťsekundové okno po zisku aj po strate lopty,
+  counter-pressing a istenie za loptou (rest defence);
+- **spúšťače pressingu** — spätná prihrávka, zlý dotyk, lopta na krídlo;
+  blok vyráža naraz a na dohodnutý signál, nie náhodne;
+- **pozičná hra** — šírka a hĺbka, polopriestory, pravidlo troch možností
+  prihrávky, zákaz dvoch hráčov v jednej línii, prenos hry ako spúšťač prieniku;
+- **hra na tretieho** — dopredu, späť, cez líniu ako hlavný mechanizmus prieniku;
+- **skenovanie** — počítané obzretia pred prijatím lopty;
+- **brankár ako hráč v poli** pri zakladaní útoku;
+- **scenáre zápasu** — udrž vedenie, doháňaš gól, hra v oslabení, rozhodovanie
+  v únave na konci tréningu;
+- **rozmery podľa výskumu** — plocha na hráča 60–150 m² podľa toho, či ide
+  o techniku, hru alebo prechodovú fázu.
+
 **Veková primeranosť:** cvik pre U6 je iná hra než cvik pre U18, aj keď je téma
-rovnaká. Pásma sú U6–U9 (foundation), U9–U13, U12–U16, U13–U17 a U16–U19 (pro).
+rovnaká. Pásma sú U6–U8, U7–U9, U10–U12, U13–U15 a U16–U19.
 Generátor ukáže najprv cviky presne pre zvolenú kategóriu, potom cviky z blízkych
 kategórií (±2 roky) označené štítkom „blízka kategória“.
 
@@ -107,7 +127,8 @@ data/elite_development.json     45 cvikov  (U12–U15)
 data/elite_pro.json             45 cvikov  (U16–U19)
 data/temy/tema_01..15.json     180 cvikov  (12 na tému: 3 časti × 4 pásma)
 data/temy/tema_16..17_u6*.json  45 cvikov  (najmladšia kategória)
-data/scenes/*.json             360 predpisov nákresov (jeden na cvik)
+data/temy/tema_20..34_pro_*.json 180 cvikov (moderná metodika, 4 vekové pásma)
+data/scenes/*.json             540 predpisov nákresov (jeden na cvik)
 ```
 
 ```bash
@@ -131,7 +152,7 @@ node    scripts/build_pdf.js      # -> cviky-databaza.pdf (svetlá paleta, na tl
    Ostatné sady zostávajú nedotknuté.
 3. Commitni a pushni — appka má cviky okamžite.
 
-**PDF databáza:** `cviky-databaza.pdf` — všetkých 360 cvikov s nákresmi na tlač
+**PDF databáza:** `cviky-databaza.pdf` — všetkých 540 cvikov s nákresmi na tlač
 (zostaví `node scripts/build_pdf.js`).
 
 ## Ďalšie kroky

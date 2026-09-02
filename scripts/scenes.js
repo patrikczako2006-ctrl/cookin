@@ -269,13 +269,13 @@
   /* centre z krídla */
   SHAPES.cross=function(s,R){
     const w=s.w,h=s.h,gw=s.goalW||7, rt=(s.side||'r')==='r', sg=rt?1:-1;
-    const wing=[round(rt?w-4:4), round(h*0.84)];
-    const up=[round(rt?w-4.5:4.5), round(h*0.44)];
+    const wing=jp(R,[rt?w-4:4, h*0.84],w*0.02);
+    const up=jp(R,[rt?w-4.5:4.5, h*0.44],h*0.03);
     const boxPt=[round(w/2+sg*gw*0.5), round(h*0.19)];
     const runner=[round(w/2+sg*w*0.19), round(h*0.55)];
     const far=[round(w/2-sg*w*0.16), round(h*0.42)];
     const edge=[round(w/2+sg*w*0.04), round(h*0.7)];
-    const raw=[runner,far,edge,[round(rt?w-9:9),round(h*0.72)],[round(w/2-sg*w*0.06),round(h*0.3)]];
+    const raw=[runner,far,edge,[round(rt?w-9:9),round(h*0.72)],[round(w/2-sg*w*0.06),round(h*0.3)]].map(q=>jp(R,q,Math.min(w,h)*0.035));
     const S1=spread(raw,4.6,[2.2,h*0.24],[w-2.2,h-2.2],R);
     const players=[{x:wing[0],y:wing[1],t:'a',n:1},{x:S1[0][0],y:S1[0][1],t:'a',n:2},
                    {x:S1[1][0],y:S1[1][1],t:'a',n:3},{x:S1[2][0],y:S1[2][1],t:'a',n:4},
@@ -298,8 +298,8 @@
       goals.push({x:w,y:round(ng===1?h/2:lerp(h*0.22,h*0.78,i/(ng-1))),
                   w:ng===1?gw+1.5:gw,side:'r',gk:ng===1&&!!s.gk});
     const A=[],D=[];
-    for(let i=0;i<na;i++) A.push([round(w*0.16), round(h*(na===1?0.5:0.3+0.4*i))]);
-    for(let i=0;i<nd;i++) D.push([round(w*0.58), round(h*(nd===1?0.5:0.32+0.36*i))]);
+    for(let i=0;i<na;i++) A.push(jp(R,[w*0.16, h*(na===1?0.5:0.3+0.4*i)],Math.min(w,h)*0.05));
+    for(let i=0;i<nd;i++) D.push(jp(R,[w*0.58, h*(nd===1?0.5:0.32+0.36*i)],Math.min(w,h)*0.06));
     const players=A.map((q,i)=>({x:q[0],y:q[1],t:'a',n:i+1}))
       .concat(D.map(q=>({x:q[0],y:q[1],t:'d'})));
     const gi=ng?Math.min(ng-1,Math.floor(R()*ng)):0;
@@ -422,11 +422,13 @@
       const rt=(s.side||'r')==='r', sg=rt?1:-1, X=v=>round(w/2+sg*v);
       const ball=[X(w/2-1.2),1.2];
       players.push({x:ball[0],y:1.2,t:'a',n:1});
-      const spots=[[X(-3.5),3.6],[X(3.5),4.2],[X(0),7.5],[X(6),12]].map(q=>jp(R,q,0.9));
-      spots.forEach((q,i)=>players.push({x:round(q[0]),y:round(q[1]),t:'a',n:i+2}));
-      [[X(-2),6],[X(3),7],[X(0),11]].forEach(q=>players.push({x:round(q[0]),y:round(q[1]),t:'d'}));
+      const raw=[[X(-4),3.6],[X(4),4.4],[X(0),8],[X(7),13],
+                 [X(-2.2),6.2],[X(3.4),7.4],[X(0),12.2]].map(q=>jp(R,q,0.8));
+      const S1=spread(raw,3.0,[1.5,1.5],[w-1.5,h-1.5],R);
+      S1.slice(0,4).forEach((q,i)=>players.push({x:q[0],y:q[1],t:'a',n:i+2}));
+      S1.slice(4).forEach(q=>players.push({x:q[0],y:q[1],t:'d'}));
       acts.push({k:'pass',p:[ball,[X(2.5),2.5]],n:1});
-      acts.push({k:'run', p:[[round(spots[3][0]),round(spots[3][1])],[X(3),8]],n:2});
+      acts.push({k:'run', p:[S1[3],[X(3),8]],n:2});
       return {w,h,marks:'box',goals:[goal],players,balls:[[X(w/2-2.6),2.2]],acts};
     }
     if(kind==='throwin'){
@@ -498,11 +500,11 @@
     const players=[],cones=[];
     const qx=round(w*0.12);
     for(let i=0;i<q;i++) players.push({x:qx,y:round(h-2.2-i*2.6),t:'a',n:i+1});
-    if(s.def!==0) players.push({x:round(w*0.52),y:round(h*0.42),t:'d'});
+    if(s.def!==0){const d=jp(R,[w*0.52,h*0.42],Math.min(w,h)*0.05); players.push({x:d[0],y:d[1],t:'d'});}
     if(s.server!==false) players.push({x:round(w*0.85),y:round(h*0.74),t:'n'});
     const start=[qx,round(h-2.2)];
-    const mid=[round(w*0.42),round(h*0.62)];
-    const shotFrom=[round(w*0.46),round(h*0.28)];
+    const mid=jp(R,[w*0.42,h*0.62],Math.min(w,h)*0.05);
+    const shotFrom=jp(R,[w*0.46,h*0.28],Math.min(w,h)*0.04);
     const acts=[];
     if(s.server!==false) acts.push({k:'pass',p:[[round(w*0.85),round(h*0.74)],start],n:1});
     acts.push({k:'drib',p:[start,mid],n:acts.length+1});
