@@ -10,7 +10,7 @@ Funkčný jednostránkový web (SPA) — všetko sa deje plynulo bez reloadov, s
 ## Čo funguje
 
 - **Generátor tréningov** — kategória → téma → jednotka po častiach so zručnosťami, piliermi a princípmi.
-  540 cvikov, na každú kombináciu kategória × téma × časť tri rôzne tréningy.
+  547 cvikov, na každú kombináciu kategória × téma × časť najmenej dva a spravidla tri rôzne tréningy.
 - **Tri plány** — Basic (zdarma, 5 tréningov na časť), **Tréner** (9,90 €/mes) a **Klub**
   (39 €/mes, viac trénerov, klubová knižnica, tímy a dochádzka). Zamknuté tréningy vedú na cenník.
 - **Vlastné cviky (`/moje-cviky`)** — tréner si uloží cvik súkromne, alebo ho zdieľa s komunitou.
@@ -44,11 +44,11 @@ Statická stránka — stačí otvoriť `index.html` alebo nasadiť na akýkoľv
 
 ## Cviky (databáza)
 
-**540 cvikov, každý postavený na konkrétnu tému.** Databáza je matica
+**547 cvikov, každý postavený na konkrétnu tému.** Databáza je matica
 **15 tém × 3 časti (PČ/HČ/ZČ) × vekové pásma** — každá zo 45 kombinácií
-téma×časť má 11–13 cvikov pokrývajúcich celý rozsah U6 – U19.
-Tréner tak na jednu kategóriu a časť tréningu dostane 3 rôzne tréningy,
-nie jeden.
+téma×časť má 12–13 cvikov pokrývajúcich celý rozsah U6 – U19.
+Žiadna kombinácia kategória × téma × časť nemá menej než dva cviky,
+drvivá väčšina má tri.
 
 Každý cvik má kompletnú metodickú štruktúru:
 
@@ -128,7 +128,8 @@ data/elite_pro.json             45 cvikov  (U16–U19)
 data/temy/tema_01..15.json     180 cvikov  (12 na tému: 3 časti × 4 pásma)
 data/temy/tema_16..17_u6*.json  45 cvikov  (najmladšia kategória)
 data/temy/tema_20..34_pro_*.json 180 cvikov (moderná metodika, 4 vekové pásma)
-data/scenes/*.json             540 predpisov nákresov (jeden na cvik)
+data/temy/tema_35_u6.json        7 cvikov  (najmladší — doplnenie U6)
+data/scenes/*.json             547 predpisov nákresov (jeden na cvik)
 ```
 
 ```bash
@@ -152,7 +153,7 @@ node    scripts/build_pdf.js      # -> cviky-databaza.pdf (svetlá paleta, na tl
    Ostatné sady zostávajú nedotknuté.
 3. Commitni a pushni — appka má cviky okamžite.
 
-**PDF databáza:** `cviky-databaza.pdf` — všetkých 540 cvikov s nákresmi na tlač
+**PDF databáza:** `cviky-databaza.pdf` — všetkých 547 cvikov s nákresmi na tlač
 (zostaví `node scripts/build_pdf.js`).
 
 ## Ďalšie kroky

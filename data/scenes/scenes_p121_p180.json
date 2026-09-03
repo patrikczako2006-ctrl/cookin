@@ -713,5 +713,147 @@
   "def": 8,
   "goalW": 7,
   "marks": "full"
+ },
+ "Q001": {
+  "shape": "free",
+  "w": 20,
+  "h": 15,
+  "att": 8,
+  "def": 0
+ },
+ "Q002": {
+  "shape": "free",
+  "w": 22,
+  "h": 16,
+  "att": 8,
+  "def": 0,
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 16,
+    "label": "domček",
+    "tone": "target"
+   },
+   {
+    "x": 18,
+    "y": 0,
+    "w": 4,
+    "h": 16,
+    "label": "domček",
+    "tone": "target"
+   }
+  ]
+ },
+ "Q003": {
+  "shape": "zones",
+  "w": 20,
+  "h": 14,
+  "att": 2,
+  "def": 2,
+  "zoneW": 3,
+  "targets": true,
+  "into": "pass",
+  "labelL": "kráľ",
+  "labelR": "kráľ"
+ },
+ "Q004": {
+  "shape": "zones",
+  "w": 20,
+  "h": 14,
+  "att": 3,
+  "def": 1,
+  "zoneW": 3,
+  "into": "pass",
+  "labelL": "strana A",
+  "labelR": "strana B"
+ },
+ "Q005": {
+  "shape": "ssg",
+  "w": 22,
+  "h": 14,
+  "att": 2,
+  "def": 2,
+  "gk": false,
+  "goalW": 2.2,
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 14,
+    "label": "polovica A"
+   },
+   {
+    "x": 11,
+    "y": 0,
+    "w": 11,
+    "h": 14,
+    "label": "polovica B"
+   }
+  ]
+ },
+ "Q006": {
+  "shape": "ssg",
+  "w": 20,
+  "h": 14,
+  "att": 2,
+  "def": 2,
+  "gk": false,
+  "goalW": 2.2,
+  "goals": [
+   {
+    "x": 0,
+    "y": 7,
+    "w": 2.2,
+    "side": "l"
+   },
+   {
+    "x": 20,
+    "y": 7,
+    "w": 2.2,
+    "side": "r"
+   },
+   {
+    "x": 10,
+    "y": 0,
+    "w": 2.2,
+    "side": "t"
+   },
+   {
+    "x": 10,
+    "y": 14,
+    "w": 2.2,
+    "side": "b"
+   }
+  ]
+ },
+ "Q007": {
+  "shape": "ssg",
+  "w": 22,
+  "h": 16,
+  "att": 2,
+  "def": 2,
+  "gk": false,
+  "goalW": 2.5,
+  "zones": [
+   {
+    "x": 0,
+    "y": 5,
+    "w": 5,
+    "h": 6,
+    "label": "domček",
+    "tone": "own"
+   },
+   {
+    "x": 17,
+    "y": 5,
+    "w": 5,
+    "h": 6,
+    "label": "domček",
+    "tone": "own"
+   }
+  ]
  }
 }
