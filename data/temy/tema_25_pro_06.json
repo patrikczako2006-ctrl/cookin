@@ -121,7 +121,7 @@
  },
  {
   "id": "P067",
-  "name": "Poziční hra 6v6+2 na dva dotyky",
+  "name": "Dva dotyky a prienik 6v6+2",
   "theme": "Prvým dotykom (ofenzívny / otvorený)",
   "phase": "HČ",
   "age": "U13–U15",
@@ -129,15 +129,15 @@
   "players": "12–18",
   "space": "44×32 m",
   "time": "22´",
-  "gear": "rozlišováky, méty na zóny",
-  "why": "Pri dvoch dotykoch musí byť prvý z nich užitočný. Hráč sa naučí, že príprava tela je dôležitejšia než technika samotného dotyku.",
-  "setup": "Poziční hra 6v6 s dvoma neutrálmi, ktorí hrajú vždy s tímom pri lopte. Métami sú vyznačené krajné zóny.",
-  "steps": "Tím drží loptu na maximálne dva dotyky. Bod získa za osem prihrávok v rade, dva body za prenos z jednej krajnej zóny do druhej.",
-  "constraints": "Neutráli hrajú na jeden dotyk. Kto prekročí limit, lopta ide súperovi.",
-  "progression": "Prijímajúci po prenose musí otvoriť loptu dopredu prvým dotykom. / Hráči v strede majú jeden dotyk.",
-  "regression": "Tri dotyky pre všetkých, neutráli dva.",
-  "coach": "Prvý dotyk vždy preč od najbližšieho súpera. Hlava sa hýbe pred každým prijatím.",
-  "load": "4×5 min hra, medzi sériami 2 min pauza."
+  "gear": "2 bránky + brankári, rozlišováky",
+  "why": "Obmedzenie na dva dotyky núti hráča rozhodnúť sa skôr, než dostane loptu. S bránkami sa z toho stáva zápasová zručnosť, nie cvičenie.",
+  "setup": "Hra 6v6 s dvoma neutrálmi, na koncoch bránky s brankármi.",
+  "steps": "Hrá sa na maximálne dva dotyky. Za osem prihrávok v rade je bod, za gól tri body — tím si musí vybrať, kedy prestane držať a pôjde dopredu.",
+  "constraints": "Hráč, ktorý dá gól z prvého dotyku, pridáva tímu bod navyše.",
+  "progression": "Jeden dotyk v poslednej tretine.",
+  "regression": "Tri dotyky a bez bodovania za prihrávky.",
+  "coach": "Rozhodni sa prv, než ti príde lopta. Prvý dotyk smerom, kam chceš hrať.",
+  "load": "4×5 min, medzi hrami 2 min."
  },
  {
   "id": "P068",

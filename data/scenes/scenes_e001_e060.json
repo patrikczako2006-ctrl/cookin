@@ -8,11 +8,12 @@
   "via": "drib"
  },
  "E002": {
-  "shape": "free",
-  "w": 30,
-  "h": 22,
-  "att": 8,
-  "def": 2
+  "shape": "gates",
+  "w": 26,
+  "h": 20,
+  "gates": 4,
+  "att": 6,
+  "via": "drib"
  },
  "E003": {
   "shape": "zones",
@@ -190,11 +191,13 @@
   "h": 14
  },
  "E023": {
-  "shape": "rondo",
-  "w": 10,
-  "h": 10,
+  "shape": "ssg",
+  "w": 26,
+  "h": 20,
   "att": 4,
-  "def": 1
+  "def": 1,
+  "gk": false,
+  "goalW": 3
  },
  "E024": {
   "shape": "ssg",
@@ -237,11 +240,28 @@
   "def": 2
  },
  "E029": {
-  "shape": "grid",
-  "w": 24,
-  "h": 18,
+  "shape": "ssg",
+  "w": 36,
+  "h": 26,
   "att": 5,
-  "def": 3
+  "def": 3,
+  "goalW": 5,
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 18.0,
+    "h": 26,
+    "label": "polovica A"
+   },
+   {
+    "x": 18.0,
+    "y": 0,
+    "w": 18.0,
+    "h": 26,
+    "label": "polovica B"
+   }
+  ]
  },
  "E030": {
   "shape": "gates",
@@ -520,12 +540,36 @@
   "def": 1
  },
  "E059": {
-  "shape": "grid",
-  "w": 36,
-  "h": 28,
+  "shape": "ssg",
+  "w": 45,
+  "h": 34,
   "att": 6,
   "def": 6,
-  "neu": 3
+  "neu": 3,
+  "goalW": 6,
+  "zones": [
+   {
+    "x": 0.0,
+    "y": 0,
+    "w": 15.0,
+    "h": 34,
+    "label": "vlastná tretina"
+   },
+   {
+    "x": 15.0,
+    "y": 0,
+    "w": 15.0,
+    "h": 34,
+    "label": "stredná zóna"
+   },
+   {
+    "x": 30.0,
+    "y": 0,
+    "w": 15.0,
+    "h": 34,
+    "label": "útočná tretina"
+   }
+  ]
  },
  "E060": {
   "shape": "ssg",
