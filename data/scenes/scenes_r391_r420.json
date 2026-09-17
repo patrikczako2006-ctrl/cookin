@@ -1,0 +1,382 @@
+{
+ "R391": {
+  "shape": "duel",
+  "w": 16,
+  "h": 12,
+  "att": 1,
+  "def": 1,
+  "goalsN": 1,
+  "goalW": 4
+ },
+ "R392": {
+  "shape": "duel",
+  "w": 18,
+  "h": 14,
+  "att": 1,
+  "def": 1,
+  "goalsN": 2,
+  "goalW": 3
+ },
+ "R393": {
+  "shape": "duel",
+  "w": 22,
+  "h": 16,
+  "att": 2,
+  "def": 2,
+  "goalsN": 1,
+  "goalW": 5
+ },
+ "R394": {
+  "shape": "duel",
+  "w": 24,
+  "h": 18,
+  "att": 1,
+  "def": 1,
+  "goalsN": 1,
+  "goalW": 5
+ },
+ "R395": {
+  "shape": "zones",
+  "w": 28,
+  "h": 20,
+  "att": 2,
+  "def": 1,
+  "zoneW": 4,
+  "into": "pass",
+  "labelL": "štart",
+  "labelR": "cieľová čiara"
+ },
+ "R396": {
+  "shape": "press",
+  "w": 36,
+  "h": 26,
+  "att": 4,
+  "def": 4,
+  "zoneX": 20,
+  "label": "posun bloku"
+ },
+ "R397": {
+  "shape": "press",
+  "w": 38,
+  "h": 26,
+  "att": 4,
+  "def": 3,
+  "zoneX": 26,
+  "label": "spúšťač tlaku"
+ },
+ "R398": {
+  "shape": "press",
+  "w": 34,
+  "h": 26,
+  "att": 5,
+  "def": 5,
+  "zoneX": 18,
+  "label": "6 sekúnd po strate"
+ },
+ "R399": {
+  "shape": "press",
+  "w": 32,
+  "h": 24,
+  "att": 3,
+  "def": 1,
+  "zoneX": 20,
+  "label": "tieň prihrávky"
+ },
+ "R400": {
+  "shape": "press",
+  "w": 40,
+  "h": 28,
+  "att": 3,
+  "def": 3,
+  "gk": true,
+  "goalW": 7,
+  "zoneX": 24,
+  "label": "priestor za líniou"
+ },
+ "R401": {
+  "shape": "ssg",
+  "w": 24,
+  "h": 18,
+  "att": 2,
+  "def": 2,
+  "gk": false,
+  "goalW": 3
+ },
+ "R402": {
+  "shape": "ssg",
+  "w": 26,
+  "h": 20,
+  "att": 3,
+  "def": 3,
+  "gk": false,
+  "goalW": 3
+ },
+ "R403": {
+  "shape": "ssg",
+  "w": 28,
+  "h": 20,
+  "att": 3,
+  "def": 3,
+  "gk": false,
+  "goalW": 3,
+  "zones": [
+   {
+    "x": 9,
+    "y": 0,
+    "w": 10,
+    "h": 20,
+    "label": "stredný koridor"
+   }
+  ]
+ },
+ "R404": {
+  "shape": "press",
+  "w": 38,
+  "h": 28,
+  "att": 5,
+  "def": 5,
+  "gk": true,
+  "goalW": 6,
+  "zoneX": 22,
+  "label": "tlak a istenie"
+ },
+ "R405": {
+  "shape": "ssg",
+  "w": 40,
+  "h": 30,
+  "att": 5,
+  "def": 5,
+  "goalW": 6,
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 40,
+    "h": 7,
+    "label": "krajný koridor"
+   },
+   {
+    "x": 0,
+    "y": 23,
+    "w": 40,
+    "h": 7,
+    "label": "krajný koridor"
+   }
+  ]
+ },
+ "R406": {
+  "shape": "ssg",
+  "w": 48,
+  "h": 34,
+  "att": 6,
+  "def": 6,
+  "goalW": 6,
+  "zones": [
+   {
+    "x": 0,
+    "y": 11,
+    "w": 48,
+    "h": 12,
+    "label": "stredný koridor"
+   }
+  ]
+ },
+ "R407": {
+  "shape": "ssg",
+  "w": 52,
+  "h": 38,
+  "att": 7,
+  "def": 7,
+  "goalW": 7,
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 17.3,
+    "h": 38,
+    "label": "vysoký tlak"
+   },
+   {
+    "x": 17.3,
+    "y": 0,
+    "w": 17.4,
+    "h": 38,
+    "label": "stredná zóna"
+   },
+   {
+    "x": 34.7,
+    "y": 0,
+    "w": 17.3,
+    "h": 38,
+    "label": "nízky blok"
+   }
+  ]
+ },
+ "R408": {
+  "shape": "ssg",
+  "w": 64,
+  "h": 46,
+  "att": 9,
+  "def": 9,
+  "goalW": 7,
+  "zones": [
+   {
+    "x": 0,
+    "y": 0,
+    "w": 18,
+    "h": 46,
+    "label": "posledná tretina"
+   },
+   {
+    "x": 46,
+    "y": 0,
+    "w": 18,
+    "h": 46,
+    "label": "posledná tretina"
+   }
+  ]
+ },
+ "R409": {
+  "shape": "ssg",
+  "w": 62,
+  "h": 46,
+  "att": 9,
+  "def": 9,
+  "goalW": 7,
+  "marks": "half"
+ },
+ "R410": {
+  "shape": "ssg",
+  "w": 60,
+  "h": 44,
+  "att": 8,
+  "def": 8,
+  "goalW": 7,
+  "marks": "half"
+ },
+ "R411": {
+  "shape": "ssg",
+  "w": 24,
+  "h": 18,
+  "att": 3,
+  "def": 3,
+  "gk": false,
+  "goalW": 3
+ },
+ "R412": {
+  "shape": "ssg",
+  "w": 28,
+  "h": 20,
+  "att": 4,
+  "def": 4,
+  "gk": false,
+  "goalW": 3,
+  "zones": [
+   {
+    "x": 0,
+    "y": 6,
+    "w": 6,
+    "h": 8,
+    "label": "zóna pred bránkou"
+   },
+   {
+    "x": 22,
+    "y": 6,
+    "w": 6,
+    "h": 8,
+    "label": "zóna pred bránkou"
+   }
+  ]
+ },
+ "R413": {
+  "shape": "ssg",
+  "w": 38,
+  "h": 28,
+  "att": 5,
+  "def": 5,
+  "goalW": 6,
+  "marks": "half"
+ },
+ "R414": {
+  "shape": "ssg",
+  "w": 40,
+  "h": 30,
+  "att": 5,
+  "def": 5,
+  "goalW": 6,
+  "zones": [
+   {
+    "x": 0,
+    "y": 10,
+    "w": 40,
+    "h": 10,
+    "label": "stredný koridor"
+   }
+  ]
+ },
+ "R415": {
+  "shape": "ssg",
+  "w": 48,
+  "h": 34,
+  "att": 6,
+  "def": 6,
+  "goalW": 6,
+  "zones": [
+   {
+    "x": 14,
+    "y": 0,
+    "w": 20,
+    "h": 34,
+    "label": "krátky blok"
+   }
+  ]
+ },
+ "R416": {
+  "shape": "ssg",
+  "w": 52,
+  "h": 38,
+  "att": 7,
+  "def": 8,
+  "goalW": 7
+ },
+ "R417": {
+  "shape": "press",
+  "w": 62,
+  "h": 46,
+  "att": 9,
+  "def": 9,
+  "gk": true,
+  "goalW": 7,
+  "zoneX": 38,
+  "label": "spúšťač tlaku"
+ },
+ "R418": {
+  "shape": "ssg",
+  "w": 64,
+  "h": 48,
+  "att": 9,
+  "def": 9,
+  "goalW": 7,
+  "marks": "half"
+ },
+ "R419": {
+  "shape": "press",
+  "w": 60,
+  "h": 46,
+  "att": 9,
+  "def": 9,
+  "gk": true,
+  "goalW": 7,
+  "zoneX": 40,
+  "label": "nízky blok"
+ },
+ "R420": {
+  "shape": "multi",
+  "fields": 2,
+  "fw": 30,
+  "fh": 24,
+  "att": 2,
+  "cols": 1,
+  "gap": 3
+ }
+}
