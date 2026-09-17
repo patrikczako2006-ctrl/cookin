@@ -13,6 +13,12 @@ Funkčný jednostránkový web (SPA) — všetko sa deje plynulo bez reloadov, s
   547 cvikov, na každú kombináciu kategória × téma × časť najmenej dva a spravidla tri rôzne tréningy.
 - **Tri plány** — Basic (zdarma, 5 tréningov na časť), **Tréner** (9,90 €/mes) a **Klub**
   (39 €/mes, viac trénerov, klubová knižnica, tímy a dochádzka). Zamknuté tréningy vedú na cenník.
+- **Tréning na mieru** — tréner zadá, s čím dnes naozaj príde na ihrisko: **počet hráčov,
+  dĺžku tréningu, plochu a vybavenie**. Cviky, ktoré na to sadnú, idú dopredu, minutáž blokov
+  sa prepočíta a pri každom cviku je konkrétna **úprava na dnešok** — rozdelenie na skupiny,
+  zmenšenie plochy na presné rozmery, náhrada za chýbajúce bránky či rozlišováky.
+  Úprava ide aj na vytlačený hárok. Vek má prednosť pred podmienkami — cvik z inej kategórie
+  sa nedostane dopredu len preto, že dnes lepšie vychádza na počet hráčov.
 - **Tréning na ihrisko** — v pláne si tréner pri každej časti vyberie jeden cvik, panel „Môj tréning"
   ho vie **vytlačiť / uložiť do PDF** (A4, tri bloky s nákresmi a legendou), **uložiť** medzi
   *Moje tréningy* (`/moje-treningy`) alebo **zdieľať odkazom**
