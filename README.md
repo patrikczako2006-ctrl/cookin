@@ -13,6 +13,10 @@ Funkčný jednostránkový web (SPA) — všetko sa deje plynulo bez reloadov, s
   547 cvikov, na každú kombináciu kategória × téma × časť najmenej dva a spravidla tri rôzne tréningy.
 - **Tri plány** — Basic (zdarma, 5 tréningov na časť), **Tréner** (9,90 €/mes) a **Klub**
   (39 €/mes, viac trénerov, klubová knižnica, tímy a dochádzka). Zamknuté tréningy vedú na cenník.
+- **Tréning na ihrisko** — v pláne si tréner pri každej časti vyberie jeden cvik, panel „Môj tréning"
+  ho vie **vytlačiť / uložiť do PDF** (A4, tri bloky s nákresmi a legendou), **uložiť** medzi
+  *Moje tréningy* (`/moje-treningy`) alebo **zdieľať odkazom**
+  (`#/trening?c=U13&t=<téma>&d=E016,P079,N071`, s `&print=1` sa tlač otvorí sama).
 - **Vlastné cviky (`/moje-cviky`)** — tréner si uloží cvik súkromne, alebo ho zdieľa s komunitou.
   Pri zdieľaní musí potvrdiť, že je to jeho vlastný cvik (ochrana pred kopírovaným obsahom).
 - **Moderácia v admine** — fronta odoslaných cvikov, schválenie/zamietnutie s dôvodom.
@@ -160,5 +164,5 @@ node    scripts/build_pdf.js      # -> cviky-databaza.pdf (svetlá paleta, na tl
 
 - Reálny backend + platobná brána (predplatné Pro).
 - Drag & drop upload Excelu priamo v admine (namiesto skriptu).
-- Kombinačný engine (skladanie viacerých cvikov do jednej jednotky).
-- Správa klubu (tímy, hráči, dochádzka), ročný plán.
+- Správa klubu (tímy, hráči, dochádzka), týždenný a ročný plán.
+- Uložené tréningy zo `localStorage` presunúť na účet (synchronizácia medzi zariadeniami).

@@ -234,6 +234,7 @@ optgroup{background:var(--surface);color:var(--text)}option{background:var(--sur
 .drill .meta span{font-size:11px;font-weight:600;color:var(--muted);background:var(--ink2);border:1px solid var(--line);border-radius:7px;padding:4px 8px}
 .drill .open{margin-top:12px;font-size:12.5px;font-weight:700;color:var(--acc);display:inline-flex;align-items:center;gap:6px}
 .drill.locked{cursor:pointer}
+.dopen{display:block;width:100%;text-align:left;background:none;border:0;padding:0;margin:0;color:inherit;font:inherit;cursor:pointer}
 .drill.locked .inner{filter:blur(5px);opacity:.55;pointer-events:none;user-select:none}
 .drill.locked .lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
   background:linear-gradient(180deg,rgba(15,18,25,.5),rgba(15,18,25,.82));text-align:center;padding:12px}
@@ -383,6 +384,63 @@ body.noscroll{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .prbox.down b{color:var(--warn)}
 @media (max-width:560px){.prgrid{grid-template-columns:1fr}}
 .dthumb{border-radius:10px;overflow:hidden;margin:-2px 0 12px;background:var(--ink2);border:1px solid var(--line);line-height:0}
+/* --- výber cvikov do jednotky + panel --- */
+.drill .pick{position:absolute;top:10px;right:10px;z-index:2;width:30px;height:30px;border-radius:50%;
+  border:1.5px solid var(--line);background:rgba(10,18,14,.82);color:var(--faint);
+  display:grid;place-items:center;cursor:pointer;transition:.16s;backdrop-filter:blur(4px)}
+.drill .pick:hover{border-color:var(--acc);color:var(--acc)}
+.drill.chosen .pick{background:var(--acc);border-color:var(--acc);color:#06120B}
+.drill.chosen{outline:2px solid var(--acc);outline-offset:2px}
+.drill{position:relative}
+.unit{position:sticky;bottom:0;z-index:40;margin-top:22px;
+  background:linear-gradient(180deg,rgba(11,20,16,.86),rgba(11,20,16,.97));
+  border:1px solid var(--line);border-radius:16px;padding:14px 16px;backdrop-filter:blur(10px)}
+.unit .uh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.unit .uh b{font-family:var(--f-disp);font-size:14px}
+.unit .uh .sub{font-size:12px;color:var(--faint)}
+.upicks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.upick{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--ink2);min-width:0}
+.upick .pc2{font-size:10.5px;font-weight:800;color:var(--acc);font-family:var(--f-disp)}
+.upick .nm{font-size:12px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.upick.empty .nm{color:var(--faint)}
+.ubtns{display:flex;gap:8px;flex-wrap:wrap}
+/* --- tlačová zostava tréningu --- */
+.sheet{max-width:900px;margin:0 auto}
+.sheet .sh{border-bottom:2px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+.sheet .sh h2{font-size:26px;margin:4px 0 6px}
+.sheet .sh .m{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--faint)}
+.sheet .sh .m span{border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.smeta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.smeta span{font-size:11px;font-weight:600;color:var(--muted);background:var(--ink2);border:1px solid var(--line);border-radius:7px;padding:4px 8px}
+.sblock{border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px;background:var(--ink2)}
+.sblock .bh{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.sblock .bh .pc{font-family:var(--f-disp);font-weight:800;color:var(--acc);font-size:13px}
+.sblock .bh h3{font-size:18px;margin:0}
+.sblock .bh .t{margin-left:auto;font-size:12px;color:var(--faint)}
+.sbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:16px;align-items:start}
+.sbody .fig{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;line-height:0}
+.sbody .fig svg{display:block;width:100%;height:auto}
+.sbody .tx p{margin:0 0 7px;font-size:13px;line-height:1.5}
+.sbody .tx b{color:var(--acc)}
+@media(max-width:760px){.sbody{grid-template-columns:1fr}.upicks{grid-template-columns:1fr}}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff!important;color:#17231D!important}
+  nav,header,footer,#cookie,#toast,.modal,.noprint,#bgCanvas,.crumb{display:none!important}
+  .page{padding:0!important}
+  .lg-ball{background:#16233A!important;box-shadow:none!important}
+  .lg-mann{border-color:#5A6B61!important}
+  .lg-run{border-top-color:#55655C!important}
+  .dlegend span{color:#5A6B61!important}
+  .sheet{max-width:none}
+  .sblock{page-break-inside:avoid;border:1px solid #CBD8D0;background:#fff}
+  .sheet .sh{border-color:#CBD8D0}
+  .sheet .sh .m span,.sbody .fig,.smeta span{border-color:#CBD8D0}
+  .smeta span{background:#fff;color:#5A6B61}
+  .sbody .tx b,.sblock .bh .pc{color:#1F7A45}
+  .sheet .sh .m,.sblock .bh .t{color:#5A6B61}
+  h2,h3{color:#17231D!important}
+}
 .dthumb svg{display:block;width:100%;height:auto}
 
 /* ---------- FOOTER ---------- */
@@ -485,6 +543,7 @@ footer .bottom .sp{flex:1}
         <ul>
           <li><a href="#/prihlasenie" data-link>Prihlásenie</a></li>
           <li><a href="#/registracia" data-link>Registrácia</a></li>
+          <li><a href="#/moje-treningy" data-link>Moje tréningy</a></li>
           <li><a href="#/moje-cviky" data-link>Moje cviky</a></li>
           <li><a href="#/ucet" data-link>Môj účet</a></li>
         </ul>
@@ -674,15 +733,20 @@ footer .bottom .sp{flex:1}
   function zone(m,p,z){
     const x=m.X(z.x),y=m.Y(z.y),w=m.L(z.w),h=m.L(z.h);
     const fill=z.fill||(z.tone==='target'?p.zoneTarget:z.tone==='own'?p.zoneOwn:p.zone);
-    let s=`<rect x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" fill="${fill}"`
+    return `<rect x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" fill="${fill}"`
       +` stroke="${p.zoneLine}" stroke-width="${f(m.C(0.13,0.08,0.14))}"`
       +` stroke-dasharray="${f(m.U*0.7)} ${f(m.U*0.55)}"/>`;
-    if(z.label){
-      const fs=m.U*0.95, tx=x+w/2, ty=y+fs*1.35;
-      s+=`<text x="${f(tx)}" y="${f(ty)}" font-size="${f(fs)}" text-anchor="middle" fill="${p.txt}"`
-        +` font-family="${FONT}" font-weight="700" letter-spacing=".4">${esc(z.label)}</text>`;
-    }
-    return s;
+  }
+  /* popis zóny sa kreslí až nakoniec a na podložke — inak ho prekryje hráč */
+  function zoneLabel(m,p,z){
+    if(!z.label) return '';
+    const x=m.X(z.x), y=m.Y(z.y), w=m.L(z.w);
+    const fs=m.U*0.95, tx=x+w/2, ty=y+fs*1.45;
+    const tw=String(z.label).length*fs*0.55+fs*0.8;
+    return `<rect x="${f(tx-tw/2)}" y="${f(ty-fs*1.05)}" width="${f(tw)}" height="${f(fs*1.45)}"`
+      +` rx="${f(fs*0.4)}" fill="${p.pitch}" fill-opacity=".82"/>`
+      +`<text x="${f(tx)}" y="${f(ty)}" font-size="${f(fs)}" text-anchor="middle" fill="${p.txt}"`
+      +` font-family="${FONT}" font-weight="700" letter-spacing=".4">${esc(z.label)}</text>`;
   }
 
   /* ---------- čiary ihriska ---------- */
@@ -865,6 +929,7 @@ footer .bottom .sp{flex:1}
 
     players.forEach(pl=>s+=player(m,p,pl));
     (scene.balls||(scene.ball?[scene.ball]:[])).forEach(b=>s+=ball(m,p,b[0],b[1]));
+    (scene.zones||[]).forEach(z=>s+=zoneLabel(m,p,z));
     s+=badges;
     if(scene.dims!==false) s+=dims(m,p);
 
@@ -1018,6 +1083,8 @@ const store={
   get visits(){return +localStorage.getItem('zs_visits')||0},
   set visits(v){localStorage.setItem('zs_visits',String(v))},
   /* vlastné cviky trénera (súkromné) */
+  get mySessions(){try{return JSON.parse(localStorage.getItem('zs_sess'))||[]}catch(e){return []}},
+  set mySessions(v){localStorage.setItem('zs_sess',JSON.stringify(v))},
   get myDrills(){try{return JSON.parse(localStorage.getItem('zs_my'))||[]}catch(e){return []}},
   set myDrills(v){localStorage.setItem('zs_my',JSON.stringify(v))},
   /* cviky odoslané komunite: {..., status:'pending|approved|rejected', author, reason} */
@@ -1083,7 +1150,7 @@ function phaseTimes(total){let acc=0,out=[];PHASES.forEach((p,i)=>{let t=Math.ro
 function renderNavAuth(){
   const el=$('#navAuth');const u=store.user;
   if(u){
-    el.innerHTML=`<a href="#/moje-cviky" data-link>Moje cviky</a> <a href="#/ucet" data-link>Účet</a> <span class="planbadge ${isPro()?'pro':''}">${planLabel()}</span>`;
+    el.innerHTML=`<a href="#/moje-treningy" data-link>Moje tréningy</a> <a href="#/moje-cviky" data-link>Moje cviky</a> <a href="#/ucet" data-link>Účet</a> <span class="planbadge ${isPro()?'pro':''}">${planLabel()}</span>`;
   }else{
     el.innerHTML=`<a href="#/prihlasenie" data-link>Prihlásiť</a> <a class="btn solid sm" href="#/cennik" data-link>Vyskúšať Pro</a>`;
   }
@@ -1265,7 +1332,64 @@ function initGenerator(){
   $('#gbtn').onclick=()=>{gen.theme=sel.value;buildSession(sel.value);};
   $('#grand').onclick=()=>{const all=GROUPS.flatMap(g=>g.themes.map(t=>t.name));const pick=all[Math.floor(Math.random()*all.length)];sel.value=pick;gen.theme=pick;buildSession(pick);};
 }
-function buildSession(themeName){
+/* --- jednotka, ktorú si tréner poskladá a vezme na ihrisko --- */
+const unit={pick:{}};
+function unitPanel(cat,theme){
+  const rows=PHASES.map(p=>{
+    const it=(curEx[p.code]||[]).find(x=>x.key===unit.pick[p.code]);
+    const nm=it&&it.real?it.e.name:'zatiaľ nevybraté';
+    return `<div class="upick${it?'':' empty'}"><div class="pc2">${p.code}</div><div class="nm">${esc(nm)}</div></div>`;
+  }).join('');
+  const done=PHASES.filter(p=>unit.pick[p.code]).length;
+  return `<div class="unit noprint" id="unitBar">
+    <div class="uh"><b>Môj tréning</b><span class="sub">${done} z 3 častí vybratých</span>
+      <span class="sp"></span><span class="sub">${esc(cat.code)} · ${esc(theme.name)}</span></div>
+    <div class="upicks">${rows}</div>
+    <div class="ubtns">
+      <button class="btn solid sm" id="uPrint">Vytlačiť / PDF</button>
+      <button class="btn ghost sm" id="uSave">Uložiť tréning</button>
+      <button class="btn ghost sm" id="uShare">Zdieľať odkaz</button>
+    </div></div>`;
+}
+/* odkaz na tréning: kategória, téma a id vybraných cvikov */
+function unitLink(){
+  const cat=CATEGORIES[gen.cat];
+  const ids=PHASES.map(p=>{
+    const it=(curEx[p.code]||[]).find(x=>x.key===unit.pick[p.code]);
+    return it&&it.real?(it.e.id||''):'';
+  });
+  return `#/trening?c=${encodeURIComponent(cat.code)}&t=${encodeURIComponent(gen.theme||'')}&d=${ids.join(',')}`;
+}
+function bindUnit(out,cat,theme){
+  out.querySelectorAll('[data-pick]').forEach(b=>{
+    const go=()=>{const ph=b.dataset.phase;
+      unit.pick[ph]=unit.pick[ph]===b.dataset.key?null:b.dataset.key;
+      buildSession(theme.name,true);};
+    b.onclick=e=>{e.stopPropagation();go();};
+    b.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}};
+  });
+  const P=$('#uPrint'),S=$('#uSave'),Z=$('#uShare');
+  if(P)P.onclick=()=>{location.hash=unitLink()+'&print=1';};
+  if(S)S.onclick=()=>saveUnit(cat,theme);
+  if(Z)Z.onclick=()=>{
+    const url=location.origin+location.pathname+unitLink();
+    (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject())
+      .then(()=>toast('Odkaz skopírovaný do schránky.'))
+      .catch(()=>{location.hash=unitLink();toast('Odkaz je v adresnom riadku.');});
+  };
+}
+function saveUnit(cat,theme){
+  const ids=PHASES.map(p=>{
+    const it=(curEx[p.code]||[]).find(x=>x.key===unit.pick[p.code]);
+    return it&&it.real?(it.e.id||''):'';
+  });
+  if(!ids.some(Boolean)){toast('Najprv vyber aspoň jeden cvik.');return;}
+  const list=store.mySessions;
+  list.unshift({id:'s'+Date.now(),cat:cat.code,theme:theme.name,ids,at:Date.now()});
+  store.mySessions=list.slice(0,60);
+  toast('Tréning uložený v Moje tréningy.');
+}
+function buildSession(themeName,keepScroll){
   const found=findTheme(themeName);if(!found)return;
   const {theme,group}=found;const cat=CATEGORIES[gen.cat];const dur=cat.durations[0];const times=phaseTimes(dur);
   const out=$('#gout');
@@ -1284,6 +1408,8 @@ function buildSession(themeName){
     const skills=phaseSkills(theme,group,p.code);
     const items=itemsFor(theme,p.code);
     curEx[p.code]=items;
+    /* prvý cvik predvyberieme, aby mal tréner jednotku hotovú hneď */
+    if(!keepScroll){const f=items.find(x=>x.real);unit.pick[p.code]=f?f.key:null;}
     const total=items.length;
     const limit=isPro()?total:BASIC_LIMIT;
     const shown=items.slice(0,limit);
@@ -1305,11 +1431,13 @@ function buildSession(themeName){
           <span class="sp"></span><a class="btn solid sm" href="#/cennik" data-link>Odomknúť Pro</a></div>`:''}
       </div></div>`;
   });
+  html+=unitPanel(cat,theme);
   out.innerHTML=html;
-  out.querySelectorAll('.drill[data-open]').forEach(c=>c.onclick=()=>openDrill(c.dataset.phase,c.dataset.key));
+  out.querySelectorAll('[data-open]').forEach(c=>c.onclick=()=>openDrill(c.dataset.phase,c.dataset.key));
   out.querySelectorAll('.drill.locked').forEach(c=>c.onclick=()=>{location.hash='#/cennik';});
+  bindUnit(out,cat,theme);
   initReveal();
-  out.scrollIntoView({behavior:'smooth',block:'start'});
+  if(!keepScroll) out.scrollIntoView({behavior:'smooth',block:'start'});
 }
 /* reálne cviky pre tému+fázu; ak žiadne, fallback na placeholder varianty */
 let curEx={};
@@ -1370,7 +1498,11 @@ function drillCard(it,phase,locked){
     <div class="meta">${meta.map(x=>`<span>${esc(x)}</span>`).join('')}</div>
     <span class="open">Otvoriť <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 3l5 4-5 4"/></svg></span></div>`;
   if(locked)return `<div class="drill locked">${inner}<div class="lock"><span class="ic"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg></span><b>Pro</b><span>Odomkni v cenníku</span></div></div>`;
-  return `<button class="drill" data-open data-phase="${phase}" data-key="${it.key}">${inner}</button>`;
+  const chosen=unit.pick[phase]===it.key;
+  const pick=`<span class="pick" data-pick data-phase="${phase}" data-key="${it.key}" role="button" tabindex="0"
+    title="${chosen?'Vybraté do tréningu':'Vybrať do tréningu'}" aria-label="${chosen?'Vybraté do tréningu':'Vybrať do tréningu'}">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 7.5l3.5 3.5L12 3.5"/></svg></span>`;
+  return `<div class="drill${chosen?' chosen':''}">${pick}<button class="dopen" data-open data-phase="${phase}" data-key="${it.key}">${inner}</button></div>`;
 }
 function openDrill(phase,key){
   const it=(curEx[phase]||[]).find(x=>x.key===key); if(!it)return;
@@ -2008,6 +2140,92 @@ function initCanvas(){
 function stopCanvas(){if(canvasRAF)cancelAnimationFrame(canvasRAF);canvasRAF=null;}
 
 /* =========================================================================
+   TRÉNING NA IHRISKO — tlačová zostava a uložené tréningy
+   ========================================================================= */
+const exById=id=>EXERCISES.find(e=>e.id===id)||store.myDrills.find(d=>d.id===id)||null;
+function qs(){const i=location.hash.indexOf('?');const o={};
+  if(i<0)return o;
+  new URLSearchParams(location.hash.slice(i+1)).forEach((v,k)=>o[k]=v);return o;}
+function sheetBlock(p,mins,e){
+  if(!e) return `<div class="sblock"><div class="bh"><span class="pc">${p.code}</span><h3>${p.name}</h3>
+    <span class="t">${mins}´</span></div><p class="purpose">Cvik nebol vybratý.</p></div>`;
+  const meta=[e.age,(e.players?e.players+' hráčov':''),e.space,(e.time||''),e.gear].filter(Boolean);
+  const row=(l,v)=>v?`<p><b>${l}</b> ${esc(v)}</p>`:'';
+  return `<div class="sblock">
+    <div class="bh"><span class="pc">${p.code}</span><h3>${esc(e.name)}</h3><span class="t">${mins}´</span></div>
+    <div class="smeta">${meta.map(x=>`<span>${esc(x)}</span>`).join('')}</div>
+    <div class="sbody">
+      <div class="fig">${window.Diagram?Diagram.drillSVG(e,{theme:'light'}):''}</div>
+      <div class="tx">
+        ${row('Prečo to trénujeme:',e.why)}
+        ${row('Rozostavenie:',e.setup)}
+        ${row('Priebeh:',e.steps)}
+        ${row('Podmienky:',e.constraints)}
+        ${row('Na čo dbať:',e.coach)}
+        ${row('Dávkovanie:',e.load)}
+      </div></div></div>`;
+}
+function sessionSheetView(){
+  const q=qs();
+  const cat=CATEGORIES.find(c=>c.code===q.c)||CATEGORIES[gen.cat]||CATEGORIES[0];
+  const found=findTheme(q.t||'');
+  const ids=String(q.d||'').split(',');
+  const dur=cat.durations[0], times=phaseTimes(dur);
+  const d=new Date(), dt=`${d.getDate()}. ${d.getMonth()+1}. ${d.getFullYear()}`;
+  const blocks=PHASES.map((p,i)=>sheetBlock(p,times[i],exById(ids[i]))).join('');
+  const gear=[...new Set(ids.map(exById).filter(Boolean).flatMap(e=>String(e.gear||'').split(/,\s*/)))]
+    .filter(Boolean).join(', ');
+  return `<div class="page"><div class="wrap sheet">
+    <div class="noprint" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
+      <button class="btn solid sm" id="shPrint">Vytlačiť / uložiť ako PDF</button>
+      <a class="btn ghost sm" href="#/generator" data-link>Späť do generátora</a>
+      <a class="btn ghost sm" href="#/moje-treningy" data-link>Moje tréningy</a>
+    </div>
+    <div class="sh">
+      <div class="m"><span>${esc(cat.code)}</span><span>${dur}´</span><span>${dt}</span></div>
+      <h2>${esc(found?found.theme.name:(q.t||'Tréningová jednotka'))}</h2>
+      <div class="m">${gear?`<span>Pomôcky: ${esc(gear)}</span>`:''}</div>
+    </div>
+    ${blocks}
+    <div class="sblock"><div class="bh"><span class="pc">?</span><h3>Vysvetlivky</h3></div>
+      <div class="dlegend">${window.Diagram?Diagram.legendItems.map(([k,t])=>`<span><i class="lg lg-${k}"></i>${t}</span>`).join(''):''}</div>
+    </div>
+  </div></section>`;
+}
+function initSessionSheet(){
+  const b=$('#shPrint'); if(b)b.onclick=()=>window.print();
+  if(qs().print==='1') setTimeout(()=>window.print(),350);
+}
+function mySessionsView(){
+  const list=store.mySessions;
+  const rows=list.map(s=>{
+    const names=s.ids.map(exById).map(e=>e?e.name:'—');
+    const d=new Date(s.at);
+    return `<div class="drill" style="padding:14px">
+      <div class="dnum">${esc(s.cat)} · ${d.getDate()}. ${d.getMonth()+1}. ${d.getFullYear()}</div>
+      <h4>${esc(s.theme)}</h4>
+      <div class="meta">${names.map((n,i)=>`<span>${PHASES[i].code}: ${esc(n)}</span>`).join('')}</div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <a class="btn solid sm" href="#/trening?c=${encodeURIComponent(s.cat)}&t=${encodeURIComponent(s.theme)}&d=${encodeURIComponent(s.ids.join(','))}" data-link>Otvoriť</a>
+        <button class="btn ghost sm" data-del="${esc(s.id)}">Zmazať</button>
+      </div></div>`;
+  }).join('');
+  return `<div class="page"><div class="wrap">
+    <div class="crumb"><a href="#/" data-link>Domov</a> / Moje tréningy</div>
+    <div class="shead"><div class="ttl"><h2>Moje tréningy</h2>
+      <p>Tréningy, ktoré si si uložil v generátore. Otvor ich a vytlač si ich na ihrisko.</p></div></div>
+    ${list.length?`<div class="dgrid">${rows}</div>`
+      :`<p class="purpose">Zatiaľ nemáš uložený žiadny tréning. Zlož si jeden v <a href="#/generator" data-link>generátore</a> a daj Uložiť.</p>`}
+  </div></div>`;
+}
+function initMySessions(){
+  $$('#view [data-del]').forEach(b=>b.onclick=()=>{
+    store.mySessions=store.mySessions.filter(s=>s.id!==b.dataset.del);
+    toast('Tréning zmazaný.'); rerender();
+  });
+}
+
+/* =========================================================================
    ROUTER
    ========================================================================= */
 const routes={
@@ -2019,6 +2237,8 @@ const routes={
   '/registracia':{render:()=>authView('register'),after:()=>initAuth('register')},
   '/ucet':{render:accountView,after:initAccount},
   '/moje-cviky':{render:myDrillsView,after:initMyDrills},
+  '/trening':{render:sessionSheetView,after:initSessionSheet},
+  '/moje-treningy':{render:mySessionsView,after:initMySessions},
   '/pridat-cvik':{render:addDrillView,after:initAddDrill},
   '/pokladna':{render:checkoutView,after:initCheckout},
   '/hotovo':{render:()=>successView('Vitaj v Pro! 🎉','Odomkol si všetky tréningy pre každú tému a časť.','#/generator','Otvoriť generátor'),after:()=>{}},

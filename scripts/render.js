@@ -148,15 +148,20 @@
   function zone(m,p,z){
     const x=m.X(z.x),y=m.Y(z.y),w=m.L(z.w),h=m.L(z.h);
     const fill=z.fill||(z.tone==='target'?p.zoneTarget:z.tone==='own'?p.zoneOwn:p.zone);
-    let s=`<rect x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" fill="${fill}"`
+    return `<rect x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" fill="${fill}"`
       +` stroke="${p.zoneLine}" stroke-width="${f(m.C(0.13,0.08,0.14))}"`
       +` stroke-dasharray="${f(m.U*0.7)} ${f(m.U*0.55)}"/>`;
-    if(z.label){
-      const fs=m.U*0.95, tx=x+w/2, ty=y+fs*1.35;
-      s+=`<text x="${f(tx)}" y="${f(ty)}" font-size="${f(fs)}" text-anchor="middle" fill="${p.txt}"`
-        +` font-family="${FONT}" font-weight="700" letter-spacing=".4">${esc(z.label)}</text>`;
-    }
-    return s;
+  }
+  /* popis zóny sa kreslí až nakoniec a na podložke — inak ho prekryje hráč */
+  function zoneLabel(m,p,z){
+    if(!z.label) return '';
+    const x=m.X(z.x), y=m.Y(z.y), w=m.L(z.w);
+    const fs=m.U*0.95, tx=x+w/2, ty=y+fs*1.45;
+    const tw=String(z.label).length*fs*0.55+fs*0.8;
+    return `<rect x="${f(tx-tw/2)}" y="${f(ty-fs*1.05)}" width="${f(tw)}" height="${f(fs*1.45)}"`
+      +` rx="${f(fs*0.4)}" fill="${p.pitch}" fill-opacity=".82"/>`
+      +`<text x="${f(tx)}" y="${f(ty)}" font-size="${f(fs)}" text-anchor="middle" fill="${p.txt}"`
+      +` font-family="${FONT}" font-weight="700" letter-spacing=".4">${esc(z.label)}</text>`;
   }
 
   /* ---------- čiary ihriska ---------- */
@@ -339,6 +344,7 @@
 
     players.forEach(pl=>s+=player(m,p,pl));
     (scene.balls||(scene.ball?[scene.ball]:[])).forEach(b=>s+=ball(m,p,b[0],b[1]));
+    (scene.zones||[]).forEach(z=>s+=zoneLabel(m,p,z));
     s+=badges;
     if(scene.dims!==false) s+=dims(m,p);
 
