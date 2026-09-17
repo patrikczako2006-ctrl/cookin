@@ -10,8 +10,10 @@ Funkčný jednostránkový web (SPA) — všetko sa deje plynulo bez reloadov, s
 ## Čo funguje
 
 - **Generátor tréningov** — kategória → téma → jednotka po častiach so zručnosťami, piliermi a princípmi.
-  547 cvikov, na každú kombináciu kategória × téma × časť najmenej dva a spravidla tri rôzne tréningy.
-- **Tri plány** — Basic (zdarma, 5 tréningov na časť), **Tréner** (9,90 €/mes) a **Klub**
+  997 cvikov, na každú kombináciu kategória × téma × časť najmenej štyri a spravidla šesť rôznych tréningov.
+- **Hlavná časť je vždy smerová** — žiadne držanie lopty v štvorci. Všetkých 333 cvikov HČ
+  má bránky alebo cieľové zóny, zakončenie a prechodovú fázu po strate lopty.
+- **Tri plány** — Basic (zdarma, 5 tréningov na časť, teda 15 na jednotku), **Tréner** (9,90 €/mes) a **Klub**
   (39 €/mes, viac trénerov, klubová knižnica, tímy a dochádzka). Zamknuté tréningy vedú na cenník.
 - **Tréning na mieru** — tréner zadá, s čím dnes naozaj príde na ihrisko: **počet hráčov,
   dĺžku tréningu, plochu a vybavenie**. Cviky, ktoré na to sadnú, idú dopredu, minutáž blokov
@@ -54,11 +56,16 @@ Statická stránka — stačí otvoriť `index.html` alebo nasadiť na akýkoľv
 
 ## Cviky (databáza)
 
-**547 cvikov, každý postavený na konkrétnu tému.** Databáza je matica
+**997 cvikov, každý postavený na konkrétnu tému.** Databáza je matica
 **15 tém × 3 časti (PČ/HČ/ZČ) × vekové pásma** — každá zo 45 kombinácií
-téma×časť má 12–13 cvikov pokrývajúcich celý rozsah U6 – U19.
-Žiadna kombinácia kategória × téma × časť nemá menej než dva cviky,
-drvivá väčšina má tri.
+téma×časť má 22–23 cvikov pokrývajúcich celý rozsah U6 – U19.
+Žiadna kombinácia kategória × téma × časť nemá menej než štyri cviky,
+medián je šesť.
+
+**Hlavná časť nikdy nie je držanie lopty v štvorci.** Rondo a poziční hra patria
+do prípravnej časti. V hlavnej časti má každý cvik smer — bránky alebo cieľové
+zóny, zakončenie a prechod po strate lopty. Body za prenosy a série prihrávok
+zostávajú, ale hra vždy končí bránkou.
 
 Každý cvik má kompletnú metodickú štruktúru:
 
@@ -78,8 +85,8 @@ je vždy postavené tak, aby hráča do danej témy prinútilo. Napr. v téme
 dvoch súperov**; v téme *Rýchlym vedením lopty* len za priestor prekonaný
 **vedením**, nie prihrávkou. Kontroluje to skript `scripts/audit_db.py`.
 
-**Moderná metodika.** Novšia časť databázy (180 cvikov, `data/temy/tema_2*_pro_*.json`
-a `tema_3*_pro_*.json`) je postavená na tom, ako sa trénuje dnes:
+**Moderná metodika.** Väčšina databázy (630 cvikov, `data/temy/tema_2*_pro_*.json`,
+`tema_3*_pro_*.json` a `tema_4*`–`tema_5*`) je postavená na tom, ako sa trénuje dnes:
 
 - **prechodová fáza** — šesťsekundové okno po zisku aj po strate lopty,
   counter-pressing a istenie za loptou (rest defence);
@@ -96,7 +103,7 @@ a `tema_3*_pro_*.json`) je postavená na tom, ako sa trénuje dnes:
   o techniku, hru alebo prechodovú fázu.
 
 **Veková primeranosť:** cvik pre U6 je iná hra než cvik pre U18, aj keď je téma
-rovnaká. Pásma sú U6–U8, U7–U9, U10–U12, U13–U15 a U16–U19.
+rovnaká. Pásma sú U6–U9, U9–U12, U11–U14, U13–U16 a U16–U19.
 Generátor ukáže najprv cviky presne pre zvolenú kategóriu, potom cviky z blízkych
 kategórií (±2 roky) označené štítkom „blízka kategória“.
 
@@ -139,7 +146,7 @@ data/temy/tema_01..15.json     180 cvikov  (12 na tému: 3 časti × 4 pásma)
 data/temy/tema_16..17_u6*.json  45 cvikov  (najmladšia kategória)
 data/temy/tema_20..34_pro_*.json 180 cvikov (moderná metodika, 4 vekové pásma)
 data/temy/tema_35_u6.json        7 cvikov  (najmladší — doplnenie U6)
-data/scenes/*.json             547 predpisov nákresov (jeden na cvik)
+data/scenes/*.json             997 predpisov nákresov (jeden na cvik)
 ```
 
 ```bash
@@ -163,7 +170,7 @@ node    scripts/build_pdf.js      # -> cviky-databaza.pdf (svetlá paleta, na tl
    Ostatné sady zostávajú nedotknuté.
 3. Commitni a pushni — appka má cviky okamžite.
 
-**PDF databáza:** `cviky-databaza.pdf` — všetkých 547 cvikov s nákresmi na tlač
+**PDF databáza:** `cviky-databaza.pdf` — všetkých 997 cvikov s nákresmi na tlač
 (zostaví `node scripts/build_pdf.js`).
 
 ## Ďalšie kroky
