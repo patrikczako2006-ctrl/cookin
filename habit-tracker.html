@@ -1,241 +1,299 @@
-<title>Habit Tracker</title>
+<title>Tréningový denník</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout: one column phone-first; stats on top, the month grid as the working surface, analysis under it.
-   Look: a paper ledger – warm stone neutrals, charcoal ink for "done", one muted olive accent. */
+/* Layout: a printed training logbook. Hairline rules instead of cards, a condensed scoreboard masthead,
+   mono numerals everywhere digits line up. One accent (cobalt) marks today, targets and the live value. */
 :root{
-  --bg:#f1ede6;
-  --paper:#faf8f4;
-  --paper-2:#ebe6dd;
-  --line:#d9d2c6;
-  --line-strong:#b9b0a1;
-  --ink:#231f1b;
-  --ink-2:#5c554c;
-  --ink-3:#8c8478;
-  --done:#2e2a26;
-  --done-fg:#f5f1ea;
-  --accent:#6f7a4a;
-  --accent-soft:#e3e6d3;
-  --today:#f0e4c8;
-  --warn:#b4542e;
-  --shadow:0 1px 2px rgba(35,31,27,.06),0 8px 24px -12px rgba(35,31,27,.18);
-  --font-display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
-  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --cell:30px;
-  --radius:12px;
+  --bg:#e8e8e4;
+  --paper:#f4f4f1;
+  --band:#dededa;
+  --rule:#c7c7c2;
+  --rule-2:#9c9c97;
+  --ink:#121314;
+  --ink-2:#4a4b4d;
+  --ink-3:#86878a;
+  --fill:#121314;
+  --fill-fg:#f4f4f1;
+  --acc:#1f4fd8;
+  --acc-ink:#1a44bb;
+  --acc-soft:#d6def7;
+  --today:#edf0fb;
+  --weekend:#e3e3df;
+  --bad:#b5452b;
+  --font-cond:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --font-sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --cell:36px;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#191714; --paper:#221f1b; --paper-2:#2b2723; --line:#39342e; --line-strong:#56504a;
-    --ink:#efe9df; --ink-2:#b5ab9d; --ink-3:#7f776c; --done:#e9e1d4; --done-fg:#1b1917;
-    --accent:#a9b47a; --accent-soft:#333827; --today:#3a3222; --warn:#e08b63;
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+    --bg:#141516; --paper:#1b1c1e; --band:#232426; --rule:#333436; --rule-2:#5a5b5e;
+    --ink:#ecebe6; --ink-2:#b6b5b0; --ink-3:#7e7e7c; --fill:#ecebe6; --fill-fg:#141516;
+    --acc:#6b8ff5; --acc-ink:#8aa6f7; --acc-soft:#26304d; --today:#1f2230; --weekend:#1f2022; --bad:#e2795c;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#191714; --paper:#221f1b; --paper-2:#2b2723; --line:#39342e; --line-strong:#56504a;
-  --ink:#efe9df; --ink-2:#b5ab9d; --ink-3:#7f776c; --done:#e9e1d4; --done-fg:#1b1917;
-  --accent:#a9b47a; --accent-soft:#333827; --today:#3a3222; --warn:#e08b63;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+  --bg:#141516; --paper:#1b1c1e; --band:#232426; --rule:#333436; --rule-2:#5a5b5e;
+  --ink:#ecebe6; --ink-2:#b6b5b0; --ink-3:#7e7e7c; --fill:#ecebe6; --fill-fg:#141516;
+  --acc:#6b8ff5; --acc-ink:#8aa6f7; --acc-soft:#26304d; --today:#1f2230; --weekend:#1f2022; --bad:#e2795c;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
-button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-input{font:inherit;color:inherit}
-.app{max-width:1100px;margin:0 auto;padding-block:14px 48px;padding-inline:16px;display:grid;gap:18px}
-h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;letter-spacing:-.01em}
-h2{font-size:17px;font-weight:700}
-.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
-.num{font-variant-numeric:tabular-nums}
+html,body{height:auto}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:14px;line-height:1.4;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0;border-radius:0}
+input{font:inherit;color:inherit;border-radius:0}
+button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.mono,.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.cond{font-family:var(--font-cond);text-transform:uppercase;letter-spacing:.01em}
+.lbl{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.page{max-width:1180px;margin:0 auto;padding-block:10px 56px;padding-inline:16px}
 
-/* header */
-.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.brand h1{font-size:30px;font-weight:700;line-height:1}
-.brand .sub{color:var(--ink-2);font-size:13px;margin-top:4px}
-.monthnav{display:flex;align-items:center;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px;box-shadow:var(--shadow)}
-.monthnav button{width:36px;height:36px;border-radius:999px;display:grid;place-items:center;color:var(--ink-2)}
-.monthnav button:hover{background:var(--paper-2);color:var(--ink)}
-.monthnav .label{min-width:150px;text-align:center;font-family:var(--font-display);font-weight:700;font-size:17px}
-.monthnav .today-btn{width:auto;padding-inline:12px;font-size:13px;font-weight:600;color:var(--accent)}
-.sync{font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:6px}
-.sync i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);display:inline-block}
-.sync.on i{background:var(--accent)}
+/* masthead */
+.mast{border-top:3px solid var(--ink);padding-top:8px;display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:start}
+.mast .kicker{display:flex;justify-content:space-between;gap:12px;grid-column:1/-1;border-bottom:1px solid var(--rule);padding-bottom:6px}
+.mast .kicker .sync{display:flex;align-items:center;gap:7px}
+.mast .kicker .sync i{width:8px;height:8px;background:var(--ink-3);display:inline-block}
+.mast .kicker .sync.on i{background:var(--acc)}
+.mast h1{margin:0;font-family:var(--font-cond);font-weight:800;text-transform:uppercase;font-size:clamp(56px,13vw,116px);line-height:.86;letter-spacing:-.01em}
+.mast h1 small{display:block;font-size:.3em;font-weight:700;letter-spacing:.06em;color:var(--ink-2);margin-top:8px}
+.mast .nav{display:flex;align-items:center;gap:0;border:1px solid var(--ink);align-self:end;margin-top:8px}
+.mast .nav button{height:40px;min-width:40px;padding-inline:12px;font-family:var(--font-cond);font-weight:700;text-transform:uppercase;font-size:15px;border-right:1px solid var(--ink)}
+.mast .nav button:last-child{border-right:0}
+.mast .nav button:hover{background:var(--ink);color:var(--fill-fg)}
+.mast .nav button.acc{color:var(--acc-ink)}
+.mast .nav button.acc:hover{background:var(--acc);color:#fff}
+@media (max-width:640px){.mast{grid-template-columns:1fr}.mast .nav{justify-self:start}}
 
-/* cards */
-.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);min-width:0}
-.card .head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:14px 16px 0}
-.card .body{padding:12px 16px 16px}
+/* ticker */
+.ticker{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:14px}
+.ticker div{padding:10px 12px 10px 0;border-right:1px solid var(--rule);margin-right:12px}
+.ticker div:last-child{border-right:0}
+.ticker b{display:block;font-family:var(--font-mono);font-weight:500;font-size:22px;line-height:1.1;margin-top:3px;font-variant-numeric:tabular-nums}
+.ticker b sub{font-size:11px;vertical-align:baseline;color:var(--ink-3);margin-left:3px}
+.ticker .d{font-size:11px;color:var(--ink-2);font-family:var(--font-mono)}
+.ticker .d.up{color:var(--acc-ink)}
+.ticker .d.down{color:var(--bad)}
 
-/* overview */
-.overview{display:grid;grid-template-columns:1fr;gap:12px}
-@media (min-width:720px){.overview{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr)}}
-.stats{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;padding:16px}
-.tiles{display:grid;gap:8px}
-.tile{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 12px;border-radius:8px;background:var(--paper-2)}
-.tile b{font-family:var(--font-display);font-size:22px;font-weight:700}
-.tile span{font-size:12px;color:var(--ink-2)}
-.donut{position:relative;width:118px;height:118px}
-.donut svg{width:100%;height:100%;display:block}
-.donut .c{position:absolute;inset:0;display:grid;place-items:center;text-align:center;line-height:1.05}
-.donut .c b{font-family:var(--font-display);font-size:24px}
-.donut .c span{font-size:11px;color:var(--ink-3)}
-.chart{width:100%;height:132px;display:block}
-.chart text{font-family:var(--font-body);font-size:10px;fill:var(--ink-3)}
-.chart .grid{stroke:var(--line);stroke-width:1}
-.chart .bar{fill:var(--done)}
-.chart .bar.future{fill:var(--line)}
-.chart .bar.today{fill:var(--accent)}
-.chart .bar:hover{opacity:.75}
-.chart .lbl{fill:var(--ink-2);font-weight:600}
-.tip{position:fixed;z-index:30;pointer-events:none;background:var(--ink);color:var(--paper);font-size:12px;padding:6px 9px;border-radius:7px;transform:translate(-50%,calc(-100% - 10px));white-space:nowrap;opacity:0;transition:opacity .12s}
+/* sections */
+.sec{margin-top:34px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:5px;margin-bottom:12px}
+.sec-h h2{margin:0;font-family:var(--font-cond);font-weight:800;text-transform:uppercase;font-size:26px;line-height:1;letter-spacing:.01em}
+.sec-h .lbl{text-align:right}
+
+/* today panel */
+.today{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:0;border:1px solid var(--ink);background:var(--paper)}
+@media (max-width:760px){.today{grid-template-columns:1fr}}
+.today .col{padding:14px 16px;min-width:0}
+.today .col + .col{border-left:1px solid var(--rule)}
+@media (max-width:760px){.today .col + .col{border-left:0;border-top:1px solid var(--rule)}}
+.today .title{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.today .title b{font-family:var(--font-cond);text-transform:uppercase;font-weight:700;font-size:18px}
+.tlist{display:grid}
+.tlist button{display:grid;grid-template-columns:18px 1fr auto;gap:12px;align-items:center;text-align:left;padding:9px 0;border-bottom:1px solid var(--rule);font-weight:500}
+.tlist button:last-child{border-bottom:0}
+.tlist button i{width:16px;height:16px;border:1.5px solid var(--rule-2);display:block;position:relative}
+.tlist button.on i{background:var(--fill);border-color:var(--fill)}
+.tlist button.on i::after{content:"";position:absolute;left:4px;top:1px;width:5px;height:9px;border:solid var(--fill-fg);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.tlist button .s{font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
+.tlist button.on .s{color:var(--ink-2)}
+.fields{display:grid;gap:0}
+.fld{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule)}
+.fld:last-child{border-bottom:0}
+.fld label{font-weight:500}
+.fld label small{display:block;font-family:var(--font-mono);font-size:11px;color:var(--ink-3);font-weight:400}
+.fld .in{display:flex;align-items:center;gap:6px}
+.fld input{width:104px;height:36px;border:1px solid var(--rule-2);background:var(--bg);padding-inline:10px;text-align:right;font-family:var(--font-mono);font-size:15px}
+.fld input:focus{border-color:var(--acc)}
+.fld .u{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);min-width:28px}
+.fld.ok label small{color:var(--acc-ink)}
+.cnt{display:flex;border:1px solid var(--rule-2)}
+.cnt button{width:36px;height:36px;font-family:var(--font-mono);font-size:16px;border-right:1px solid var(--rule-2)}
+.cnt button:last-child{border-right:0}
+.cnt button:hover{background:var(--band)}
+.cnt .v{width:52px;height:36px;display:grid;place-items:center;font-family:var(--font-mono);font-size:14px;border-right:1px solid var(--rule-2);gap:4px;grid-auto-flow:column}
+.cnt .v i{width:9px;height:9px;border:1.5px solid var(--ink-2);display:inline-block;border-radius:50%}
+.cnt .v i.on{background:var(--fill);border-color:var(--fill)}
+.today .note{font-size:12px;color:var(--ink-3);padding:14px 16px;grid-column:1/-1;border-top:1px solid var(--rule)}
+
+/* charts */
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border:1px solid var(--rule);background:var(--paper)}
+.ch{padding:12px 14px 10px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);min-width:0}
+.ch .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
+.ch .t b{font-family:var(--font-cond);text-transform:uppercase;font-weight:700;font-size:16px}
+.ch .t span{font-family:var(--font-mono);font-size:11px;color:var(--ink-2)}
+.ch svg{width:100%;height:120px;display:block}
+.ch svg text{font-family:var(--font-mono);font-size:10px;fill:var(--ink-3)}
+.ch svg .g{stroke:var(--rule);stroke-width:1}
+.ch svg .bar{fill:var(--ink-2)}
+.ch svg .bar.today{fill:var(--acc)}
+.ch svg .bar.future{fill:var(--rule)}
+.ch svg .bar.hit{fill:var(--ink)}
+.ch svg .ln{fill:none;stroke:var(--ink);stroke-width:1.75;stroke-linejoin:round;stroke-linecap:round}
+.ch svg .pt{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+.ch svg .pt.last{fill:var(--acc);stroke:var(--acc)}
+.ch svg .tg{stroke:var(--acc);stroke-width:1;stroke-dasharray:3 3}
+.ch svg .tgl{fill:var(--acc-ink);font-weight:500}
+.ch svg .last{fill:var(--ink);font-weight:600;font-size:11px}
+.ch svg .hit-area{fill:transparent}
+.ch svg rect.bar:hover{opacity:.7}
+.ch .none{height:120px;display:grid;place-items:center;font-size:12px;color:var(--ink-3);text-align:center;padding-inline:12px}
+.tip{position:fixed;z-index:30;pointer-events:none;background:var(--ink);color:var(--paper);font-family:var(--font-mono);font-size:11px;padding:5px 8px;transform:translate(-50%,calc(-100% - 10px));white-space:nowrap;opacity:0;transition:opacity .1s}
 .tip.show{opacity:1}
 
-/* grid */
-.gridwrap{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;border-top:1px solid var(--line);border-bottom-left-radius:var(--radius);border-bottom-right-radius:var(--radius)}
-table.grid{border-collapse:separate;border-spacing:0;font-size:13px;min-width:max-content}
-.grid th,.grid td{padding:0;height:var(--cell);text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}
-.grid th{font-weight:500;color:var(--ink-3);font-size:11px}
-.grid th.wk{font-weight:600;color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase;font-size:10px;border-left:1px solid var(--line-strong);background:var(--paper-2)}
-.grid th.wk.first{border-left:0}
-.grid .name{position:sticky;left:0;z-index:2;background:var(--paper);text-align:left;padding-inline:14px 12px;min-width:170px;max-width:220px;border-right:1px solid var(--line-strong)}
-.grid thead .name{background:var(--paper-2)}
-.grid .name button{display:flex;align-items:center;gap:8px;width:100%;height:var(--cell);text-align:left;font-weight:500;overflow:hidden}
-.grid .name button span.t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.grid .name .em{width:20px;text-align:center;flex:none}
-.grid td.d{width:var(--cell);min-width:var(--cell);border-left:1px solid var(--line)}
-.grid td.d.wk{border-left:1px solid var(--line-strong)}
-.grid td.d.first{border-left:0}
-.grid th.d{width:var(--cell);min-width:var(--cell)}
-.grid th.d.today,.grid td.d.today{background:var(--today)}
-.grid th.d.today{color:var(--ink);font-weight:700}
-.grid td.d.future{opacity:.55}
-.chk{width:100%;height:100%;display:grid;place-items:center}
-.chk i{width:17px;height:17px;border:1.5px solid var(--line-strong);border-radius:4px;display:grid;place-items:center;transition:background .12s,border-color .12s;background:var(--paper)}
-.chk i svg{width:11px;height:11px;opacity:0;stroke:var(--done-fg);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.chk.on i{background:var(--done);border-color:var(--done)}
-.chk.on i svg{opacity:1}
-.chk:hover i{border-color:var(--ink-2)}
-tr.scale td.d{font-size:12px;color:var(--ink-3)}
-tr.scale .name{color:var(--ink-2);font-size:12px;font-weight:600}
-tr.scale td.d button{width:100%;height:100%;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink-3)}
-tr.scale td.d button.v1{color:var(--ink-3)}
-tr.scale td.d button.v2{color:var(--ink-2)}
-tr.scale td.d button.v3{color:var(--ink);background:color-mix(in oklab,var(--accent) 12%,transparent)}
-tr.scale td.d button.v4{color:var(--ink);background:color-mix(in oklab,var(--accent) 26%,transparent)}
-tr.scale td.d button.v5{color:var(--done-fg);background:var(--accent)}
-tr.sep td{height:10px;background:var(--paper-2);border-bottom:1px solid var(--line)}
-tr.sep .name{background:var(--paper-2)}
-.grid tfoot td{height:auto;border:0}
-.add-row{display:flex;gap:8px;padding:12px 14px;align-items:center;position:sticky;left:0}
-.add-row input{flex:1;min-width:0;max-width:280px;height:38px;border:1px solid var(--line-strong);border-radius:9px;padding-inline:12px;background:var(--paper)}
-.btn{height:38px;padding-inline:14px;border-radius:9px;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-.btn.primary{background:var(--done);color:var(--done-fg)}
-.btn.ghost{border:1px solid var(--line-strong);color:var(--ink-2)}
-.btn.danger{color:var(--warn);border:1px solid color-mix(in oklab,var(--warn) 40%,transparent)}
-.btn:hover{filter:brightness(1.05)}
-.hint{padding:12px 16px;color:var(--ink-3);font-size:13px}
-.empty{padding:28px 16px;text-align:center;color:var(--ink-2)}
-.empty b{display:block;font-family:var(--font-display);font-size:18px;color:var(--ink);margin-bottom:4px}
+/* month grid */
+.gridbox{border:1px solid var(--ink);background:var(--paper)}
+.gridwrap{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+table.g{border-collapse:separate;border-spacing:0;min-width:max-content;font-size:12.5px}
+.g th,.g td{height:var(--cell);padding:0;text-align:center;border-bottom:1px solid var(--rule);white-space:nowrap}
+.g thead th{font-weight:500;color:var(--ink-3);font-family:var(--font-mono);font-size:10.5px;background:var(--paper)}
+.g thead tr.wk th{height:24px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2);font-weight:600;background:var(--band);border-left:1px solid var(--rule-2);text-align:left;padding-left:8px}
+.g thead tr.wk th.first{border-left:0}
+.g thead tr.wk th.name{background:var(--band)}
+.g thead tr.dn th{height:20px}
+.g th.d,.g td.d{width:var(--cell);min-width:var(--cell);border-left:1px solid var(--rule)}
+.g td.d.wk,.g th.d.wk{border-left:1px solid var(--rule-2)}
+.g td.d.first,.g th.d.first{border-left:0}
+.g .we{background:var(--weekend)}
+.g .today{background:var(--today)}
+.g thead tr.dn th.today{color:var(--acc-ink);font-weight:600;box-shadow:inset 0 3px 0 var(--acc)}
+.g .future{color:var(--ink-3)}
+.g .name{position:sticky;left:0;z-index:2;background:var(--paper);text-align:left;padding-inline:12px;min-width:176px;max-width:230px;border-right:1px solid var(--ink);font-weight:500}
+.g .name button{width:100%;height:var(--cell);text-align:left;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.g .name button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g .name button small{font-family:var(--font-mono);font-size:10px;color:var(--ink-3);flex:none}
+.g .name button:hover span{text-decoration:underline;text-underline-offset:3px}
+.g tr.band td{height:26px;background:var(--band);border-bottom:1px solid var(--rule-2);border-top:1px solid var(--rule-2)}
+.g tr.band .name{background:var(--band);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.ck{width:100%;height:100%;display:grid;place-items:center}
+.ck i{width:14px;height:14px;border:1.5px solid var(--rule-2);display:block;position:relative;background:var(--paper)}
+.ck:hover i{border-color:var(--ink)}
+.ck.on i{background:var(--fill);border-color:var(--fill)}
+.ck.on i::after{content:"";position:absolute;left:3.5px;top:0;width:4px;height:8px;border:solid var(--fill-fg);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.g td.d .nv{width:100%;height:100%;font-family:var(--font-mono);font-size:10.5px;letter-spacing:-.02em;color:var(--ink);display:grid;place-items:center}
+.g td.d .nv.e{color:var(--rule-2)}
+.g td.d .nv:hover{background:var(--acc-soft)}
+.g td.d .nv.hit{font-weight:600}
+.g td.d .nv.miss{color:var(--bad)}
+.g td.wide{min-width:0;border-left:1px solid var(--rule-2);text-align:left}
+.g td.wide.first{border-left:0}
+.g td.wide .nv{width:100%;height:100%;display:flex;align-items:center;justify-content:space-between;padding-inline:10px;font-family:var(--font-mono);font-size:11.5px}
+.g td.wide .nv:hover{background:var(--acc-soft)}
+.g td.wide .nv .dl{color:var(--ink-3);font-size:10.5px}
+.g td.wide .nv.e{color:var(--rule-2)}
+.dots{display:inline-flex;gap:3px}
+.dots i{width:8px;height:8px;border:1.5px solid var(--ink-2);border-radius:50%;display:inline-block}
+.dots i.on{background:var(--fill);border-color:var(--fill)}
+.g tr.scale .nv{color:var(--ink-3)}
+.g tr.scale .nv.v3,.g tr.scale .nv.v4,.g tr.scale .nv.v5{color:var(--ink)}
+.g tr.scale .nv.v5{background:var(--acc-soft)}
+.g tfoot td{border:0;height:auto}
+.addrow{display:flex;gap:0;padding:10px 12px;position:sticky;left:0;max-width:420px}
+.addrow input{flex:1;min-width:0;height:38px;border:1px solid var(--rule-2);border-right:0;padding-inline:10px;background:var(--bg)}
+.addrow button{height:38px;padding-inline:14px;background:var(--fill);color:var(--fill-fg);font-family:var(--font-cond);text-transform:uppercase;font-weight:700;font-size:15px;letter-spacing:.04em}
+.gridnote{padding:8px 12px;font-size:12px;color:var(--ink-3);border-top:1px solid var(--rule);display:flex;gap:16px;flex-wrap:wrap}
+.gridnote span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:10px;height:10px;display:inline-block;border:1px solid var(--rule-2)}
+.sw.t{background:var(--today);border-color:var(--acc)}
+.sw.w{background:var(--weekend)}
+.empty{padding:26px 16px;color:var(--ink-2);text-align:center}
+.empty b{display:block;font-family:var(--font-cond);text-transform:uppercase;font-size:20px;color:var(--ink);margin-bottom:4px}
 
 /* analysis */
-.bottom{display:grid;grid-template-columns:1fr;gap:12px}
-@media (min-width:820px){.bottom{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}}
-.tablewrap{overflow-x:auto;margin-inline:-16px;padding-inline:16px}
-table.an{width:100%;min-width:480px;border-collapse:collapse;font-size:13px}
-.an td:first-child{white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis}
-.an th{font-weight:600;color:var(--ink-3);font-size:11px;text-transform:uppercase;letter-spacing:.05em;text-align:right;padding:4px 8px;border-bottom:1px solid var(--line)}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:28px}
+.two>div{min-width:0}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+@media (max-width:520px){.body-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.sec-h h2{font-size:22px}}
+.tw{overflow-x:auto}
+table.an{width:100%;min-width:500px;border-collapse:collapse;font-size:13px}
+.an th{font-family:var(--font-mono);font-weight:500;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding:6px 8px;border-bottom:1px solid var(--ink)}
 .an th:first-child,.an td:first-child{text-align:left;padding-left:0}
-.an td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;vertical-align:middle}
-.an td.bar{width:38%;min-width:110px;padding-right:0}
-.an tr:last-child td{border-bottom:0}
-.pbar{display:flex;align-items:center;gap:8px}
-.pbar .track{flex:1;height:9px;background:var(--paper-2);border-radius:999px;overflow:hidden}
-.pbar .fill{height:100%;background:var(--done);border-radius:999px;transition:width .3s}
-.pbar b{min-width:36px;text-align:right;font-weight:600;font-size:12px}
-.rank{list-style:none;margin:0;padding:0;display:grid}
-.rank li{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.an td{padding:8px 8px;border-bottom:1px solid var(--rule);text-align:right;font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
+.an td:first-child{font-family:var(--font-sans);font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.an td.p{width:36%;min-width:120px;padding-right:0}
+.pb{display:flex;align-items:center;gap:8px}
+.pb .tr{flex:1;height:8px;background:var(--band);position:relative}
+.pb .fl{position:absolute;left:0;top:0;bottom:0;background:var(--ink)}
+.pb b{min-width:38px;text-align:right;font-weight:500}
+.an tr.sub td{color:var(--ink-2)}
+.an tr.sub td:first-child{padding-left:14px;font-weight:400;color:var(--ink-2)}
+.rank{list-style:none;margin:0;padding:0}
+.rank li{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--rule)}
 .rank li:last-child{border-bottom:0}
-.rank .pos{font-family:var(--font-display);font-weight:700;color:var(--ink-3)}
-.rank li:nth-child(-n+3) .pos{color:var(--accent)}
-.rank .cnt{font-size:12px;color:var(--ink-2)}
+.rank .pos{font-family:var(--font-cond);font-weight:800;font-size:22px;line-height:1;color:var(--ink-3)}
+.rank li:first-child .pos{color:var(--acc-ink)}
+.rank .c{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2)}
+.body-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:18px;border-top:1px solid var(--ink)}
+.body-stats div{padding:10px 10px 10px 0;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);margin-right:10px}
+.body-stats div:last-child{border-right:0}
+.body-stats b{display:block;font-family:var(--font-mono);font-weight:500;font-size:18px;margin-top:2px}
+.body-stats b sub{font-size:10px;color:var(--ink-3);vertical-align:baseline;margin-left:2px}
 
-/* modal */
-.modal{position:fixed;inset:0;z-index:20;display:grid;place-items:end center;background:rgba(20,16,12,.45);padding:12px}
-@media (min-width:600px){.modal{place-items:center}}
-.sheet{width:100%;max-width:440px;background:var(--paper);border-radius:16px;padding:18px;display:grid;gap:14px;box-shadow:var(--shadow);border:1px solid var(--line)}
-.sheet h3{font-size:19px}
-.field{display:grid;gap:5px}
-.field label{font-size:12px;font-weight:600;color:var(--ink-2)}
-.field input{height:42px;border:1px solid var(--line-strong);border-radius:9px;padding-inline:12px;background:var(--paper);width:100%}
-.field .row{display:grid;grid-template-columns:72px 1fr;gap:8px}
-.field small{color:var(--ink-3);font-size:12px}
-.sheet .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between}
-.sheet .actions .r{display:flex;gap:8px;margin-left:auto}
-.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:9px 14px;border-radius:999px;font-size:13px;z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
+/* sheet */
+.modal{position:fixed;inset:0;z-index:20;background:rgba(10,10,12,.5);display:grid;place-items:end center;padding:0}
+@media (min-width:600px){.modal{place-items:center;padding:16px}}
+.sheet{width:100%;max-width:420px;background:var(--paper);border:1px solid var(--ink);padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:14px}
+.sheet h3{margin:0;font-family:var(--font-cond);text-transform:uppercase;font-weight:800;font-size:24px;line-height:1}
+.sheet h3 small{display:block;font-family:var(--font-mono);text-transform:none;font-weight:400;font-size:11px;color:var(--ink-3);letter-spacing:.08em;margin-top:4px}
+.f{display:grid;gap:5px}
+.f label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.f input{height:44px;border:1px solid var(--rule-2);background:var(--bg);padding-inline:12px;width:100%}
+.f input.big{font-family:var(--font-mono);font-size:24px;text-align:right}
+.f small{font-size:12px;color:var(--ink-3)}
+.acts{display:flex;gap:0;flex-wrap:wrap;justify-content:space-between;align-items:center}
+.acts .r{display:flex;margin-left:auto}
+.b{height:40px;padding-inline:14px;border:1px solid var(--ink);font-family:var(--font-cond);text-transform:uppercase;font-weight:700;font-size:15px;letter-spacing:.04em;display:inline-flex;align-items:center}
+.b + .b{border-left:0}
+.b.fill{background:var(--fill);color:var(--fill-fg)}
+.b.bad{color:var(--bad);border-color:var(--bad)}
+.b:disabled{opacity:.4;cursor:default}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:8px 14px;font-family:var(--font-mono);font-size:12px;z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<div class="app" id="app">
-  <header class="top">
-    <div class="brand">
-      <h1>Habit Tracker</h1>
-      <div class="sub" id="subtitle">Denné návyky, jeden mesiac na jednej obrazovke.</div>
+<div class="page">
+  <header class="mast">
+    <div class="kicker">
+      <span class="lbl">Tréningový denník · návyky · telo</span>
+      <span class="lbl sync" id="sync"><i></i><span>načítavam</span></span>
     </div>
-    <div style="display:grid;gap:6px;justify-items:end">
-      <div class="monthnav">
-        <button id="prev" aria-label="Predchádzajúci mesiac">&#8249;</button>
-        <div class="label" id="monthLabel">–</div>
-        <button id="next" aria-label="Nasledujúci mesiac">&#8250;</button>
-        <button class="today-btn" id="goToday">Dnes</button>
-      </div>
-      <div class="sync" id="sync"><i></i><span>Načítavam…</span></div>
+    <h1 id="mh">—<small id="mhs"></small></h1>
+    <div class="nav">
+      <button id="prev" aria-label="Predchádzajúci mesiac">‹</button>
+      <button id="next" aria-label="Nasledujúci mesiac">›</button>
+      <button id="goToday" class="acc">Dnes</button>
+      <button id="settings">Ciele</button>
     </div>
   </header>
 
-  <section class="overview">
-    <div class="card stats">
-      <div class="donut">
-        <svg viewBox="0 0 120 120" aria-hidden="true">
-          <circle cx="60" cy="60" r="48" fill="none" stroke="var(--paper-2)" stroke-width="14"></circle>
-          <circle id="donutArc" cx="60" cy="60" r="48" fill="none" stroke="var(--done)" stroke-width="14" stroke-linecap="butt" stroke-dasharray="0 301.6" transform="rotate(-90 60 60)"></circle>
-        </svg>
-        <div class="c"><b class="num" id="pct">0 %</b><span>splnené</span></div>
-      </div>
-      <div class="tiles">
-        <div class="tile"><span>Cieľ</span><b class="num" id="sGoal">0</b></div>
-        <div class="tile"><span>Splnené</span><b class="num" id="sDone">0</b></div>
-        <div class="tile"><span>Zostáva</span><b class="num" id="sLeft">0</b></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="head"><h2>Denný pokrok</h2><span class="eyebrow" id="dailyAvg"></span></div>
-      <div class="body"><svg class="chart" id="dailyChart" role="img" aria-label="Percento splnených návykov za každý deň"></svg></div>
-    </div>
-    <div class="card">
-      <div class="head"><h2>Týždenný pokrok</h2><span class="eyebrow" id="weeklyBest"></span></div>
-      <div class="body"><svg class="chart" id="weeklyChart" role="img" aria-label="Percento splnených návykov za každý týždeň"></svg></div>
+  <div class="ticker" id="ticker"></div>
+
+  <section class="sec" id="todaySec">
+    <div class="sec-h"><h2 id="todayH">Dnes</h2><span class="lbl" id="todaySub"></span></div>
+    <div class="today" id="today"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>Priebeh mesiaca</h2><span class="lbl" id="chartsSub"></span></div>
+    <div class="charts" id="charts"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>Mesačná mriežka</h2><span class="lbl" id="gridSub"></span></div>
+    <div class="gridbox">
+      <div class="gridwrap" id="gridwrap"></div>
+      <div class="gridnote"><span><i class="sw t"></i>dnes</span><span><i class="sw w"></i>víkend</span><span>ťukni na číslo pre úpravu · ťukni na názov návyku pre premenovanie</span></div>
     </div>
   </section>
 
-  <section class="card" id="gridCard">
-    <div class="head"><h2>Moje návyky</h2><span class="eyebrow" id="gridInfo"></span></div>
-    <div class="hint" id="gridHint">Ťukni na políčko, keď máš návyk splnený. Ťukni na názov návyku pre úpravu.</div>
-    <div class="gridwrap" id="gridwrap"></div>
-  </section>
-
-  <section class="bottom">
-    <div class="card">
-      <div class="head"><h2>Analýza</h2><span class="eyebrow">Cieľ · splnené · zostáva</span></div>
-      <div class="body" id="analysis"></div>
-    </div>
-    <div class="card">
-      <div class="head"><h2>Top návyky</h2><span class="eyebrow">tento mesiac</span></div>
-      <div class="body" id="top"></div>
+  <section class="sec">
+    <div class="sec-h"><h2>Vyhodnotenie</h2><span class="lbl">cieľ · splnené · zostáva</span></div>
+    <div class="two">
+      <div><div class="tw" id="analysis"></div><div class="body-stats" id="bodyStats"></div></div>
+      <div><div class="lbl" style="margin-bottom:6px">Poradie podľa plnenia</div><div id="rank"></div></div>
     </div>
   </section>
 </div>
@@ -249,29 +307,26 @@ table.an{width:100%;min-width:480px;border-collapse:collapse;font-size:13px}
 'use strict';
 const $ = (s, el=document) => el.querySelector(s);
 const MONTHS = ['Január','Február','Marec','Apríl','Máj','Jún','Júl','August','September','Október','November','December'];
+const MONTHS_G = ['januára','februára','marca','apríla','mája','júna','júla','augusta','septembra','októbra','novembra','decembra'];
 const DOW = ['Ne','Po','Ut','St','Št','Pi','So'];
-const DEFAULT_HABITS = [
-  ['⏰','Vstať o 6:00'],['🧘','Meditácia'],['🏋️','Gym'],['🚿','Studená sprcha'],['💼','Práca'],
-  ['📖','Prečítať 10 strán'],['🧠','Učiť sa novú zručnosť'],['🍬','Bez cukru'],['🍺','Bez alkoholu'],
-  ['📱','Max. 1 h sociálne siete'],['📝','Plánovanie'],['🌙','Spať pred 23:00']
+const DEFAULT_HABITS = ['Gym','Jedálniček zlepšiť','Učiť sa viac ako 30 min','Prečítať 10 strán','Bez alkoholu','Max. 1 h sociálne siete','Plánovanie','Spať pred 23:00'];
+const METRICS = [
+  {k:'kcal',   label:'Kalórie',     unit:'kcal', step:10,  dec:0, target:'kcalTarget', mode:'max'},
+  {k:'kg',     label:'Váha',        unit:'kg',   step:0.1, dec:1},
+  {k:'steps',  label:'Kroky',       unit:'',     step:100, dec:0, target:'stepsTarget', mode:'min'},
+  {k:'physio', label:'Fyzio cviky', unit:'×',    count:2}
 ];
+const DEFAULT_SETTINGS = {stepsTarget:10000, kcalTarget:null, physioTarget:2};
 
 const now = new Date();
 const pad = n => String(n).padStart(2,'0');
 const ymOf = d => d.getFullYear()+'-'+pad(d.getMonth()+1);
 const TODAY = {ym: ymOf(now), d: now.getDate()};
 
-const state = {
-  ym: TODAY.ym,
-  habits: [],            // [{id,name,emoji,goal,order}]
-  month: null,           // {checks:{hid:{"3":1}}, mood:{"3":4}, motivation:{"3":2}}
-  loadedHabits: false,
-  mode: 'local'          // 'local' | 'db'
-};
+const state = {ym: TODAY.ym, habits: [], month: null, settings: Object.assign({}, DEFAULT_SETTINGS), loaded:false, mode:'local'};
 
 /* ---------- storage ---------- */
-let db = null;
-let unsubMonth = null;
+let db = null, unsubMonth = null;
 const writers = new Map();
 async function writeDoc(ref, data){
   let w = writers.get(ref.path);
@@ -279,333 +334,382 @@ async function writeDoc(ref, data){
   w.next = data;
   if(w.busy) return;
   w.busy = true;
-  try{
-    while(w.next){
-      const d = w.next; w.next = null;
-      try{ await ref.set(d); }
-      catch(e){ toast('Uloženie zlyhalo: '+(e && e.code ? e.code : 'chyba')); }
-    }
-  } finally { w.busy = false; }
+  try{ while(w.next){ const d = w.next; w.next = null; try{ await ref.set(d); }catch(e){ toast('Uloženie zlyhalo'); } } }
+  finally{ w.busy = false; }
 }
-function lsGet(k, fallback){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; } }
+function lsGet(k, f){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : f; }catch(e){ return f; } }
 function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function emptyMonth(){ return {checks:{}, mood:{}, motivation:{}, m:{kcal:{},kg:{},steps:{},physio:{}}, waist:{}}; }
+function normMonth(x){ x = x||{}; const m = x.m||{}; return {checks:x.checks||{}, mood:x.mood||{}, motivation:x.motivation||{}, m:{kcal:m.kcal||{}, kg:m.kg||{}, steps:m.steps||{}, physio:m.physio||{}}, waist:x.waist||{}}; }
 
-function emptyMonth(){ return {checks:{}, mood:{}, motivation:{}}; }
-function normMonth(m){ m = m || {}; return {checks:m.checks||{}, mood:m.mood||{}, motivation:m.motivation||{}}; }
-
-function saveHabit(h){
-  if(state.mode==='db'){ writeDoc(db.doc('habits/'+h.id), {name:h.name, emoji:h.emoji, goal:h.goal??null, order:h.order}); }
-  else lsSet('ht_habits', state.habits);
-}
-function deleteHabit(id){
-  state.habits = state.habits.filter(h=>h.id!==id);
-  if(state.mode==='db'){ db.doc('habits/'+id).delete().catch(()=>toast('Odstránenie zlyhalo')); }
-  else lsSet('ht_habits', state.habits);
-}
-function saveMonth(){
-  if(state.mode==='db'){ writeDoc(db.doc('months/'+state.ym), state.month); }
-  else lsSet('ht_month_'+state.ym, state.month);
-}
+function saveHabit(h){ if(state.mode==='db') writeDoc(db.doc('habits/'+h.id), {name:h.name, goal:h.goal??null, order:h.order}); else lsSet('ht_habits', state.habits); }
+function deleteHabit(id){ state.habits = state.habits.filter(h=>h.id!==id); if(state.mode==='db') db.doc('habits/'+id).delete().catch(()=>toast('Odstránenie zlyhalo')); else lsSet('ht_habits', state.habits); }
+function saveMonth(ym, data){ if(state.mode==='db') writeDoc(db.doc('months/'+ym), data); else lsSet('ht_month_'+ym, data); }
+function saveSettings(){ if(state.mode==='db') writeDoc(db.doc('settings/main'), state.settings); else lsSet('ht_settings', state.settings); }
 
 function loadMonth(){
   if(unsubMonth){ unsubMonth(); unsubMonth = null; }
   if(state.mode==='db'){
-    state.month = emptyMonth();
-    render();
-    unsubMonth = db.doc('months/'+state.ym).onSnapshot(snap=>{
-      state.month = snap.exists ? normMonth(snap.data()) : emptyMonth();
-      render();
-    }, e=>{ toast('Spojenie s úložiskom sa prerušilo'); });
-  } else {
-    state.month = normMonth(lsGet('ht_month_'+state.ym, null));
-    render();
-  }
+    state.month = emptyMonth(); render();
+    unsubMonth = db.doc('months/'+state.ym).onSnapshot(s=>{ state.month = s.exists ? normMonth(s.data()) : emptyMonth(); render(); }, ()=>toast('Spojenie s úložiskom sa prerušilo'));
+  } else { state.month = normMonth(lsGet('ht_month_'+state.ym, null)); render(); }
 }
-
 async function initStore(){
-  try{ db = window.claude && window.claude.use ? await window.claude.use('db') : null; }catch(e){ db = null; }
+  try{ db = (window.claude && window.claude.use) ? await window.claude.use('db') : null; }catch(e){ db = null; }
   if(db){
-    state.mode = 'db';
-    setSync(true, 'Ukladá sa do cloudu');
-    db.collection('habits').orderBy('order').onSnapshot(snap=>{
-      state.habits = snap.docs.map(d=>{ const x = d.data()||{}; return {id:d.id, name:x.name||'', emoji:x.emoji||'', goal:(x.goal==null?null:Number(x.goal)), order:Number(x.order)||0}; });
-      state.loadedHabits = true;
-      render();
-    }, e=>{ toast('Načítanie návykov zlyhalo'); state.loadedHabits = true; render(); });
+    state.mode = 'db'; setSync(true, 'cloud · synchronizované');
+    db.collection('habits').orderBy('order').onSnapshot(s=>{ state.habits = s.docs.map(d=>{ const x=d.data()||{}; return {id:d.id, name:x.name||'', goal:(x.goal==null?null:Number(x.goal)), order:Number(x.order)||0}; }); state.loaded = true; render(); }, ()=>{ state.loaded = true; render(); });
+    db.doc('settings/main').onSnapshot(s=>{ state.settings = Object.assign({}, DEFAULT_SETTINGS, s.exists ? s.data() : {}); render(); }, ()=>{});
   } else {
-    state.mode = 'local';
-    setSync(false, 'Uložené len v tomto prehliadači');
+    state.mode = 'local'; setSync(false, 'len tento prehliadač');
     let hs = lsGet('ht_habits', null);
-    if(!hs){ hs = DEFAULT_HABITS.map(([e,n],i)=>({id:newId(), name:n, emoji:e, goal:null, order:i})); lsSet('ht_habits', hs); }
-    state.habits = hs;
-    state.loadedHabits = true;
+    if(!hs){ hs = DEFAULT_HABITS.map((n,i)=>({id:newId(), name:n, goal:null, order:i})); lsSet('ht_habits', hs); }
+    state.habits = hs; state.settings = Object.assign({}, DEFAULT_SETTINGS, lsGet('ht_settings', {})); state.loaded = true;
   }
   loadMonth();
 }
-function setSync(on, text){ const s = $('#sync'); s.classList.toggle('on', on); $('span', s).textContent = text; }
+function setSync(on, t){ const s = $('#sync'); s.classList.toggle('on', on); $('span', s).textContent = t; }
 function newId(){ return 'h'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
 
-/* ---------- derived ---------- */
-function monthInfo(){
-  const [y,m] = state.ym.split('-').map(Number);
+/* ---------- helpers ---------- */
+function monthInfo(ym){
+  const [y,m] = ym.split('-').map(Number);
   const days = new Date(y, m, 0).getDate();
-  const weeks = [];
-  for(let s=1; s<=days; s+=7) weeks.push({n:weeks.length+1, from:s, to:Math.min(s+6, days)});
-  return {y, m, days, weeks, dow: d => new Date(y, m-1, d).getDay()};
+  const weeks = []; for(let s=1; s<=days; s+=7) weeks.push({n:weeks.length+1, from:s, to:Math.min(s+6,days)});
+  return {y, m, days, weeks, dow:d=>new Date(y,m-1,d).getDay()};
 }
+function weekOf(d){ return Math.floor((d-1)/7)+1; }
+function dayState(d, ym=state.ym){ if(ym<TODAY.ym) return 'past'; if(ym>TODAY.ym) return 'future'; return d<TODAY.d?'past':d===TODAY.d?'today':'future'; }
 function isChecked(hid, d){ const c = state.month.checks[hid]; return !!(c && c[d]); }
-function habitGoal(h, days){ return h.goal && h.goal>0 ? Math.min(h.goal, days) : days; }
-function dayState(d){
-  if(state.ym < TODAY.ym) return 'past';
-  if(state.ym > TODAY.ym) return 'future';
-  return d < TODAY.d ? 'past' : d === TODAY.d ? 'today' : 'future';
+function metricVal(k, d){ const v = state.month.m[k][d]; return (v===undefined||v===null||v==='') ? null : Number(v); }
+function targetFor(mt){ return mt.target ? (state.settings[mt.target] || null) : null; }
+function metricHit(mt, d){
+  const v = metricVal(mt.k, d); if(v===null) return null;
+  if(mt.count) return v>=mt.count;
+  const t = targetFor(mt); if(!t) return null;
+  return mt.mode==='min' ? v>=t : v<=t;
 }
+function fmt(v, dec=0){ if(v===null||v===undefined||isNaN(v)) return '–'; return Number(v).toLocaleString('sk-SK',{minimumFractionDigits:dec, maximumFractionDigits:dec}); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* items that count toward the daily score: habits + physio + steps (+ kcal when a target is set) */
+function scoreItems(){
+  const items = state.habits.map(h=>({type:'habit', id:h.id, name:h.name, goal:h.goal}));
+  items.push({type:'metric', id:'physio', name:'Fyzio cviky 2×', mt:METRICS[3]});
+  items.push({type:'metric', id:'steps', name:fmt(state.settings.stepsTarget)+' krokov', mt:METRICS[2]});
+  if(state.settings.kcalTarget) items.push({type:'metric', id:'kcal', name:'Kalórie do '+fmt(state.settings.kcalTarget), mt:METRICS[0]});
+  return items;
+}
+function itemDone(it, d){ return it.type==='habit' ? isChecked(it.id, d) : !!metricHit(it.mt, d); }
+
 function metrics(){
-  const mi = monthInfo();
-  const hs = state.habits;
-  const perHabit = hs.map(h=>{
-    const c = state.month.checks[h.id]||{};
-    let actual = 0; for(let d=1; d<=mi.days; d++) if(c[d]) actual++;
-    const goal = habitGoal(h, mi.days);
-    return {h, goal, actual, left: Math.max(0, goal-actual), pct: goal ? actual/goal : 0};
+  const mi = monthInfo(state.ym);
+  const items = scoreItems();
+  const per = items.map(it=>{
+    let actual=0; for(let d=1; d<=mi.days; d++) if(itemDone(it,d)) actual++;
+    const goal = it.type==='habit' && it.goal>0 ? Math.min(it.goal, mi.days) : mi.days;
+    return {it, goal, actual, left:Math.max(0,goal-actual), pct: goal?actual/goal:0};
   });
-  const daily = [];
-  for(let d=1; d<=mi.days; d++){
-    let n=0; hs.forEach(h=>{ if(isChecked(h.id,d)) n++; });
-    daily.push(hs.length ? n/hs.length : 0);
-  }
-  const weekly = mi.weeks.map(w=>{
-    let sum=0, cnt=0; for(let d=w.from; d<=w.to; d++){ sum+=daily[d-1]; cnt++; }
-    return cnt ? sum/cnt : 0;
-  });
-  const goal = perHabit.reduce((a,x)=>a+x.goal,0);
-  const done = perHabit.reduce((a,x)=>a+x.actual,0);
-  return {mi, perHabit, daily, weekly, goal, done, left: Math.max(0, goal-done)};
+  const daily=[]; for(let d=1; d<=mi.days; d++){ let n=0; items.forEach(it=>{ if(itemDone(it,d)) n++; }); daily.push(items.length? n/items.length : 0); }
+  const weekly = mi.weeks.map(w=>{ let s=0,c=0; for(let d=w.from; d<=w.to; d++){ s+=daily[d-1]; c++; } return c? s/c : 0; });
+  const goal = per.reduce((a,x)=>a+x.goal,0), done = per.reduce((a,x)=>a+x.actual,0);
+  const series = {}; METRICS.forEach(mt=>{ series[mt.k] = []; for(let d=1; d<=mi.days; d++) series[mt.k].push(metricVal(mt.k,d)); });
+  const waist = mi.weeks.map(w=>{ const v = state.month.waist[w.n]; return (v===undefined||v===null||v==='')?null:Number(v); });
+  return {mi, items, per, daily, weekly, goal, done, left:Math.max(0,goal-done), series, waist};
+}
+function seriesStats(arr){
+  const vals = arr.map((v,i)=>({v,i})).filter(x=>x.v!==null && !isNaN(x.v));
+  if(!vals.length) return null;
+  const first = vals[0], last = vals[vals.length-1];
+  const avg = vals.reduce((a,x)=>a+x.v,0)/vals.length;
+  return {first, last, avg, min:Math.min(...vals.map(x=>x.v)), max:Math.max(...vals.map(x=>x.v)), n:vals.length, delta:last.v-first.v};
 }
 
 /* ---------- render ---------- */
 function render(){
-  const M = metrics();
-  const mi = M.mi;
-  $('#monthLabel').textContent = MONTHS[mi.m-1]+' '+mi.y;
-  $('#subtitle').textContent = state.habits.length
-    ? state.habits.length+' návykov · '+mi.days+' dní · ťukni a odškrtni'
-    : 'Denné návyky, jeden mesiac na jednej obrazovke.';
-
-  // stats
-  $('#sGoal').textContent = M.goal;
-  $('#sDone').textContent = M.done;
-  $('#sLeft').textContent = M.left;
-  const pct = M.goal ? M.done/M.goal : 0;
-  $('#pct').textContent = Math.round(pct*100)+' %';
-  const C = 2*Math.PI*48;
-  $('#donutArc').setAttribute('stroke-dasharray', (pct*C).toFixed(1)+' '+C.toFixed(1));
-
-  renderBars($('#dailyChart'), M.daily.map((v,i)=>({v, label:String(i+1), tip:(i+1)+'. '+MONTHS[mi.m-1].toLowerCase().slice(0,3)+': '+Math.round(v*100)+' %', cls:dayState(i+1)})), {everyLabel: mi.days>20 ? 5 : 1});
-  renderBars($('#weeklyChart'), M.weekly.map((v,i)=>({v, label:'T'+(i+1), tip:'Týždeň '+(i+1)+': '+Math.round(v*100)+' %', cls:''})), {everyLabel:1, wide:true});
-  const elapsed = M.daily.filter((_,i)=>dayState(i+1)!=='future');
-  const avg = elapsed.length ? elapsed.reduce((a,b)=>a+b,0)/elapsed.length : 0;
-  $('#dailyAvg').textContent = elapsed.length ? 'priemer '+Math.round(avg*100)+' %' : '';
-  const best = M.weekly.length ? Math.max(...M.weekly) : 0;
-  $('#weeklyBest').textContent = best>0 ? 'najlepší '+Math.round(best*100)+' %' : '';
-
+  const M = metrics(), mi = M.mi;
+  $('#mh').firstChild.textContent = MONTHS[mi.m-1];
+  $('#mhs').textContent = mi.y + ' · ' + mi.days + ' dní · ' + M.items.length + ' položiek denne';
+  renderTicker(M);
+  renderToday(M);
+  renderCharts(M);
   renderGrid(M);
   renderAnalysis(M);
 }
 
-function renderBars(svg, data, opt){
-  const W = 600, H = 132, padL = 30, padR = 6, padT = 10, padB = 20;
-  const iw = W - padL - padR, ih = H - padT - padB;
-  const n = data.length || 1;
-  const gap = 2;
-  const bw = Math.max(2, (iw - gap*(n-1))/n);
-  let s = '';
-  [0,0.5,1].forEach(g=>{
-    const y = padT + ih - g*ih;
-    s += `<line class="grid" x1="${padL}" x2="${W-padR}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"></line>`;
-    s += `<text x="${padL-6}" y="${(y+3).toFixed(1)}" text-anchor="end">${Math.round(g*100)}%</text>`;
-  });
-  data.forEach((d,i)=>{
-    const x = padL + i*(bw+gap);
-    const h = Math.max(d.v>0 ? 3 : 0, d.v*ih);
-    const y = padT + ih - h;
-    s += `<rect class="bar ${d.cls}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="${Math.min(4,bw/2).toFixed(1)}" data-tip="${esc(d.tip)}"></rect>`;
-    s += `<rect x="${x.toFixed(1)}" y="${padT}" width="${(bw+gap).toFixed(1)}" height="${ih}" fill="transparent" data-tip="${esc(d.tip)}"></rect>`;
-    if(i % opt.everyLabel === 0 || i===data.length-1 || opt.wide){
-      s += `<text class="${d.cls==='today'?'lbl':''}" x="${(x+bw/2).toFixed(1)}" y="${H-6}" text-anchor="middle">${d.label}</text>`;
-    }
-  });
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.setAttribute('preserveAspectRatio', 'none');
-  svg.innerHTML = s;
+function renderTicker(M){
+  const el = $('#ticker');
+  const elapsed = M.daily.filter((_,i)=>dayState(i+1)!=='future');
+  const avg = elapsed.length ? elapsed.reduce((a,b)=>a+b,0)/elapsed.length : 0;
+  const kg = seriesStats(M.series.kg), st = seriesStats(M.series.steps), kc = seriesStats(M.series.kcal), wa = seriesStats(M.waist);
+  const delta = (s, dec, unit) => s && s.n>1 ? `<span class="d ${s.delta<0?'down':s.delta>0?'up':''}">${s.delta>0?'+':''}${fmt(s.delta,dec)} ${unit} od začiatku</span>` : `<span class="d">${s? 'jeden záznam':'bez záznamu'}</span>`;
+  el.innerHTML = `
+    <div><span class="lbl">Splnené</span><b>${M.done}<sub>/ ${M.goal}</sub></b><span class="d">${Math.round((M.goal?M.done/M.goal:0)*100)} % mesiaca · priemer dňa ${Math.round(avg*100)} %</span></div>
+    <div><span class="lbl">Váha</span><b>${kg?fmt(kg.last.v,1):'–'}<sub>kg</sub></b>${delta(kg,1,'kg')}</div>
+    <div><span class="lbl">Pás</span><b>${wa?fmt(wa.last.v,1):'–'}<sub>cm</sub></b>${delta(wa,1,'cm')}</div>
+    <div><span class="lbl">Kroky · priemer</span><b>${st?fmt(st.avg):'–'}</b><span class="d">${st? M.series.steps.filter(v=>v!==null && v>=state.settings.stepsTarget).length+' dní nad '+fmt(state.settings.stepsTarget) : 'bez záznamu'}</span></div>
+    <div><span class="lbl">Kalórie · priemer</span><b>${kc?fmt(kc.avg):'–'}<sub>kcal</sub></b><span class="d">${state.settings.kcalTarget ? 'cieľ do '+fmt(state.settings.kcalTarget) : 'cieľ nenastavený'}</span></div>`;
 }
+
+function renderToday(M){
+  const sec = $('#todaySec'), box = $('#today');
+  const viewingNow = state.ym===TODAY.ym;
+  const d = TODAY.d;
+  $('#todayH').textContent = viewingNow ? 'Dnes' : 'Dnes · '+MONTHS[Number(TODAY.ym.slice(5))-1];
+  $('#todaySub').textContent = DOW[now.getDay()]+' '+d+'. '+MONTHS_G[now.getMonth()]+' '+now.getFullYear();
+  if(!viewingNow){ box.innerHTML = `<div class="note">Rýchly zápis funguje pre aktuálny mesiac. <button class="b" style="height:32px;margin-left:8px" id="backToday">Späť na dnes</button></div>`; $('#backToday').onclick = ()=>{ state.ym = TODAY.ym; delete $('#gridwrap').dataset.scrolled; loadMonth(); }; return; }
+  if(!state.loaded){ box.innerHTML = '<div class="note">Načítavam…</div>'; return; }
+  const doneToday = M.items.filter(it=>itemDone(it,d)).length;
+  let h = `<div class="col"><div class="title"><b>Návyky</b><span class="lbl">${doneToday} / ${M.items.length} splnené</span></div><div class="tlist">`;
+  state.habits.forEach(hb=>{
+    const on = isChecked(hb.id,d);
+    let streak=0; for(let x=d; x>=1 && isChecked(hb.id,x); x--) streak++;
+    h += `<button class="${on?'on':''}" data-h="${hb.id}" data-d="${d}" aria-pressed="${on}"><i></i><span>${esc(hb.name)}</span><span class="s">${streak? streak+'× v rade':''}</span></button>`;
+  });
+  if(!state.habits.length) h += '<div class="empty"><b>Žiadne návyky</b>Pridaj prvý v mriežke nižšie.</div>';
+  h += `</div></div><div class="col"><div class="title"><b>Telo a pohyb</b><span class="lbl">zapíš hodnoty</span></div><div class="fields">`;
+  const kcalT = state.settings.kcalTarget, stT = state.settings.stepsTarget;
+  const v = k => metricVal(k,d);
+  const hitCls = (mt)=>{ const r = metricHit(mt,d); return r===true?'ok':''; };
+  h += fld('kcal','Kalórie', kcalT? (v('kcal')!==null ? (v('kcal')<=kcalT? 'v rámci cieľa':'nad cieľ o '+fmt(v('kcal')-kcalT)) : 'cieľ do '+fmt(kcalT)) : 'cieľ nastavíš cez „Ciele“', v('kcal'), 'kcal', 0, hitCls(METRICS[0]));
+  const kgS = seriesStats(M.series.kg);
+  h += fld('kg','Váha', kgS && kgS.n>1 ? (kgS.delta>0?'+':'')+fmt(kgS.delta,1)+' kg tento mesiac' : 'denne ráno, rovnaká váha', v('kg'), 'kg', 1, '');
+  h += fld('steps','Kroky', v('steps')!==null ? (v('steps')>=stT ? 'cieľ splnený' : 'chýba '+fmt(stT-v('steps'))) : 'cieľ '+fmt(stT), v('steps'), '', 0, hitCls(METRICS[2]));
+  const ph = v('physio')||0;
+  h += `<div class="fld ${ph>=2?'ok':''}"><label>Fyzio cviky<small>${ph>=2?'hotovo za dnes':ph===1?'ešte raz':'2× denne'}</small></label><div class="cnt"><button data-cnt="-1" aria-label="Menej">−</button><div class="v"><i class="${ph>=1?'on':''}"></i><i class="${ph>=2?'on':''}"></i></div><button data-cnt="1" aria-label="Viac">+</button></div></div>`;
+  const wk = weekOf(d), wv = state.month.waist[wk];
+  const wkStart = (wk-1)*7+1, wkEnd = Math.min(wkStart+6, M.mi.days);
+  h += `<div class="fld"><label>Obvod pása<small>${wv? 'týždeň '+wk+' zapísaný' : 'raz týždenne · týždeň '+wk+' ('+wkStart+'.–'+wkEnd+'.)'}</small></label><div class="in"><input id="in-waist" inputmode="decimal" step="0.1" type="number" value="${wv??''}" placeholder="–" data-waist="${wk}"><span class="u">cm</span></div></div>`;
+  h += '</div></div>';
+  box.innerHTML = h;
+  function fld(k,label,sub,val,unit,dec,cls){ return `<div class="fld ${cls}"><label>${label}<small>${sub}</small></label><div class="in"><input id="in-${k}" type="number" inputmode="decimal" step="${k==='kg'?'0.1':'1'}" value="${val===null?'':val}" placeholder="–" data-m="${k}" data-d="${d}"><span class="u">${unit}</span></div></div>`; }
+}
+
+function renderCharts(M){
+  const mi = M.mi, el = $('#charts');
+  const today = state.ym===TODAY.ym ? TODAY.d : null;
+  const labelsEvery = mi.days>20 ? 5 : 1;
+  const kg = seriesStats(M.series.kg), st = seriesStats(M.series.steps), kc = seriesStats(M.series.kcal);
+  $('#chartsSub').textContent = today ? 'deň '+today+' z '+mi.days : mi.days+' dní';
+  let h = '';
+  h += chartBox('Plnenie dňa', '% položiek', barChart(M.daily.map((v,i)=>({v:v*100, cls:dayState(i+1), tip:(i+1)+'. · '+Math.round(v*100)+' %'})), {max:100, labelsEvery, fmt:v=>Math.round(v)+'%'}));
+  h += chartBox('Váha', kg? fmt(kg.min,1)+' – '+fmt(kg.max,1)+' kg' : 'bez záznamu', kg ? lineChart(M.series.kg, {labelsEvery, dec:1, unit:'kg', padPct:.25}) : none('Zapíš váhu v paneli Dnes a tu sa vykreslí krivka.'));
+  h += chartBox('Kroky', st ? 'priemer '+fmt(st.avg) : 'bez záznamu', st ? barChart(M.series.steps.map((v,i)=>({v:v, cls:(v!==null&&v>=state.settings.stepsTarget?'hit ':'')+dayState(i+1), tip:(i+1)+'. · '+fmt(v)})), {target:state.settings.stepsTarget, targetLabel:fmt(state.settings.stepsTarget), labelsEvery, fmt:v=>fmt(v/1000,0)+'k'}) : none('Kroky za deň zapíš v paneli Dnes.'));
+  h += chartBox('Kalórie', kc ? 'priemer '+fmt(kc.avg)+' kcal' : 'bez záznamu', kc ? barChart(M.series.kcal.map((v,i)=>({v:v, cls:(state.settings.kcalTarget&&v!==null&&v<=state.settings.kcalTarget?'hit ':'')+dayState(i+1), tip:(i+1)+'. · '+fmt(v)+' kcal'})), {target:state.settings.kcalTarget, targetLabel:state.settings.kcalTarget?fmt(state.settings.kcalTarget):'', labelsEvery, fmt:v=>fmt(v)}) : none('Kalórie za deň zapíš v paneli Dnes.'));
+  h += chartBox('Týždne', 'priemer týždňa', barChart(M.weekly.map((v,i)=>({v:v*100, cls:'', tip:'Týždeň '+(i+1)+' · '+Math.round(v*100)+' %'})), {max:100, labelsEvery:1, labels:M.weekly.map((_,i)=>'T'+(i+1)), fmt:v=>Math.round(v)+'%'}));
+  const wa = seriesStats(M.waist);
+  h += chartBox('Pás · týždenne', wa ? fmt(wa.first.v,1)+' → '+fmt(wa.last.v,1)+' cm' : 'bez záznamu', wa ? lineChart(M.waist, {labelsEvery:1, labels:M.waist.map((_,i)=>'T'+(i+1)), dec:1, unit:'cm', padPct:.3}) : none('Obvod pása meraj raz týždenne, zapíš v paneli Dnes.'));
+  el.innerHTML = h;
+  function chartBox(t, s, inner){ return `<div class="ch"><div class="t"><b>${t}</b><span>${s}</span></div>${inner}</div>`; }
+  function none(t){ return `<div class="none">${t}</div>`; }
+}
+function barChart(data, o){
+  const W=320, H=120, pl=34, pr=6, pt=8, pb=18, iw=W-pl-pr, ih=H-pt-pb;
+  const vals = data.map(d=>d.v).filter(v=>v!==null && !isNaN(v));
+  let max = o.max || Math.max(o.target||0, ...vals, 1);
+  if(!o.max){ max = niceMax(max); }
+  const n = data.length||1, gap=2, bw=Math.max(2,(iw-gap*(n-1))/n);
+  let s = '';
+  [0,.5,1].forEach(g=>{ const y = pt+ih-g*ih; s += `<line class="g" x1="${pl}" x2="${W-pr}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"/><text x="${pl-5}" y="${(y+3).toFixed(1)}" text-anchor="end">${o.fmt(g*max)}</text>`; });
+  data.forEach((d,i)=>{
+    const x = pl+i*(bw+gap);
+    if(d.v!==null && !isNaN(d.v)){ const hh = Math.max(d.v>0?2:0, d.v/max*ih); s += `<rect class="bar ${d.cls}" x="${x.toFixed(1)}" y="${(pt+ih-hh).toFixed(1)}" width="${bw.toFixed(1)}" height="${hh.toFixed(1)}" data-tip="${esc(d.tip)}"/>`; }
+    const lab = o.labels ? o.labels[i] : String(i+1);
+    if(o.labels || i%o.labelsEvery===0 || i===n-1) s += `<text x="${(x+bw/2).toFixed(1)}" y="${H-5}" text-anchor="middle">${lab}</text>`;
+  });
+  if(o.target){ const y = pt+ih-o.target/max*ih; s += `<line class="tg" x1="${pl}" x2="${W-pr}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"/><text class="tgl" x="${W-pr}" y="${(y-3).toFixed(1)}" text-anchor="end">${o.targetLabel}</text>`; }
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img">${s}</svg>`;
+}
+function lineChart(arr, o){
+  const W=320, H=120, pl=36, pr=30, pt=10, pb=18, iw=W-pl-pr, ih=H-pt-pb;
+  const pts = arr.map((v,i)=>({v,i})).filter(p=>p.v!==null && !isNaN(p.v));
+  let lo = Math.min(...pts.map(p=>p.v)), hi = Math.max(...pts.map(p=>p.v));
+  const span = Math.max(hi-lo, 0.5); lo -= span*o.padPct; hi += span*o.padPct;
+  const n = arr.length;
+  const X = i => n>1 ? pl + i/(n-1)*iw : pl+iw/2, Y = v => pt + ih - (v-lo)/(hi-lo)*ih;
+  let s='';
+  [lo, (lo+hi)/2, hi].forEach(v=>{ const y=Y(v); s += `<line class="g" x1="${pl}" x2="${W-pr}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"/><text x="${pl-5}" y="${(y+3).toFixed(1)}" text-anchor="end">${fmt(v,o.dec)}</text>`; });
+  for(let i=0;i<n;i++){ const lab = o.labels? o.labels[i] : String(i+1); if(o.labels || i%o.labelsEvery===0 || i===n-1) s += `<text x="${X(i).toFixed(1)}" y="${H-5}" text-anchor="middle">${lab}</text>`; }
+  s += `<path class="ln" d="${pts.map((p,k)=>(k?'L':'M')+X(p.i).toFixed(1)+' '+Y(p.v).toFixed(1)).join(' ')}"/>`;
+  pts.forEach((p,k)=>{ const last = k===pts.length-1; s += `<circle class="pt ${last?'last':''}" cx="${X(p.i).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="${last?3.5:2.5}" data-tip="${(o.labels?o.labels[p.i]:(p.i+1)+'.')+' · '+fmt(p.v,o.dec)+' '+o.unit}"/>`; if(last) s += `<text class="last" x="${(X(p.i)+6).toFixed(1)}" y="${(Y(p.v)+4).toFixed(1)}">${fmt(p.v,o.dec)}</text>`; });
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img">${s}</svg>`;
+}
+function niceMax(v){ const p = Math.pow(10, Math.floor(Math.log10(v))); const r = v/p; const m = r<=1?1:r<=2?2:r<=2.5?2.5:r<=5?5:10; return m*p; }
 
 function renderGrid(M){
   const mi = M.mi, wrap = $('#gridwrap');
-  $('#gridInfo').textContent = mi.weeks.length+' týždňov';
-  if(!state.loadedHabits){ wrap.innerHTML = '<div class="empty">Načítavam návyky…</div>'; return; }
-  let h = '<table class="grid"><thead>';
-  h += '<tr><th class="name"></th>';
-  mi.weeks.forEach((w,i)=>{ h += `<th class="wk ${i===0?'first':''}" colspan="${w.to-w.from+1}">Týždeň ${w.n}</th>`; });
-  h += '</tr><tr><th class="name eyebrow" style="font-size:10px">Návyk</th>';
-  for(let d=1; d<=mi.days; d++) h += `<th class="d ${dayState(d)}">${DOW[mi.dow(d)]}</th>`;
-  h += '</tr><tr><th class="name"></th>';
-  for(let d=1; d<=mi.days; d++) h += `<th class="d num ${dayState(d)}">${d}</th>`;
+  $('#gridSub').textContent = mi.weeks.length+' týždňov · '+state.habits.length+' návykov';
+  if(!state.loaded){ wrap.innerHTML = '<div class="empty">Načítavam…</div>'; return; }
+  const cls = d => { const st = dayState(d), dw = mi.dow(d); return (st==='today'?'today ':'')+(st==='future'?'future ':'')+((dw===0||dw===6)?'we ':'')+(d===1?'first':((d-1)%7===0?'wk':'')); };
+  let h = '<table class="g"><thead><tr class="wk"><th class="name"></th>';
+  mi.weeks.forEach((w,i)=>{ h += `<th class="${i===0?'first':''}" colspan="${w.to-w.from+1}">Týždeň ${w.n}</th>`; });
+  h += '</tr><tr class="dn"><th class="name lbl" style="font-size:10px">Položka</th>';
+  for(let d=1; d<=mi.days; d++) h += `<th class="d ${cls(d)}">${DOW[mi.dow(d)]}</th>`;
+  h += '</tr><tr class="dn"><th class="name"></th>';
+  for(let d=1; d<=mi.days; d++) h += `<th class="d ${cls(d)}">${d}</th>`;
   h += '</tr></thead><tbody>';
-  if(!state.habits.length){
-    h += `<tr><td class="name" colspan="${mi.days+1}" style="max-width:none;position:static"><div class="empty"><b>Zatiaľ žiadne návyky</b>Pridaj prvý návyk v poli nižšie.</div></td></tr>`;
-  }
+  h += band('Návyky');
+  if(!state.habits.length) h += `<tr><td class="name" colspan="${mi.days+1}" style="max-width:none;position:static"><div class="empty"><b>Zatiaľ žiadne návyky</b>Pridaj prvý v poli pod mriežkou.</div></td></tr>`;
   state.habits.forEach(hb=>{
-    h += `<tr><td class="name"><button data-edit="${hb.id}" title="Upraviť"><span class="em">${esc(hb.emoji||'·')}</span><span class="t">${esc(hb.name)}</span></button></td>`;
+    h += `<tr><td class="name"><button data-edit="${hb.id}"><span>${esc(hb.name)}</span>${hb.goal? `<small>${hb.goal}×</small>`:''}</button></td>`;
+    for(let d=1; d<=mi.days; d++){ const on = isChecked(hb.id,d); h += `<td class="d ${cls(d)}"><button class="ck ${on?'on':''}" data-h="${hb.id}" data-d="${d}" aria-pressed="${on}" aria-label="${esc(hb.name)} ${d}."><i></i></button></td>`; }
+    h += '</tr>';
+  });
+  h += band('Telo a pohyb');
+  METRICS.forEach(mt=>{
+    const t = targetFor(mt);
+    h += `<tr><td class="name"><button data-target="${mt.target||''}"><span>${mt.label}</span><small>${mt.count? mt.count+'× denne' : t? (mt.mode==='min'?'≥ ':'≤ ')+fmt(t) : mt.unit}</small></button></td>`;
     for(let d=1; d<=mi.days; d++){
-      const first = d===1, wk = (d-1)%7===0;
-      const on = isChecked(hb.id, d);
-      h += `<td class="d ${dayState(d)} ${first?'first':wk?'wk':''}"><button class="chk ${on?'on':''}" data-h="${hb.id}" data-d="${d}" aria-pressed="${on}" aria-label="${esc(hb.name)} ${d}."><i><svg viewBox="0 0 12 12"><path d="M2 6.5 4.8 9 10 3"/></svg></i></button></td>`;
+      const v = metricVal(mt.k,d);
+      if(mt.count){ const c = v||0; h += `<td class="d ${cls(d)}"><button class="nv ${c?'':'e'}" data-cnt-d="${d}" aria-label="Fyzio ${d}.: ${c} z ${mt.count}"><span class="dots"><i class="${c>=1?'on':''}"></i><i class="${c>=2?'on':''}"></i></span></button></td>`; }
+      else { const hit = metricHit(mt,d); const txt = v===null?'·':(mt.k==='steps'? (v>=1000? (v/1000).toFixed(1).replace('.0','')+'k' : String(Math.round(v))) : mt.k==='kcal' ? String(Math.round(v)) : Number(v).toFixed(mt.dec).replace('.',',')); h += `<td class="d ${cls(d)}"><button class="nv ${v===null?'e':''} ${hit===true?'hit':hit===false?'miss':''}" data-m="${mt.k}" data-d="${d}" aria-label="${mt.label} ${d}.: ${v===null?'–':fmt(v,mt.dec)}">${txt}</button></td>`; }
     }
     h += '</tr>';
   });
-  if(state.habits.length){
-    h += `<tr class="sep"><td class="name"></td><td colspan="${mi.days}"></td></tr>`;
-    [['mood','Nálada'],['motivation','Motivácia']].forEach(([k,label])=>{
-      h += `<tr class="scale"><td class="name">${label} <span style="font-weight:400;color:var(--ink-3)">1–5</span></td>`;
-      for(let d=1; d<=mi.days; d++){
-        const v = Number(state.month[k][d]||0);
-        const first = d===1, wk = (d-1)%7===0;
-        h += `<td class="d ${dayState(d)} ${first?'first':wk?'wk':''}"><button class="v${v}" data-k="${k}" data-d="${d}" aria-label="${label} ${d}.: ${v||'–'}">${v||'·'}</button></td>`;
-      }
-      h += '</tr>';
-    });
-  }
-  h += `</tbody><tfoot><tr><td colspan="${mi.days+1}"><form class="add-row" id="addForm"><input id="newHabit" placeholder="Nový návyk…" maxlength="60" autocomplete="off"><button class="btn primary" type="submit">Pridať</button></form></td></tr></tfoot></table>`;
+  h += `<tr><td class="name"><span style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>Obvod pása</span><small class="mono" style="font-size:10px;color:var(--ink-3)">cm · týždenne</small></span></td>`;
+  mi.weeks.forEach((w,i)=>{ const v = state.month.waist[w.n]; const prev = i>0 ? state.month.waist[w.n-1] : undefined; const dl = (v!==undefined&&v!==''&&prev!==undefined&&prev!=='') ? (Number(v)-Number(prev)) : null; h += `<td class="wide ${i===0?'first':''}" colspan="${w.to-w.from+1}"><button class="nv ${v===undefined||v===''?'e':''}" data-waist="${w.n}"><span>${v===undefined||v===''?'· zapíš':fmt(Number(v),1)+' cm'}</span>${dl!==null? `<span class="dl">${dl>0?'+':''}${fmt(dl,1)}</span>`:''}</button></td>`; });
+  h += '</tr>';
+  h += band('Stav');
+  [['mood','Nálada'],['motivation','Motivácia']].forEach(([k,label])=>{
+    h += `<tr class="scale"><td class="name"><span style="display:flex;justify-content:space-between;gap:8px"><span>${label}</span><small class="mono" style="font-size:10px;color:var(--ink-3)">1–5</small></span></td>`;
+    for(let d=1; d<=mi.days; d++){ const v = Number(state.month[k][d]||0); h += `<td class="d ${cls(d)}"><button class="nv v${v} ${v?'':'e'}" data-k="${k}" data-d="${d}" aria-label="${label} ${d}.: ${v||'–'}">${v||'·'}</button></td>`; }
+    h += '</tr>';
+  });
+  h += `</tbody><tfoot><tr><td colspan="${mi.days+1}"><form class="addrow" id="addForm"><input id="newHabit" placeholder="Nový návyk…" maxlength="60" autocomplete="off"><button type="submit">Pridať</button></form></td></tr></tfoot></table>`;
   wrap.innerHTML = h;
-  // scroll so today's column is visible
-  const t = wrap.querySelector('th.d.today');
-  if(t && !wrap.dataset.scrolled){ wrap.dataset.scrolled = '1'; const left = t.offsetLeft - 190 - wrap.clientWidth/2 + 60; if(left>0) wrap.scrollLeft = left; }
+  const t = wrap.querySelector('thead tr.dn th.d.today');
+  if(t && !wrap.dataset.scrolled){ wrap.dataset.scrolled='1'; const left = t.offsetLeft - 180 - wrap.clientWidth/2 + 40; if(left>0) wrap.scrollLeft = left; }
+  function band(t){ return `<tr class="band"><td class="name">${t}</td><td colspan="${mi.days}"></td></tr>`; }
 }
 
 function renderAnalysis(M){
-  const an = $('#analysis'), top = $('#top');
-  if(!state.habits.length){ an.innerHTML = '<div class="empty">Pridaj návyky a tu uvidíš, ako ti ide každý z nich.</div>'; top.innerHTML = ''; return; }
-  let h = '<div class="tablewrap"><table class="an"><thead><tr><th>Návyk</th><th>Cieľ</th><th>Splnené</th><th>Zostáva</th><th style="text-align:left;padding-left:8px">Progres</th></tr></thead><tbody>';
-  M.perHabit.forEach(x=>{
-    h += `<tr><td>${esc(x.h.emoji)} ${esc(x.h.name)}</td><td class="num">${x.goal}</td><td class="num">${x.actual}</td><td class="num">${x.left}</td><td class="bar"><div class="pbar"><div class="track"><div class="fill" style="width:${(x.pct*100).toFixed(1)}%"></div></div><b class="num">${Math.round(x.pct*100)} %</b></div></td></tr>`;
-  });
-  h += '</tbody></table></div>';
+  const an = $('#analysis'), rk = $('#rank'), bs = $('#bodyStats');
+  if(!M.items.length){ an.innerHTML=''; rk.innerHTML=''; bs.innerHTML=''; return; }
+  let h = '<table class="an"><thead><tr><th>Položka</th><th>Cieľ</th><th>Splnené</th><th>Zostáva</th><th style="text-align:left;padding-left:8px">Plnenie</th></tr></thead><tbody>';
+  M.per.forEach(x=>{ h += `<tr><td>${esc(x.it.name)}</td><td>${x.goal}</td><td>${x.actual}</td><td>${x.left}</td><td class="p"><div class="pb"><div class="tr"><div class="fl" style="width:${(x.pct*100).toFixed(1)}%"></div></div><b>${Math.round(x.pct*100)} %</b></div></td></tr>`; });
+  h += `<tr class="sub"><td>Spolu</td><td>${M.goal}</td><td>${M.done}</td><td>${M.left}</td><td class="p"><div class="pb"><div class="tr"><div class="fl" style="width:${((M.goal?M.done/M.goal:0)*100).toFixed(1)}%"></div></div><b>${Math.round((M.goal?M.done/M.goal:0)*100)} %</b></div></td></tr>`;
+  h += '</tbody></table>';
   an.innerHTML = h;
-  const ranked = M.perHabit.slice().sort((a,b)=>b.actual-a.actual || b.pct-a.pct).slice(0,10);
-  top.innerHTML = '<ol class="rank">'+ranked.map((x,i)=>`<li><span class="pos num">${i+1}</span><span>${esc(x.h.emoji)} ${esc(x.h.name)}</span><span class="cnt num">${x.actual}× · ${Math.round(x.pct*100)} %</span></li>`).join('')+'</ol>';
+  const ranked = M.per.slice().sort((a,b)=>b.pct-a.pct || b.actual-a.actual);
+  rk.innerHTML = '<ol class="rank">'+ranked.map((x,i)=>`<li><span class="pos">${pad(i+1)}</span><span>${esc(x.it.name)}</span><span class="c">${x.actual}× · ${Math.round(x.pct*100)} %</span></li>`).join('')+'</ol>';
+  const kg = seriesStats(M.series.kg), wa = seriesStats(M.waist), st = seriesStats(M.series.steps), kc = seriesStats(M.series.kcal);
+  const ph = M.series.physio.filter(v=>v!==null&&v>=2).length;
+  bs.innerHTML = `
+    <div><span class="lbl">Váha · zmena</span><b>${kg&&kg.n>1? (kg.delta>0?'+':'')+fmt(kg.delta,1):'–'}<sub>kg</sub></b></div>
+    <div><span class="lbl">Váha · min / max</span><b>${kg? fmt(kg.min,1)+' / '+fmt(kg.max,1):'–'}</b></div>
+    <div><span class="lbl">Pás · zmena</span><b>${wa&&wa.n>1? (wa.delta>0?'+':'')+fmt(wa.delta,1):'–'}<sub>cm</sub></b></div>
+    <div><span class="lbl">Kroky · spolu</span><b>${st? fmt(st.avg*st.n):'–'}</b></div>
+    <div><span class="lbl">Fyzio · 2× splnené</span><b>${ph}<sub>dní</sub></b></div>
+    <div><span class="lbl">Kalórie · priemer</span><b>${kc? fmt(kc.avg):'–'}<sub>kcal</sub></b></div>`;
 }
 
-function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+/* ---------- writes ---------- */
+function setCheck(hid, d, on){
+  const c = Object.assign({}, state.month.checks[hid]||{}); if(on) c[d]=1; else delete c[d];
+  state.month = Object.assign({}, state.month, {checks:Object.assign({}, state.month.checks, {[hid]:c})});
+  saveMonth(state.ym, state.month); render();
+}
+function setMetric(k, d, val){
+  const m = Object.assign({}, state.month.m[k]); if(val===null||val===''||isNaN(val)) delete m[d]; else m[d] = Number(val);
+  state.month = Object.assign({}, state.month, {m:Object.assign({}, state.month.m, {[k]:m})});
+  saveMonth(state.ym, state.month); render();
+}
+function setWaist(wk, val){
+  const w = Object.assign({}, state.month.waist); if(val===null||val===''||isNaN(val)) delete w[wk]; else w[wk] = Number(val);
+  state.month = Object.assign({}, state.month, {waist:w}); saveMonth(state.ym, state.month); render();
+}
+function setScale(k, d, v){
+  const m = Object.assign({}, state.month[k]); if(v) m[d]=v; else delete m[d];
+  state.month = Object.assign({}, state.month, {[k]:m}); saveMonth(state.ym, state.month); render();
+}
 
 /* ---------- interactions ---------- */
 document.addEventListener('click', e=>{
-  const chk = e.target.closest('button.chk');
-  if(chk){
-    const hid = chk.dataset.h, d = chk.dataset.d;
-    const c = Object.assign({}, state.month.checks[hid]||{});
-    if(c[d]) delete c[d]; else c[d] = 1;
-    state.month = Object.assign({}, state.month, {checks: Object.assign({}, state.month.checks, {[hid]: c})});
-    saveMonth(); render(); return;
-  }
-  const sc = e.target.closest('tr.scale button[data-k]');
-  if(sc){
-    const k = sc.dataset.k, d = sc.dataset.d;
-    const cur = Number(state.month[k][d]||0);
-    const nv = (cur+1)%6;
-    const m = Object.assign({}, state.month[k]); if(nv) m[d] = nv; else delete m[d];
-    state.month = Object.assign({}, state.month, {[k]: m});
-    saveMonth(); render(); return;
-  }
-  const ed = e.target.closest('button[data-edit]');
+  const t = e.target;
+  const ck = t.closest('button.ck, .tlist button[data-h]');
+  if(ck){ setCheck(ck.dataset.h, ck.dataset.d, !isChecked(ck.dataset.h, ck.dataset.d)); return; }
+  const cnt = t.closest('button[data-cnt]');
+  if(cnt){ const d = TODAY.d; const cur = metricVal('physio', d)||0; const nv = Math.max(0, Math.min(2, cur+Number(cnt.dataset.cnt))); if(nv!==cur) setMetric('physio', d, nv); return; }
+  const cntd = t.closest('button[data-cnt-d]');
+  if(cntd){ const d = cntd.dataset.cntD; const cur = metricVal('physio', d)||0; setMetric('physio', d, (cur+1)%3); return; }
+  const sc = t.closest('tr.scale button[data-k]');
+  if(sc){ const cur = Number(state.month[sc.dataset.k][sc.dataset.d]||0); setScale(sc.dataset.k, sc.dataset.d, (cur+1)%6); return; }
+  const nv = t.closest('.g button.nv[data-m]');
+  if(nv){ const mt = METRICS.find(m=>m.k===nv.dataset.m); openNumber({title:mt.label, sub:nv.dataset.d+'. '+MONTHS_G[monthInfo(state.ym).m-1], unit:mt.unit, step:mt.step, value:metricVal(mt.k, nv.dataset.d), onSave:v=>setMetric(mt.k, nv.dataset.d, v)}); return; }
+  const wb = t.closest('.g button.nv[data-waist]');
+  if(wb){ const wk = wb.dataset.waist; const cur = state.month.waist[wk]; openNumber({title:'Obvod pása', sub:'týždeň '+wk, unit:'cm', step:0.1, value:(cur===undefined||cur==='')?null:Number(cur), onSave:v=>setWaist(wk, v)}); return; }
+  const ed = t.closest('button[data-edit]');
   if(ed){ openEditor(ed.dataset.edit); return; }
+  const tg = t.closest('button[data-target]');
+  if(tg){ openSettings(); return; }
+});
+document.addEventListener('change', e=>{
+  const i = e.target;
+  if(i.matches('input[data-m]')){ setMetric(i.dataset.m, i.dataset.d, i.value===''?null:Number(i.value)); return; }
+  if(i.matches('input[data-waist]')){ setWaist(i.dataset.waist, i.value===''?null:Number(i.value)); return; }
+});
+document.addEventListener('keydown', e=>{
+  if(e.key==='Enter' && e.target.matches && e.target.matches('.fld input')){ e.target.blur(); }
+  if(e.key==='Escape' && $('#modal')) $('#modalRoot').innerHTML='';
 });
 document.addEventListener('submit', e=>{
   if(e.target.id==='addForm'){
     e.preventDefault();
     const inp = $('#newHabit'); const name = inp.value.trim(); if(!name) return;
-    const emoji = pickEmoji(name);
-    const h = {id:newId(), name, emoji, goal:null, order:(state.habits.length ? Math.max(...state.habits.map(x=>x.order))+1 : 0)};
-    state.habits = state.habits.concat([h]);
-    saveHabit(h); render();
-    const i2 = $('#newHabit'); if(i2){ i2.focus(); }
-    toast('Návyk pridaný');
+    const h = {id:newId(), name, goal:null, order:(state.habits.length? Math.max(...state.habits.map(x=>x.order))+1 : 0)};
+    state.habits = state.habits.concat([h]); saveHabit(h); render(); toast('Návyk pridaný');
+    const i2 = $('#newHabit'); if(i2) i2.focus();
   }
 });
-function pickEmoji(name){
-  const n = name.toLowerCase();
-  const map = [['gym','🏋️'],['posil','🏋️'],['beh','🏃'],['cvič','💪'],['medit','🧘'],['čít','📖'],['kniha','📖'],['sprch','🚿'],['spán','🌙'],['spať','🌙'],['vod','💧'],['piť','💧'],['uč','🧠'],['štud','🎓'],['práca','💼'],['plán','📝'],['cukor','🍬'],['alko','🍺'],['sociál','📱'],['telef','📱'],['vst','⏰'],['jedl','🥗'],['vitam','💊'],['prech','🚶'],['jog','🧘'],['pís','✍️'],['hudb','🎵'],['jazyk','🗣️']];
-  for(const [k,v] of map) if(n.includes(k)) return v;
-  return '✅';
-}
-$('#prev').addEventListener('click', ()=>shiftMonth(-1));
-$('#next').addEventListener('click', ()=>shiftMonth(1));
-$('#goToday').addEventListener('click', ()=>{ state.ym = TODAY.ym; delete $('#gridwrap').dataset.scrolled; loadMonth(); });
-function shiftMonth(n){
-  const [y,m] = state.ym.split('-').map(Number);
-  const d = new Date(y, m-1+n, 1);
-  state.ym = ymOf(d);
-  delete $('#gridwrap').dataset.scrolled;
-  loadMonth();
-}
+$('#prev').onclick = ()=>shiftMonth(-1);
+$('#next').onclick = ()=>shiftMonth(1);
+$('#goToday').onclick = ()=>{ state.ym = TODAY.ym; delete $('#gridwrap').dataset.scrolled; loadMonth(); };
+$('#settings').onclick = openSettings;
+function shiftMonth(n){ const [y,m] = state.ym.split('-').map(Number); state.ym = ymOf(new Date(y, m-1+n, 1)); delete $('#gridwrap').dataset.scrolled; loadMonth(); }
 
-/* editor */
+/* sheets */
+function sheet(html){ const root = $('#modalRoot'); root.innerHTML = `<div class="modal" id="modal"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`; $('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') root.innerHTML=''; }); return ()=>{ root.innerHTML=''; }; }
+function openNumber(o){
+  const close = sheet(`<h3>${esc(o.title)}<small>${esc(o.sub)}</small></h3>
+    <div class="f"><label for="numIn">Hodnota${o.unit? ' · '+esc(o.unit):''}</label><input id="numIn" class="big" type="number" inputmode="decimal" step="${o.step}" value="${o.value===null?'':o.value}" placeholder="–"></div>
+    <div class="acts"><button class="b bad" id="numClear">Vymazať</button><div class="r"><button class="b" id="numCancel">Zrušiť</button><button class="b fill" id="numSave">Uložiť</button></div></div>`);
+  $('#numCancel').onclick = close;
+  $('#numClear').onclick = ()=>{ o.onSave(null); close(); };
+  const save = ()=>{ const v = $('#numIn').value; o.onSave(v===''?null:Number(v)); close(); };
+  $('#numSave').onclick = save;
+  $('#numIn').addEventListener('keydown', e=>{ if(e.key==='Enter') save(); });
+  setTimeout(()=>{ const i=$('#numIn'); if(i){ i.focus(); i.select(); } }, 30);
+}
+function openSettings(){
+  const s = state.settings;
+  const close = sheet(`<h3>Ciele<small>platia pre všetky mesiace</small></h3>
+    <div class="f"><label for="stSteps">Kroky za deň</label><input id="stSteps" type="number" inputmode="numeric" step="500" value="${s.stepsTarget||''}"><small>Deň sa počíta ako splnený, keď dosiahneš tento počet.</small></div>
+    <div class="f"><label for="stKcal">Kalórie za deň · strop</label><input id="stKcal" type="number" inputmode="numeric" step="50" value="${s.kcalTarget||''}" placeholder="bez cieľa"><small>Ak nastavíš, kalórie sa pridajú medzi denné položky a deň je splnený pod stropom.</small></div>
+    <div class="acts"><div class="r"><button class="b" id="stCancel">Zrušiť</button><button class="b fill" id="stSave">Uložiť</button></div></div>`);
+  $('#stCancel').onclick = close;
+  $('#stSave').onclick = ()=>{ const st = parseInt($('#stSteps').value,10), kc = parseInt($('#stKcal').value,10); state.settings = Object.assign({}, state.settings, {stepsTarget: st>0?st:10000, kcalTarget: kc>0?kc:null}); saveSettings(); render(); close(); toast('Ciele uložené'); };
+}
 function openEditor(id){
   const h = state.habits.find(x=>x.id===id); if(!h) return;
-  const root = $('#modalRoot');
   const idx = state.habits.indexOf(h);
-  root.innerHTML = `<div class="modal" id="modal"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="edT">
-    <h3 id="edT">Upraviť návyk</h3>
-    <div class="field"><label for="edName">Názov</label><div class="row"><input id="edEmoji" value="${esc(h.emoji)}" maxlength="4" aria-label="Emoji"><input id="edName" value="${esc(h.name)}" maxlength="60"></div></div>
-    <div class="field"><label for="edGoal">Cieľ (dní v mesiaci)</label><input id="edGoal" type="number" min="1" max="31" inputmode="numeric" value="${h.goal||''}" placeholder="každý deň"><small>Nechaj prázdne, ak chceš návyk plniť každý deň.</small></div>
-    <div class="actions">
-      <div style="display:flex;gap:6px">
-        <button class="btn ghost" id="edUp" ${idx===0?'disabled':''} title="Posunúť vyššie">↑</button>
-        <button class="btn ghost" id="edDown" ${idx===state.habits.length-1?'disabled':''} title="Posunúť nižšie">↓</button>
-        <button class="btn danger" id="edDel">Odstrániť</button>
-      </div>
-      <div class="r"><button class="btn ghost" id="edCancel">Zrušiť</button><button class="btn primary" id="edSave">Uložiť</button></div>
-    </div>
-  </div></div>`;
-  const close = ()=>{ root.innerHTML=''; };
+  const close = sheet(`<h3>Upraviť návyk<small>${esc(h.name)}</small></h3>
+    <div class="f"><label for="edName">Názov</label><input id="edName" value="${esc(h.name)}" maxlength="60"></div>
+    <div class="f"><label for="edGoal">Cieľ · dní v mesiaci</label><input id="edGoal" type="number" min="1" max="31" inputmode="numeric" value="${h.goal||''}" placeholder="každý deň"><small>Napríklad Gym 16× za mesiac. Prázdne znamená každý deň.</small></div>
+    <div class="acts"><div style="display:flex"><button class="b" id="edUp" ${idx===0?'disabled':''} aria-label="Posunúť vyššie">↑</button><button class="b" id="edDown" ${idx===state.habits.length-1?'disabled':''} aria-label="Posunúť nižšie">↓</button><button class="b bad" id="edDel">Odstrániť</button></div><div class="r"><button class="b" id="edCancel">Zrušiť</button><button class="b fill" id="edSave">Uložiť</button></div></div>`);
   $('#edCancel').onclick = close;
-  $('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') close(); });
-  $('#edSave').onclick = ()=>{
-    const name = $('#edName').value.trim(); if(!name){ $('#edName').focus(); return; }
-    const g = parseInt($('#edGoal').value,10);
-    h.name = name; h.emoji = $('#edEmoji').value.trim(); h.goal = (g>0 ? g : null);
-    saveHabit(h); render(); close(); toast('Uložené');
-  };
-  const swap = dir => {
-    const j = idx+dir; const o = state.habits[j]; if(!o) return;
-    const t = h.order; h.order = o.order; o.order = t;
-    if(h.order===o.order){ o.order = h.order + dir; }
-    state.habits.sort((a,b)=>a.order-b.order);
-    saveHabit(h); saveHabit(o); render(); close(); openEditor(h.id);
-  };
-  $('#edUp').onclick = ()=>swap(-1);
-  $('#edDown').onclick = ()=>swap(1);
+  $('#edSave').onclick = ()=>{ const name = $('#edName').value.trim(); if(!name){ $('#edName').focus(); return; } const g = parseInt($('#edGoal').value,10); h.name = name; h.goal = g>0?g:null; saveHabit(h); render(); close(); toast('Uložené'); };
+  const swap = dir => { const o = state.habits[idx+dir]; if(!o) return; const t = h.order; h.order = o.order; o.order = t; if(h.order===o.order) o.order = h.order+dir; state.habits.sort((a,b)=>a.order-b.order); saveHabit(h); saveHabit(o); render(); close(); openEditor(h.id); };
+  $('#edUp').onclick = ()=>swap(-1); $('#edDown').onclick = ()=>swap(1);
   let armed = false;
-  $('#edDel').onclick = ()=>{
-    if(!armed){ armed = true; $('#edDel').textContent = 'Naozaj odstrániť?'; return; }
-    deleteHabit(h.id); render(); close(); toast('Návyk odstránený');
-  };
-  setTimeout(()=>$('#edName').focus(), 30);
+  $('#edDel').onclick = ()=>{ if(!armed){ armed = true; $('#edDel').textContent = 'Naozaj odstrániť?'; return; } deleteHabit(h.id); render(); close(); toast('Návyk odstránený'); };
+  setTimeout(()=>{ const i=$('#edName'); if(i) i.focus(); }, 30);
 }
-document.addEventListener('keydown', e=>{ if(e.key==='Escape' && $('#modal')) $('#modalRoot').innerHTML=''; });
 
-/* tooltips */
+/* tooltips + toast */
 const tip = $('#tip');
-function showTip(e){
-  const t = e.target.closest && e.target.closest('[data-tip]'); if(!t){ tip.classList.remove('show'); return; }
-  tip.textContent = t.dataset.tip; tip.style.left = e.clientX+'px'; tip.style.top = e.clientY+'px'; tip.classList.add('show');
-}
-document.addEventListener('pointermove', showTip);
-document.addEventListener('pointerleave', ()=>tip.classList.remove('show'));
+document.addEventListener('pointermove', e=>{ const t = e.target.closest && e.target.closest('[data-tip]'); if(!t){ tip.classList.remove('show'); return; } tip.textContent = t.dataset.tip; tip.style.left = e.clientX+'px'; tip.style.top = e.clientY+'px'; tip.classList.add('show'); });
 document.addEventListener('pointerdown', e=>{ if(!(e.target.closest && e.target.closest('[data-tip]'))) tip.classList.remove('show'); });
-
-let toastT;
-function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'), 1800); }
+let toastT; function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'), 1600); }
 
 /* boot */
 state.month = emptyMonth();
