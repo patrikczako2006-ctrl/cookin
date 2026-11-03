@@ -35,7 +35,10 @@
       pass:'#5CD2FF', drib:'#2BE58A', run:'#E8EFEA', shot:'#FF9F45',
       zone:'rgba(255,255,255,.05)', zoneLine:'rgba(255,255,255,.24)',
       zoneTarget:'rgba(43,229,138,.13)', zoneOwn:'rgba(255,92,108,.055)',
-      txt:'rgba(255,255,255,.74)', dim:'rgba(255,255,255,.45)', badge:'#0B140F'
+      txt:'rgba(255,255,255,.74)', dim:'rgba(255,255,255,.45)', badge:'#0B140F',
+      stripe:'rgba(255,255,255,.022)', legend:'rgba(255,255,255,.60)',
+      legendBg:'rgba(255,255,255,.035)', chip:'rgba(255,255,255,.07)',
+      title:'#F3F6FA', task:'rgba(255,255,255,.72)'
     },
     light:{
       pitch:'#EDF4EE', bg:'#FFFFFF', line:'#7E9A88', line2:'#C3D4C9',
@@ -45,7 +48,10 @@
       pass:'#2C6DA8', drib:'#1F7A45', run:'#55655C', shot:'#C2691B',
       zone:'rgba(0,0,0,.05)', zoneLine:'rgba(0,0,0,.24)',
       zoneTarget:'rgba(31,122,69,.15)', zoneOwn:'rgba(192,57,43,.07)',
-      txt:'#33463C', dim:'#6E8177', badge:'#FFFFFF'
+      txt:'#33463C', dim:'#6E8177', badge:'#FFFFFF',
+      stripe:'rgba(0,0,0,.035)', legend:'#4A5C52',
+      legendBg:'rgba(0,0,0,.035)', chip:'rgba(0,0,0,.05)',
+      title:'#16233A', task:'#3C4C44'
     }
   };
 
@@ -59,7 +65,7 @@
      (hráči, text) majú veľkosť obmedzenú, aby malé ihrisko nemalo obrích
      hráčov a veľké ihrisko neviditeľné bodky.
   ------------------------------------------------------------------------- */
-  const BOX_W=680, BOX_H=460, GD=3.0;   // GD = miesto za bránkovou čiarou (m)
+  const BOX_W=700, BOX_H=460, GD=3.0;   // GD = miesto za bránkovou čiarou (m)
   function mk(scene){
     const w=+scene.w||30, h=+scene.h||20, D=scene.dims!==false;
     /* bránka stojí ZA čiarou — na tú stranu si nákres nechá miesto navyše */
@@ -95,7 +101,48 @@
   }
   function cone(m,p,x,y){
     const r=m.C(0.85,0.62,0.9), X=m.X(x), Y=m.Y(y);
-    return `<path d="M${f(X)} ${f(Y-r)}L${f(X+r*0.85)} ${f(Y+r*0.62)}L${f(X-r*0.85)} ${f(Y+r*0.62)}Z" fill="${p.cone}"/>`;
+    /* méta má podstavu — bez nej splýva so šípkou */
+    return `<ellipse cx="${f(X)}" cy="${f(Y+r*0.62)}" rx="${f(r*0.95)}" ry="${f(r*0.3)}"`
+      +` fill="${p.cone}" fill-opacity=".35"/>`
+      +`<path d="M${f(X)} ${f(Y-r)}L${f(X+r*0.85)} ${f(Y+r*0.62)}L${f(X-r*0.85)} ${f(Y+r*0.62)}Z"`
+      +` fill="${p.cone}"/>`;
+  }
+
+  /* pokosené pásy — nákres má na prvý pohľad vyzerať ako ihrisko */
+  function stripes(m,p){
+    const n=6, bw=m.L(m.w)/n; let s='';
+    for(let i=0;i<n;i+=2)
+      s+=`<rect x="${f(m.X(0)+i*bw)}" y="${f(m.Y(0))}" width="${f(bw)}" height="${f(m.L(m.h))}" fill="${p.stripe}"/>`;
+    return `<g clip-path="url(#pclip)">${s}</g>`;
+  }
+
+  /* smer útoku — tréner musí hneď vidieť, kam sa hrá */
+  function dirOf(scene){
+    const sides={};
+    (scene.goals||[]).forEach(g=>{sides[g.side||'t']=1;});
+    const k=Object.keys(sides);
+    if(k.length===1) return k[0];
+    /* bránky na oboch stranách — smer je vždy pozdĺžny, nie do strany */
+    const axis = (sides.l&&sides.r) ? 'x' : (sides.t&&sides.b) ? 'y' : null;
+    const sh=(scene.acts||[]).filter(a=>a.k==='shot').pop()
+          || (scene.acts||[])[(scene.acts||[]).length-1];
+    if(sh&&sh.p&&sh.p.length>1){
+      const a=sh.p[0], b=sh.p[sh.p.length-1];
+      const dx=b[0]-a[0], dy=b[1]-a[1];
+      if(axis==='x') return dx>=0?'r':'l';
+      if(axis==='y') return dy>=0?'b':'t';
+      if(Math.abs(dx)>=Math.abs(dy)*1.15) return dx>=0?'r':'l';
+      if(Math.abs(dy)>Math.abs(dx)*1.15) return dy>=0?'b':'t';
+    }
+    return null;
+  }
+  function dirSym(p,d,cx,cy,fs){
+    const L=fs*2.0, rot={r:0,l:180,t:-90,b:90}[d]||0, x0=cx-L/2;
+    return `<g transform="rotate(${rot} ${f(cx)} ${f(cy)})">`
+      +`<path d="M${f(x0)} ${f(cy)}L${f(x0+L-fs*0.3)} ${f(cy)}" stroke="${p.att}"`
+      +` stroke-width="${f(fs*0.26)}" stroke-linecap="round"/>`
+      +`<path d="M${f(x0+L-fs*0.5)} ${f(cy-fs*0.38)}L${f(x0+L)} ${f(cy)}L${f(x0+L-fs*0.5)} ${f(cy+fs*0.38)}"`
+      +` fill="${p.att}" stroke="${p.att}" stroke-width="${f(fs*0.12)}" stroke-linejoin="round"/></g>`;
   }
   function mann(m,p,x,y){
     const w=m.C(0.7,0.42,0.7), h=m.C(1.8,1.1,1.8);
@@ -286,10 +333,91 @@
     }
     if(!best) best=along(P,0.5).p;
     taken.push({x:best[0],y:best[1],r});
-    return `<circle cx="${f(best[0])}" cy="${f(best[1])}" r="${f(r)}" fill="${p.badge}" stroke="${col}"`
-      +` stroke-width="${f(m.U*0.15)}"/>`
-      +`<text x="${f(best[0])}" y="${f(best[1]+r*0.37)}" font-size="${f(r*1.15)}" font-weight="800"`
-      +` text-anchor="middle" fill="${col}" font-family="${FONT}">${esc(n)}</text>`;
+    /* poradie akcie je ŠTVOREC, hráč je KRUH — aby sa čísla neplietli */
+    return `<rect x="${f(best[0]-r)}" y="${f(best[1]-r)}" width="${f(r*2)}" height="${f(r*2)}"`
+      +` rx="${f(r*0.42)}" fill="${col}"/>`
+      +`<text x="${f(best[0])}" y="${f(best[1]+r*0.37)}" font-size="${f(r*1.12)}" font-weight="800"`
+      +` text-anchor="middle" fill="${p.badge}" font-family="${FONT}">${esc(n)}</text>`;
+  }
+
+  /* -------------------------------------------------------------------------
+     Legenda. Najdôležitejšia zmena oproti verzii 2: tréner nemusí hádať,
+     čo znamená červený krúžok ani modrá čiara. Vypíšu sa len tie značky,
+     ktoré sa v tomto nákrese naozaj vyskytujú.
+  ------------------------------------------------------------------------- */
+  const LBL={a:'Útočiaci',d:'Brániaci',n:'Neutrál',gk:'Brankár',
+    ball:'Lopta',cone:'Méta',mann:'Figurína',
+    pass:'Prihrávka',drib:'Vedenie lopty',run:'Beh bez lopty',shot:'Streľba'};
+  const RANK=['a','d','n','gk','ball','cone','mann','pass','drib','run','shot'];
+
+  function legendKeys(scene){
+    const seen={};
+    (scene.players||[]).forEach(q=>seen[q.t||'a']=1);
+    (scene.goals||[]).forEach(g=>{if(g.gk) seen.gk=1;});
+    if((scene.balls||[]).length||scene.ball) seen.ball=1;
+    if((scene.cones||[]).length||(scene.gates||[]).length) seen.cone=1;
+    if((scene.mann||[]).length) seen.mann=1;
+    (scene.acts||[]).forEach(a=>seen[a.k||'pass']=1);
+    return RANK.filter(k=>seen[k]);
+  }
+
+  function legSym(p,k,cx,cy,fs){
+    const col={a:p.att,d:p.def,n:p.neu,gk:p.gk}[k];
+    if(col){
+      let s=`<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(fs*0.62)}" fill="${col}"`;
+      s+= k==='d'?` stroke="${p.pitch}" stroke-width="${f(fs*0.13)}"/>`:`/>`;
+      return s;
+    }
+    if(k==='ball') return `<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(fs*0.36)}" fill="${p.ball}"`
+      +` stroke="${p.ballLine}" stroke-width="${f(fs*0.1)}"/>`;
+    if(k==='cone') return `<path d="M${f(cx)} ${f(cy-fs*0.58)}L${f(cx+fs*0.52)} ${f(cy+fs*0.42)}`
+      +`L${f(cx-fs*0.52)} ${f(cy+fs*0.42)}Z" fill="${p.cone}"/>`;
+    if(k==='mann') return `<rect x="${f(cx-fs*0.26)}" y="${f(cy-fs*0.62)}" width="${f(fs*0.52)}"`
+      +` height="${f(fs*1.24)}" rx="${f(fs*0.26)}" fill="none" stroke="${p.mann}"`
+      +` stroke-width="${f(fs*0.14)}"/>`;
+    /* akcie — rovnaký tvar čiary ako v nákrese */
+    const c=p[{pass:'pass',drib:'drib',run:'run',shot:'shot'}[k]];
+    const L=fs*2.2, x0=cx-L/2, x1=cx+L/2;
+    let d=`M${f(x0)} ${f(cy)}L${f(x1-fs*0.3)} ${f(cy)}`;
+    if(k==='drib'){d=`M${f(x0)} ${f(cy)}`;
+      const n=4,st=(L-fs*0.3)/n;
+      for(let i=1;i<=n;i++) d+=`Q${f(x0+st*(i-0.5))} ${f(cy+(i%2?-fs*0.34:fs*0.34))} ${f(x0+st*i)} ${f(cy)}`;}
+    const w=k==='shot'?fs*0.3:k==='run'?fs*0.17:fs*0.2;
+    return `<path d="${d}" fill="none" stroke="${c}" stroke-width="${f(w)}" stroke-linecap="round"`
+      +(k==='run'?` stroke-dasharray="${f(fs*0.36)} ${f(fs*0.3)}"`:'')+`/>`
+      +`<path d="M${f(x1-fs*0.46)} ${f(cy-fs*0.32)}L${f(x1)} ${f(cy)}L${f(x1-fs*0.46)} ${f(cy+fs*0.32)}"`
+      +` fill="${c}" stroke="${c}" stroke-width="${f(fs*0.1)}" stroke-linejoin="round"/>`;
+  }
+
+  function legend(m,p,scene,VW){
+    const keys=legendKeys(scene);
+    const dir=dirOf(scene);
+    if(dir) keys.unshift('_dir');
+    if(!keys.length) return {h:0,svg:''};
+    LBL._dir='SMER HRY';
+    const fs=Math.max(10.5,Math.min(13.5,m.U*0.92));
+    const PADX=12, gapX=fs*1.05, symW=fs*2.6;
+    const wOf=k=>symW+String(LBL[k]).length*fs*0.53+gapX;
+    /* rozdelíme na riadky, ktoré sa zmestia do šírky */
+    const rows=[[]]; let w=0, maxW=VW-PADX*2;
+    keys.forEach(k=>{const iw=wOf(k);
+      if(w+iw>maxW&&rows[rows.length-1].length){rows.push([]);w=0;}
+      rows[rows.length-1].push(k); w+=iw;});
+    const rowH=fs*2.0, h=rows.length*rowH+fs*0.9;
+    let s=`<rect x="0" y="0" width="${f(VW)}" height="${f(h)}" fill="${p.legendBg}"/>`;
+    rows.forEach((row,ri)=>{
+      const tot=row.reduce((a,k)=>a+wOf(k),0);
+      let x=(VW-tot)/2, cy=fs*0.9+ri*rowH+rowH*0.3;
+      row.forEach(k=>{
+        s+= k==='_dir' ? dirSym(p,dir,x+symW/2,cy,fs) : legSym(p,k,x+symW/2,cy,fs);
+        s+=`<text x="${f(x+symW)}" y="${f(cy+fs*0.36)}" font-size="${f(fs)}"`
+          +` fill="${k==='_dir'?p.att:p.legend}" font-family="${FONT}"`
+          +` font-weight="${k==='_dir'?800:600}"`
+          +(k==='_dir'?' letter-spacing=".4"':'')+`>${esc(LBL[k])}</text>`;
+        x+=wOf(k);
+      });
+    });
+    return {h, svg:s};
   }
 
   /* ---------- rozmery ---------- */
@@ -302,6 +430,42 @@
       +`<text x="11" y="${f(cy)}" font-size="${f(fs)}" text-anchor="middle"`
       +` fill="${p.dim}" font-family="${FONT}" font-weight="600"`
       +` transform="rotate(-90 11 ${f(cy)})">${m.h} m</text>`;
+  }
+
+  /* -------------------------------------------------------------------------
+     Hlavička. Aby tréner nemusel čítať odsek: názov, formát a jedna veta,
+     čo sa hrá. Nákres tak funguje aj vytlačený samostatne.
+  ------------------------------------------------------------------------- */
+  function wrap(txt,maxCh){
+    const w=String(txt).split(/\s+/), out=[]; let ln='';
+    w.forEach(t=>{ if((ln+' '+t).trim().length>maxCh&&ln){out.push(ln);ln=t;} else ln=(ln?ln+' ':'')+t; });
+    if(ln) out.push(ln); return out;
+  }
+  function header(m,p,hd,VW){
+    if(!hd||!hd.name) return {h:0,svg:''};
+    const fs=Math.max(11,Math.min(15,m.U*1.0)), PADX=14;
+    const nameLines=wrap(hd.name,Math.floor((VW-PADX*2)/(fs*1.30*0.56)));
+    const chips=(hd.chips||[]).filter(Boolean);
+    const task=hd.task?wrap(hd.task,Math.floor((VW-PADX*2)/(fs*0.95*0.53))).slice(0,2):[];
+    let y=fs*1.9, s='';
+    nameLines.forEach(l=>{
+      s+=`<text x="${f(VW/2)}" y="${f(y)}" font-size="${f(fs*1.3)}" text-anchor="middle"`
+        +` fill="${p.title}" font-family="${FONT}" font-weight="800">${esc(l)}</text>`;
+      y+=fs*1.6;
+    });
+    if(chips.length){
+      const cfs=fs*0.88, txt=chips.join('   ·   ');
+      s+=`<text x="${f(VW/2)}" y="${f(y)}" font-size="${f(cfs)}" text-anchor="middle"`
+        +` fill="${p.att}" font-family="${FONT}" font-weight="700" letter-spacing=".3">${esc(txt)}</text>`;
+      y+=fs*1.5;
+    }
+    task.forEach(l=>{
+      s+=`<text x="${f(VW/2)}" y="${f(y)}" font-size="${f(fs*0.95)}" text-anchor="middle"`
+        +` fill="${p.task}" font-family="${FONT}" font-weight="500">${esc(l)}</text>`;
+      y+=fs*1.35;
+    });
+    const h=y-fs*0.5;
+    return {h, svg:`<rect x="0" y="0" width="${f(VW)}" height="${f(h)}" fill="${p.legendBg}"/>`+s};
   }
 
   /* ---------- hlavné vykreslenie ---------- */
@@ -318,6 +482,7 @@
     s+=`<rect x="0" y="0" width="${f(m.VW)}" height="${f(m.VH)}" fill="${p.bg}"/>`;
     s+=`<rect x="${f(m.X(0))}" y="${f(m.Y(0))}" width="${f(m.L(m.w))}" height="${f(m.L(m.h))}"`
       +` rx="${f(m.U*0.3)}" fill="${p.pitch}"/>`;
+    s+=stripes(m,p);
     (scene.zones||[]).forEach(z=>s+=zone(m,p,z));
     s+=marks(m,p,scene.marks||'none');
     s+=`<rect x="${f(m.X(0))}" y="${f(m.Y(0))}" width="${f(m.L(m.w))}" height="${f(m.L(m.h))}"`
@@ -348,9 +513,19 @@
     s+=badges;
     if(scene.dims!==false) s+=dims(m,p);
 
-    return `<svg viewBox="0 0 ${f(m.VW)} ${f(m.VH)}" width="100%" xmlns="http://www.w3.org/2000/svg"`
+    const hd=(o.head===false)?{h:0,svg:''}:header(m,p,o.head,m.VW);
+    const lg=(o.legend===false)?{h:0,svg:''}:legend(m,p,scene,m.VW);
+    s=`<g transform="translate(0 ${f(hd.h)})">${s}</g>`;
+    if(hd.h) s=hd.svg+s;
+    if(lg.h) s+=`<g transform="translate(0 ${f(hd.h+m.VH)})">${lg.svg}</g>`;
+    const TH=hd.h+m.VH+lg.h;
+
+    return `<svg viewBox="0 0 ${f(m.VW)} ${f(TH)}" width="100%" xmlns="http://www.w3.org/2000/svg"`
       +` role="img" aria-label="${esc(o.alt||'Nákres cviku')}">`
-      +`<defs>${head(p.pass,'ap',3.6)}${head(p.drib,'ad',3.6)}${head(p.run,'ar',3.8)}${head(p.shot,'as',3.2)}</defs>`
+      +`<defs>${head(p.pass,'ap',3.6)}${head(p.drib,'ad',3.6)}${head(p.run,'ar',3.8)}${head(p.shot,'as',3.2)}`
+      +`<clipPath id="pclip"><rect x="${f(m.X(0))}" y="${f(m.Y(0))}" width="${f(m.L(m.w))}"`
+      +` height="${f(m.L(m.h))}" rx="${f(m.U*0.3)}"/></clipPath></defs>`
+      +`<rect x="0" y="0" width="${f(m.VW)}" height="${f(TH)}" fill="${p.bg}"/>`
       +s+`</svg>`;
   }
 
