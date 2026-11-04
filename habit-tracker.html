@@ -117,6 +117,20 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-of
 .cnt .v i{width:9px;height:9px;border:1.5px solid var(--ink-2);display:inline-block;border-radius:50%}
 .cnt .v i.on{background:var(--fill);border-color:var(--fill)}
 .today .note{font-size:12px;color:var(--ink-3);padding:14px 16px;grid-column:1/-1;border-top:1px solid var(--rule)}
+.today .col.wide{grid-column:1/-1;border-top:1px solid var(--rule);border-left:0}
+.today textarea{width:100%;min-height:72px;resize:vertical;border:1px solid var(--rule-2);background:var(--bg);padding:10px 12px;font:inherit;color:inherit;line-height:1.45;border-radius:0}
+.today textarea:focus{outline:2px solid var(--acc);outline-offset:1px;border-color:var(--acc)}
+.today .col.wide .meta{display:flex;justify-content:space-between;margin-top:6px;font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
+.g td.d .nv.note i{width:9px;height:9px;background:var(--acc);display:block}
+.notes{display:grid}
+.notes .n{display:grid;grid-template-columns:78px 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:start}
+.notes .n:last-child{border-bottom:0}
+.notes .n .dt{font-family:var(--font-cond);font-weight:700;text-transform:uppercase;font-size:18px;line-height:1.1;white-space:nowrap}
+.notes .n .dt small{display:block;font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);text-transform:none;font-weight:400;letter-spacing:.08em;margin-top:2px}
+.notes .n p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;max-width:65ch}
+.notes .n button{text-align:left}
+.notes .n button:hover p{text-decoration:underline;text-underline-offset:3px}
+.f textarea{min-height:120px;resize:vertical;border:1px solid var(--rule-2);background:var(--bg);padding:10px 12px;font:inherit;color:inherit;line-height:1.45;width:100%;border-radius:0}
 
 /* charts */
 .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border:1px solid var(--rule);background:var(--paper)}
@@ -290,6 +304,11 @@ table.an{width:100%;min-width:500px;border-collapse:collapse;font-size:13px}
   </section>
 
   <section class="sec">
+    <div class="sec-h"><h2>Poznámky</h2><span class="lbl" id="notesSub"></span></div>
+    <div class="notes" id="notes"></div>
+  </section>
+
+  <section class="sec">
     <div class="sec-h"><h2>Vyhodnotenie</h2><span class="lbl">cieľ · splnené · zostáva</span></div>
     <div class="two">
       <div><div class="tw" id="analysis"></div><div class="body-stats" id="bodyStats"></div></div>
@@ -339,8 +358,8 @@ async function writeDoc(ref, data){
 }
 function lsGet(k, f){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : f; }catch(e){ return f; } }
 function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
-function emptyMonth(){ return {checks:{}, mood:{}, motivation:{}, m:{kcal:{},kg:{},steps:{},physio:{}}, waist:{}}; }
-function normMonth(x){ x = x||{}; const m = x.m||{}; return {checks:x.checks||{}, mood:x.mood||{}, motivation:x.motivation||{}, m:{kcal:m.kcal||{}, kg:m.kg||{}, steps:m.steps||{}, physio:m.physio||{}}, waist:x.waist||{}}; }
+function emptyMonth(){ return {checks:{}, mood:{}, motivation:{}, m:{kcal:{},kg:{},steps:{},physio:{}}, waist:{}, notes:{}}; }
+function normMonth(x){ x = x||{}; const m = x.m||{}; return {checks:x.checks||{}, mood:x.mood||{}, motivation:x.motivation||{}, m:{kcal:m.kcal||{}, kg:m.kg||{}, steps:m.steps||{}, physio:m.physio||{}}, waist:x.waist||{}, notes:x.notes||{}}; }
 
 function saveHabit(h){ if(state.mode==='db') writeDoc(db.doc('habits/'+h.id), {name:h.name, goal:h.goal??null, order:h.order}); else lsSet('ht_habits', state.habits); }
 function deleteHabit(id){ state.habits = state.habits.filter(h=>h.id!==id); if(state.mode==='db') db.doc('habits/'+id).delete().catch(()=>toast('Odstránenie zlyhalo')); else lsSet('ht_habits', state.habits); }
@@ -435,6 +454,7 @@ function render(){
   renderCharts(M);
   renderGrid(M);
   renderAnalysis(M);
+  renderNotes(M);
 }
 
 function renderTicker(M){
@@ -481,6 +501,8 @@ function renderToday(M){
   const wkStart = (wk-1)*7+1, wkEnd = Math.min(wkStart+6, M.mi.days);
   h += `<div class="fld"><label>Obvod pása<small>${wv? 'týždeň '+wk+' zapísaný' : 'raz týždenne · týždeň '+wk+' ('+wkStart+'.–'+wkEnd+'.)'}</small></label><div class="in"><input id="in-waist" inputmode="decimal" step="0.1" type="number" value="${wv??''}" placeholder="–" data-waist="${wk}"><span class="u">cm</span></div></div>`;
   h += '</div></div>';
+  const nt = state.month.notes[d]||'';
+  h += `<div class="col wide"><div class="title"><b>Poznámka k dnešku</b><span class="lbl">${nt? 'uložené':'ako sa ti darilo, čo zmeniť'}</span></div><textarea id="noteToday" data-note="${d}" placeholder="Napr. ráno bez energie, večer dobrý tréning. Zajtra skôr spať." maxlength="1000">${esc(nt)}</textarea><div class="meta"><span>uloží sa po kliknutí mimo poľa</span><span>${nt.length} / 1000</span></div></div>`;
   box.innerHTML = h;
   function fld(k,label,sub,val,unit,dec,cls){ return `<div class="fld ${cls}"><label>${label}<small>${sub}</small></label><div class="in"><input id="in-${k}" type="number" inputmode="decimal" step="${k==='kg'?'0.1':'1'}" value="${val===null?'':val}" placeholder="–" data-m="${k}" data-d="${d}"><span class="u">${unit}</span></div></div>`; }
 }
@@ -575,6 +597,9 @@ function renderGrid(M){
     for(let d=1; d<=mi.days; d++){ const v = Number(state.month[k][d]||0); h += `<td class="d ${cls(d)}"><button class="nv v${v} ${v?'':'e'}" data-k="${k}" data-d="${d}" aria-label="${label} ${d}.: ${v||'–'}">${v||'·'}</button></td>`; }
     h += '</tr>';
   });
+  h += `<tr><td class="name"><span style="display:flex;justify-content:space-between;gap:8px"><span>Poznámka</span><small class="mono" style="font-size:10px;color:var(--ink-3)">text</small></span></td>`;
+  for(let d=1; d<=mi.days; d++){ const n = state.month.notes[d]; h += `<td class="d ${cls(d)}"><button class="nv ${n?'note':'e'}" data-note-d="${d}" aria-label="Poznámka ${d}.${n? ': '+esc(n.slice(0,60)) : ''}" ${n? `data-tip="${esc(n.length>80? n.slice(0,80)+'…' : n)}"`:''}>${n? '<i></i>' : '·'}</button></td>`; }
+  h += '</tr>';
   h += `</tbody><tfoot><tr><td colspan="${mi.days+1}"><form class="addrow" id="addForm"><input id="newHabit" placeholder="Nový návyk…" maxlength="60" autocomplete="off"><button type="submit">Pridať</button></form></td></tr></tfoot></table>`;
   wrap.innerHTML = h;
   const t = wrap.querySelector('thead tr.dn th.d.today');
@@ -618,6 +643,10 @@ function setWaist(wk, val){
   const w = Object.assign({}, state.month.waist); if(val===null||val===''||isNaN(val)) delete w[wk]; else w[wk] = Number(val);
   state.month = Object.assign({}, state.month, {waist:w}); saveMonth(state.ym, state.month); render();
 }
+function setNote(d, text){
+  const n = Object.assign({}, state.month.notes); const t = (text||'').trim(); if(t) n[d] = t; else delete n[d];
+  state.month = Object.assign({}, state.month, {notes:n}); saveMonth(state.ym, state.month); render();
+}
 function setScale(k, d, v){
   const m = Object.assign({}, state.month[k]); if(v) m[d]=v; else delete m[d];
   state.month = Object.assign({}, state.month, {[k]:m}); saveMonth(state.ym, state.month); render();
@@ -638,6 +667,8 @@ document.addEventListener('click', e=>{
   if(nv){ const mt = METRICS.find(m=>m.k===nv.dataset.m); openNumber({title:mt.label, sub:nv.dataset.d+'. '+MONTHS_G[monthInfo(state.ym).m-1], unit:mt.unit, step:mt.step, value:metricVal(mt.k, nv.dataset.d), onSave:v=>setMetric(mt.k, nv.dataset.d, v)}); return; }
   const wb = t.closest('.g button.nv[data-waist]');
   if(wb){ const wk = wb.dataset.waist; const cur = state.month.waist[wk]; openNumber({title:'Obvod pása', sub:'týždeň '+wk, unit:'cm', step:0.1, value:(cur===undefined||cur==='')?null:Number(cur), onSave:v=>setWaist(wk, v)}); return; }
+  const nb = t.closest('button[data-note-d]');
+  if(nb){ openNote(Number(nb.dataset.noteD)); return; }
   const ed = t.closest('button[data-edit]');
   if(ed){ openEditor(ed.dataset.edit); return; }
   const tg = t.closest('button[data-target]');
@@ -647,6 +678,7 @@ document.addEventListener('change', e=>{
   const i = e.target;
   if(i.matches('input[data-m]')){ setMetric(i.dataset.m, i.dataset.d, i.value===''?null:Number(i.value)); return; }
   if(i.matches('input[data-waist]')){ setWaist(i.dataset.waist, i.value===''?null:Number(i.value)); return; }
+  if(i.matches('textarea[data-note]')){ if((state.month.notes[i.dataset.note]||'')!==i.value.trim()) setNote(i.dataset.note, i.value); return; }
 });
 document.addEventListener('keydown', e=>{
   if(e.key==='Enter' && e.target.matches && e.target.matches('.fld input')){ e.target.blur(); }
@@ -679,6 +711,23 @@ function openNumber(o){
   $('#numSave').onclick = save;
   $('#numIn').addEventListener('keydown', e=>{ if(e.key==='Enter') save(); });
   setTimeout(()=>{ const i=$('#numIn'); if(i){ i.focus(); i.select(); } }, 30);
+}
+function openNote(d){
+  const mi = monthInfo(state.ym); const cur = state.month.notes[d]||'';
+  const close = sheet(`<h3>Poznámka<small>${DOW[mi.dow(d)]} ${d}. ${MONTHS_G[mi.m-1]} ${mi.y}</small></h3>
+    <div class="f"><label for="noteIn">Text</label><textarea id="noteIn" maxlength="1000" placeholder="Ako sa ti darilo, čo zmeniť…">${esc(cur)}</textarea></div>
+    <div class="acts"><button class="b bad" id="noteClear" ${cur?'':'disabled'}>Vymazať</button><div class="r"><button class="b" id="noteCancel">Zrušiť</button><button class="b fill" id="noteSave">Uložiť</button></div></div>`);
+  $('#noteCancel').onclick = close;
+  $('#noteClear').onclick = ()=>{ setNote(d, ''); close(); };
+  $('#noteSave').onclick = ()=>{ setNote(d, $('#noteIn').value); close(); toast('Poznámka uložená'); };
+  setTimeout(()=>{ const i=$('#noteIn'); if(i) i.focus(); }, 30);
+}
+function renderNotes(M){
+  const el = $('#notes'), mi = M.mi;
+  const days = Object.keys(state.month.notes).map(Number).filter(d=>state.month.notes[d]).sort((a,b)=>b-a);
+  $('#notesSub').textContent = days.length ? days.length+' z '+mi.days+' dní' : '';
+  if(!days.length){ el.innerHTML = '<div class="empty"><b>Zatiaľ bez poznámok</b>Každý deň si môžeš napísať pár slov v paneli Dnes alebo ťuknutím na riadok Poznámka v mriežke.</div>'; return; }
+  el.innerHTML = days.map(d=>`<div class="n"><div class="dt">${d}. ${MONTHS_G[mi.m-1].slice(0,3)}<small>${DOW[mi.dow(d)]}</small></div><button data-note-d="${d}" aria-label="Upraviť poznámku ${d}."><p>${esc(state.month.notes[d])}</p></button></div>`).join('');
 }
 function openSettings(){
   const s = state.settings;
