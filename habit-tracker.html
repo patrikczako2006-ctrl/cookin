@@ -132,6 +132,17 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-of
 .notes .n button:hover p{text-decoration:underline;text-underline-offset:3px}
 .f textarea{min-height:120px;resize:vertical;border:1px solid var(--rule-2);background:var(--bg);padding:10px 12px;font:inherit;color:inherit;line-height:1.45;width:100%;border-radius:0}
 
+/* banner */
+.banner{margin-top:14px;border:2px solid var(--bad);background:var(--paper);padding:12px 14px;display:grid;gap:10px}
+.banner.info{border-color:var(--acc)}
+.banner p{margin:0;max-width:75ch}
+.banner p a{color:var(--acc-ink);font-family:var(--font-mono);font-size:12.5px;overflow-wrap:anywhere}
+.banner p b{display:block;font-family:var(--font-cond);text-transform:uppercase;font-size:18px;letter-spacing:.02em;margin-bottom:2px}
+.banner .row{display:flex;flex-wrap:wrap}
+.banner textarea{width:100%;min-height:70px;font-family:var(--font-mono);font-size:11px;border:1px solid var(--rule-2);background:var(--bg);color:var(--ink);padding:8px;border-radius:0}
+.mast .kicker .sync.bad{color:var(--bad)}
+.mast .kicker .sync.bad i{background:var(--bad)}
+
 /* charts */
 .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border:1px solid var(--rule);background:var(--paper)}
 .ch{padding:12px 14px 10px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);min-width:0}
@@ -283,6 +294,7 @@ table.an{width:100%;min-width:500px;border-collapse:collapse;font-size:13px}
     </div>
   </header>
 
+  <div class="banner" id="banner" hidden></div>
   <div class="ticker" id="ticker"></div>
 
   <section class="sec" id="todaySec">
@@ -337,58 +349,193 @@ const METRICS = [
 ];
 const DEFAULT_SETTINGS = {stepsTarget:10000, kcalTarget:null, physioTarget:2};
 
-const now = new Date();
 const pad = n => String(n).padStart(2,'0');
 const ymOf = d => d.getFullYear()+'-'+pad(d.getMonth()+1);
-const TODAY = {ym: ymOf(now), d: now.getDate()};
+const TODAY = {};
+function refreshToday(){ const n = new Date(); TODAY.date = n; TODAY.ym = ymOf(n); TODAY.d = n.getDate(); }
+refreshToday();
 
-const state = {ym: TODAY.ym, habits: [], month: null, settings: Object.assign({}, DEFAULT_SETTINGS), loaded:false, mode:'local'};
+const state = {ym: TODAY.ym, habits: [], month: null, settings: Object.assign({}, DEFAULT_SETTINGS), loaded:false, monthReady:false, mode:'local'};
 
 /* ---------- storage ---------- */
+/* Month data is written as small patches with update(), never as a whole-document replace,
+   so a device with an older copy can only change the one field the person touched. */
 let db = null, unsubMonth = null;
-const writers = new Map();
+const writers = new Map(), monthQ = new Map();
+let inflight = 0;
+function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
+function has(v){ return v!==undefined && v!==null && v!==''; }
+function syncBusy(n){ inflight += n; if(state.mode!=='db') return; if(inflight>0) setSync(true, 'ukladám…'); else if(!syncErr) setSync(true, 'cloud · uložené'); }
+let syncErr = false;
+function failSave(){ syncErr = true; setSync(false, 'zápis zlyhal'); toast('Neuložilo sa. Skontroluj internet a skús to znova.'); }
 async function writeDoc(ref, data){
   let w = writers.get(ref.path);
   if(!w){ w = {busy:false, next:null}; writers.set(ref.path, w); }
   w.next = data;
   if(w.busy) return;
-  w.busy = true;
-  try{ while(w.next){ const d = w.next; w.next = null; try{ await ref.set(d); }catch(e){ toast('Uloženie zlyhalo'); } } }
-  finally{ w.busy = false; }
+  w.busy = true; syncBusy(1);
+  try{ while(w.next){ const d = w.next; w.next = null; try{ await ref.set(d); syncErr = false; }catch(e){ failSave(); } } }
+  finally{ w.busy = false; syncBusy(-1); }
+}
+function deepMerge(a, b){
+  const out = Object.assign({}, a);
+  for(const k in b){ const bv = b[k], av = a ? a[k] : undefined; out[k] = (bv && typeof bv==='object' && !Array.isArray(bv) && av && typeof av==='object') ? deepMerge(av, bv) : bv; }
+  return out;
+}
+async function sendMonthPatch(ym, p){
+  const ref = db.doc('months/'+ym);
+  try{ await ref.update(p); return; }
+  catch(e){
+    if(e && e.code==='unavailable'){ await sleep(500+Math.random()*700); await ref.update(p); return; }
+    if(e && e.code==='invalid_argument'){
+      const snap = await ref.get();               // update() refuses a missing document: create it only if it really is missing
+      if(snap.exists) await ref.update(p); else await ref.set(deepMerge(emptyMonth(), p));
+      return;
+    }
+    throw e;
+  }
+}
+async function patchMonthDoc(ym, patch){
+  let q = monthQ.get(ym);
+  if(!q){ q = {busy:false, pending:null}; monthQ.set(ym, q); }
+  q.pending = q.pending ? deepMerge(q.pending, patch) : patch;
+  if(q.busy) return;
+  q.busy = true; syncBusy(1);
+  try{ while(q.pending){ const p = q.pending; q.pending = null; try{ await sendMonthPatch(ym, p); syncErr = false; }catch(e){ failSave(); } } }
+  finally{ q.busy = false; syncBusy(-1); }
 }
 function lsGet(k, f){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : f; }catch(e){ return f; } }
 function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function lsKeys(prefix){ const out = []; try{ for(let i=0; i<localStorage.length; i++){ const k = localStorage.key(i); if(k && k.indexOf(prefix)===0) out.push(k); } }catch(e){} return out; }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
 function emptyMonth(){ return {checks:{}, mood:{}, motivation:{}, m:{kcal:{},kg:{},steps:{},physio:{}}, waist:{}, notes:{}}; }
 function normMonth(x){ x = x||{}; const m = x.m||{}; return {checks:x.checks||{}, mood:x.mood||{}, motivation:x.motivation||{}, m:{kcal:m.kcal||{}, kg:m.kg||{}, steps:m.steps||{}, physio:m.physio||{}}, waist:x.waist||{}, notes:x.notes||{}}; }
 
 function saveHabit(h){ if(state.mode==='db') writeDoc(db.doc('habits/'+h.id), {name:h.name, goal:h.goal??null, order:h.order}); else lsSet('ht_habits', state.habits); }
-function deleteHabit(id){ state.habits = state.habits.filter(h=>h.id!==id); if(state.mode==='db') db.doc('habits/'+id).delete().catch(()=>toast('Odstránenie zlyhalo')); else lsSet('ht_habits', state.habits); }
-function saveMonth(ym, data){ if(state.mode==='db') writeDoc(db.doc('months/'+ym), data); else lsSet('ht_month_'+ym, data); }
+function deleteHabit(id){ state.habits = state.habits.filter(h=>h.id!==id); if(state.mode==='db') db.doc('habits/'+id).delete().catch(()=>failSave()); else lsSet('ht_habits', state.habits); }
 function saveSettings(){ if(state.mode==='db') writeDoc(db.doc('settings/main'), state.settings); else lsSet('ht_settings', state.settings); }
+function applyMonth(patch){
+  if(state.mode==='db' && !state.monthReady){ toast('Ešte načítavam tvoje dáta, skús o sekundu.'); return false; }
+  state.month = normMonth(deepMerge(state.month, patch));
+  if(state.mode==='db') patchMonthDoc(state.ym, patch); else lsSet('ht_month_'+state.ym, state.month);
+  render(); return true;
+}
 
 function loadMonth(){
   if(unsubMonth){ unsubMonth(); unsubMonth = null; }
+  state.monthReady = false;
   if(state.mode==='db'){
     state.month = emptyMonth(); render();
-    unsubMonth = db.doc('months/'+state.ym).onSnapshot(s=>{ state.month = s.exists ? normMonth(s.data()) : emptyMonth(); render(); }, ()=>toast('Spojenie s úložiskom sa prerušilo'));
-  } else { state.month = normMonth(lsGet('ht_month_'+state.ym, null)); render(); }
+    const ym = state.ym;
+    unsubMonth = db.doc('months/'+ym).onSnapshot(s=>{
+      if(ym!==state.ym) return;
+      if(!s.exists && s.metadata && s.metadata.fromCache) return;   // not the server's answer yet
+      state.month = s.exists ? normMonth(s.data()) : emptyMonth();
+      const first = !state.monthReady; state.monthReady = true; render();
+      if(first) checkLeftovers();
+    }, ()=>{ setSync(false, 'spojenie prerušené'); showBanner('bad', '<b>Spojenie s cloudom sa prerušilo</b>Zápisy sa teraz neukladajú. Obnov stránku.', [['Obnoviť', ()=>location.reload()]]); });
+  } else { state.month = normMonth(lsGet('ht_month_'+state.ym, null)); state.monthReady = true; render(); }
 }
 async function initStore(){
+  setSync(false, 'pripájam sa ku cloudu…');
   try{ db = (window.claude && window.claude.use) ? await window.claude.use('db') : null; }catch(e){ db = null; }
   if(db){
-    state.mode = 'db'; setSync(true, 'cloud · synchronizované');
-    db.collection('habits').orderBy('order').onSnapshot(s=>{ state.habits = s.docs.map(d=>{ const x=d.data()||{}; return {id:d.id, name:x.name||'', goal:(x.goal==null?null:Number(x.goal)), order:Number(x.order)||0}; }); state.loaded = true; render(); }, ()=>{ state.loaded = true; render(); });
+    state.mode = 'db'; setSync(true, 'cloud · pripojené');
+    db.collection('habits').orderBy('order').onSnapshot(s=>{
+      if(s.empty && s.metadata && s.metadata.fromCache) return;
+      state.habits = s.docs.map(d=>{ const x=d.data()||{}; return {id:d.id, name:x.name||'', goal:(x.goal==null?null:Number(x.goal)), order:Number(x.order)||0}; });
+      const first = !state.loaded; state.loaded = true; render();
+      if(first) checkLeftovers();
+    }, ()=>{ state.loaded = true; render(); });
     db.doc('settings/main').onSnapshot(s=>{ state.settings = Object.assign({}, DEFAULT_SETTINGS, s.exists ? s.data() : {}); render(); }, ()=>{});
   } else {
-    state.mode = 'local'; setSync(false, 'len tento prehliadač');
+    state.mode = 'local'; setSync(false, 'nepripojené · len toto zariadenie');
     let hs = lsGet('ht_habits', null);
     if(!hs){ hs = DEFAULT_HABITS.map((n,i)=>({id:newId(), name:n, goal:null, order:i})); lsSet('ht_habits', hs); }
     state.habits = hs; state.settings = Object.assign({}, DEFAULT_SETTINGS, lsGet('ht_settings', {})); state.loaded = true;
+    showOffline();
   }
   loadMonth();
 }
-function setSync(on, t){ const s = $('#sync'); s.classList.toggle('on', on); $('span', s).textContent = t; }
+function setSync(on, t){ const s = $('#sync'); s.classList.toggle('on', on); s.classList.toggle('bad', !on && /zlyhal|nepripojen|preru/.test(t)); $('span', s).textContent = t; }
 function newId(){ return 'h'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+
+/* ---------- banner, recovery and transfer ---------- */
+function showBanner(kind, html, buttons, extra){
+  const b = $('#banner');
+  if(!kind){ b.hidden = true; b.innerHTML = ''; return; }
+  b.className = 'banner '+kind; b.hidden = false;
+  b.innerHTML = `<p>${html}</p>${buttons && buttons.length ? '<div class="row">'+buttons.map((x,i)=>`<button class="b ${i===0?'fill':''}" data-bi="${i}">${x[0]}</button>`).join('')+'</div>' : ''}${extra||''}`;
+  (buttons||[]).forEach((x,i)=>{ b.querySelector(`[data-bi="${i}"]`).onclick = x[1]; });
+}
+function localExport(){
+  const months = {};
+  lsKeys('ht_month_').forEach(k=>{ const v = lsGet(k, null); if(v) months[k.slice(9)] = v; });
+  return {v:1, habits: lsGet('ht_habits', []), months};
+}
+function normName(s){ return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/\s+/g,' ').trim(); }
+function countEntries(src){ const p = planImport(src, null); return p.count; }
+/* fill-only merge: an entry from the other copy is used only where the cloud has nothing for that day */
+function planImport(src, cloudMonths){
+  const empty = v => v===undefined || v===null || v==='' || v===0;
+  const byName = new Map(state.habits.map(h=>[normName(h.name), h.id]));
+  const idMap = {}, newHabits = [];
+  let order = state.habits.reduce((a,h)=>Math.max(a, h.order), -1);
+  const used = new Set();
+  Object.values(src.months||{}).forEach(m=>{ const c = (m && m.checks) || {}; Object.keys(c).forEach(id=>{ if(Object.values(c[id]||{}).some(v=>v)) used.add(id); }); });
+  (src.habits||[]).forEach(h=>{
+    const key = normName(h.name); if(!key) return;
+    let id = byName.get(key);
+    if(!id && used.has(h.id)){ id = newId(); order += 1; newHabits.push({id, name:h.name, goal:null, order}); byName.set(key, id); }
+    if(id) idMap[h.id] = id;
+  });
+  const patches = {}; let count = 0;
+  Object.keys(src.months||{}).forEach(ym=>{
+    if(!/^\d{4}-\d{2}$/.test(ym)) return;
+    const loc = normMonth(src.months[ym]);
+    const cloud = normMonth(cloudMonths ? cloudMonths[ym] : null);
+    const patch = {};
+    const put = (path, val)=>{ let o = patch; for(let i=0; i<path.length-1; i++){ o = o[path[i]] = o[path[i]] || {}; } o[path[path.length-1]] = val; count++; };
+    Object.keys(loc.checks).forEach(lid=>{ const cid = idMap[lid]; if(!cid) return; Object.keys(loc.checks[lid]||{}).forEach(d=>{ if(loc.checks[lid][d] && !(cloud.checks[cid]||{})[d]) put(['checks',cid,d], 1); }); });
+    ['kcal','kg','steps','physio'].forEach(k=>Object.keys(loc.m[k]).forEach(d=>{ const v = loc.m[k][d]; if(!empty(v) && !isNaN(v) && empty(cloud.m[k][d])) put(['m',k,d], Number(v)); }));
+    ['mood','motivation'].forEach(k=>Object.keys(loc[k]).forEach(d=>{ const v = loc[k][d]; if(!empty(v) && empty(cloud[k][d])) put([k,d], Number(v)); }));
+    Object.keys(loc.notes).forEach(d=>{ const v = loc.notes[d]; if(v && !cloud.notes[d]) put(['notes',d], String(v).slice(0,1000)); });
+    Object.keys(loc.waist).forEach(w=>{ const v = loc.waist[w]; if(!empty(v) && !isNaN(v) && empty(cloud.waist[w])) put(['waist',w], Number(v)); });
+    if(Object.keys(patch).length) patches[ym] = patch;
+  });
+  return {patches, newHabits, count};
+}
+async function runImport(src){
+  const cloudMonths = {};
+  for(const ym of Object.keys(src.months||{})){ if(!/^\d{4}-\d{2}$/.test(ym)) continue; const sn = await db.doc('months/'+ym).get(); cloudMonths[ym] = sn.exists ? sn.data() : null; }
+  const plan = planImport(src, cloudMonths);
+  for(const h of plan.newHabits){ await db.doc('habits/'+h.id).set({name:h.name, goal:null, order:h.order}); }
+  for(const ym of Object.keys(plan.patches)){ await sendMonthPatch(ym, plan.patches[ym]); }
+  return plan.count;
+}
+function checkLeftovers(){
+  if(state.mode!=='db' || !state.loaded || !state.monthReady || checkLeftovers.done) return;
+  checkLeftovers.done = true;
+  const src = localExport();
+  const n = countEntries(src);
+  if(!n) return;
+  showBanner('info', `<b>Na tomto zariadení je ${n} ${n===1?'zápis':n<5?'zápisy':'zápisov'} mimo cloudu</b>Vznikli, keď stránka nebola pripojená. Nahratím ich doplníš do denníka. Nič existujúce sa neprepíše.`, [
+    ['Nahrať do cloudu', async ()=>{ try{ const c = await runImport(src); lsKeys('ht_month_').forEach(lsDel); lsDel('ht_habits'); showBanner(null); toast('Nahraté: '+c+' zápisov'); }catch(e){ toast('Nahratie zlyhalo. Skús to znova.'); } }],
+    ['Teraz nie', ()=>showBanner(null)]
+  ]);
+}
+function showOffline(){
+  const src = localExport(), n = countEntries(src);
+  showBanner('bad', `<b>Nie si pripojený ku cloudu</b>Táto kópia nevidí tvoje uložené dáta a ukazuje prázdny denník. Čo sem zapíšeš, ostane len tu. Tvoje dáta nájdeš na odkaze <a href="https://claude.ai/artifact/15aFwYGbCaRM174fdGrCMp" target="_blank" rel="noopener">claude.ai/artifact/15aFwYGbCaRM174fdGrCMp</a>, keď si prihlásený.${n? ' Na tomto zariadení je '+n+' zápisov, ktoré môžeš preniesť: skopíruj kód a vlož ho v pripojenom denníku cez Ciele.' : ''}`,
+    [['Skúsiť znova', ()=>location.reload()]].concat(n ? [['Skopírovať zápisy', ()=>copyTransfer(src)]] : []),
+    n ? '<textarea id="xfer" readonly hidden aria-label="Kód prenosu"></textarea>' : '');
+}
+function copyTransfer(src){
+  const code = 'DENNIK1:'+JSON.stringify(src);
+  const ta = $('#xfer'); if(ta){ ta.hidden = false; ta.value = code; }
+  const fallback = ()=>{ if(ta){ ta.focus(); ta.select(); } toast('Označ text v poli a skopíruj ho.'); };
+  try{ navigator.clipboard.writeText(code).then(()=>toast('Kód skopírovaný'), fallback); }catch(e){ fallback(); }
+}
 
 /* ---------- helpers ---------- */
 function monthInfo(ym){
@@ -476,9 +623,9 @@ function renderToday(M){
   const viewingNow = state.ym===TODAY.ym;
   const d = TODAY.d;
   $('#todayH').textContent = viewingNow ? 'Dnes' : 'Dnes · '+MONTHS[Number(TODAY.ym.slice(5))-1];
-  $('#todaySub').textContent = DOW[now.getDay()]+' '+d+'. '+MONTHS_G[now.getMonth()]+' '+now.getFullYear();
+  $('#todaySub').textContent = DOW[TODAY.date.getDay()]+' '+d+'. '+MONTHS_G[TODAY.date.getMonth()]+' '+TODAY.date.getFullYear();
   if(!viewingNow){ box.innerHTML = `<div class="note">Rýchly zápis funguje pre aktuálny mesiac. <button class="b" style="height:32px;margin-left:8px" id="backToday">Späť na dnes</button></div>`; $('#backToday').onclick = ()=>{ state.ym = TODAY.ym; delete $('#gridwrap').dataset.scrolled; loadMonth(); }; return; }
-  if(!state.loaded){ box.innerHTML = '<div class="note">Načítavam…</div>'; return; }
+  if(!state.loaded || !state.monthReady){ box.innerHTML = '<div class="note">Načítavam tvoje dáta…</div>'; return; }
   const doneToday = M.items.filter(it=>itemDone(it,d)).length;
   let h = `<div class="col"><div class="title"><b>Návyky</b><span class="lbl">${doneToday} / ${M.items.length} splnené</span></div><div class="tlist">`;
   state.habits.forEach(hb=>{
@@ -561,7 +708,7 @@ function niceMax(v){ const p = Math.pow(10, Math.floor(Math.log10(v))); const r 
 function renderGrid(M){
   const mi = M.mi, wrap = $('#gridwrap');
   $('#gridSub').textContent = mi.weeks.length+' týždňov · '+state.habits.length+' návykov';
-  if(!state.loaded){ wrap.innerHTML = '<div class="empty">Načítavam…</div>'; return; }
+  if(!state.loaded || !state.monthReady){ wrap.innerHTML = '<div class="empty">Načítavam tvoje dáta…</div>'; return; }
   const cls = d => { const st = dayState(d), dw = mi.dow(d); return (st==='today'?'today ':'')+(st==='future'?'future ':'')+((dw===0||dw===6)?'we ':'')+(d===1?'first':((d-1)%7===0?'wk':'')); };
   let h = '<table class="g"><thead><tr class="wk"><th class="name"></th>';
   mi.weeks.forEach((w,i)=>{ h += `<th class="${i===0?'first':''}" colspan="${w.to-w.from+1}">Týždeň ${w.n}</th>`; });
@@ -589,7 +736,7 @@ function renderGrid(M){
     h += '</tr>';
   });
   h += `<tr><td class="name"><span style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>Obvod pása</span><small class="mono" style="font-size:10px;color:var(--ink-3)">cm · týždenne</small></span></td>`;
-  mi.weeks.forEach((w,i)=>{ const v = state.month.waist[w.n]; const prev = i>0 ? state.month.waist[w.n-1] : undefined; const dl = (v!==undefined&&v!==''&&prev!==undefined&&prev!=='') ? (Number(v)-Number(prev)) : null; h += `<td class="wide ${i===0?'first':''}" colspan="${w.to-w.from+1}"><button class="nv ${v===undefined||v===''?'e':''}" data-waist="${w.n}"><span>${v===undefined||v===''?'· zapíš':fmt(Number(v),1)+' cm'}</span>${dl!==null? `<span class="dl">${dl>0?'+':''}${fmt(dl,1)}</span>`:''}</button></td>`; });
+  mi.weeks.forEach((w,i)=>{ const v = state.month.waist[w.n]; const prev = i>0 ? state.month.waist[w.n-1] : undefined; const dl = (has(v)&&has(prev)) ? (Number(v)-Number(prev)) : null; h += `<td class="wide ${i===0?'first':''}" colspan="${w.to-w.from+1}"><button class="nv ${has(v)?'':'e'}" data-waist="${w.n}"><span>${has(v)?fmt(Number(v),1)+' cm':'· zapíš'}</span>${dl!==null? `<span class="dl">${dl>0?'+':''}${fmt(dl,1)}</span>`:''}</button></td>`; });
   h += '</tr>';
   h += band('Stav');
   [['mood','Nálada'],['motivation','Motivácia']].forEach(([k,label])=>{
@@ -629,28 +776,12 @@ function renderAnalysis(M){
 }
 
 /* ---------- writes ---------- */
-function setCheck(hid, d, on){
-  const c = Object.assign({}, state.month.checks[hid]||{}); if(on) c[d]=1; else delete c[d];
-  state.month = Object.assign({}, state.month, {checks:Object.assign({}, state.month.checks, {[hid]:c})});
-  saveMonth(state.ym, state.month); render();
-}
-function setMetric(k, d, val){
-  const m = Object.assign({}, state.month.m[k]); if(val===null||val===''||isNaN(val)) delete m[d]; else m[d] = Number(val);
-  state.month = Object.assign({}, state.month, {m:Object.assign({}, state.month.m, {[k]:m})});
-  saveMonth(state.ym, state.month); render();
-}
-function setWaist(wk, val){
-  const w = Object.assign({}, state.month.waist); if(val===null||val===''||isNaN(val)) delete w[wk]; else w[wk] = Number(val);
-  state.month = Object.assign({}, state.month, {waist:w}); saveMonth(state.ym, state.month); render();
-}
-function setNote(d, text){
-  const n = Object.assign({}, state.month.notes); const t = (text||'').trim(); if(t) n[d] = t; else delete n[d];
-  state.month = Object.assign({}, state.month, {notes:n}); saveMonth(state.ym, state.month); render();
-}
-function setScale(k, d, v){
-  const m = Object.assign({}, state.month[k]); if(v) m[d]=v; else delete m[d];
-  state.month = Object.assign({}, state.month, {[k]:m}); saveMonth(state.ym, state.month); render();
-}
+const numOrNull = v => (v===null || v==='' || v===undefined || isNaN(v)) ? null : Number(v);
+function setCheck(hid, d, on){ applyMonth({checks:{[hid]:{[d]: on?1:0}}}); }
+function setMetric(k, d, val){ applyMonth({m:{[k]:{[d]: numOrNull(val)}}}); }
+function setWaist(wk, val){ applyMonth({waist:{[wk]: numOrNull(val)}}); }
+function setNote(d, text){ applyMonth({notes:{[d]: (text||'').trim().slice(0,1000)}}); }
+function setScale(k, d, v){ applyMonth({[k]:{[d]: v||0}}); }
 
 /* ---------- interactions ---------- */
 document.addEventListener('click', e=>{
@@ -666,7 +797,7 @@ document.addEventListener('click', e=>{
   const nv = t.closest('.g button.nv[data-m]');
   if(nv){ const mt = METRICS.find(m=>m.k===nv.dataset.m); openNumber({title:mt.label, sub:nv.dataset.d+'. '+MONTHS_G[monthInfo(state.ym).m-1], unit:mt.unit, step:mt.step, value:metricVal(mt.k, nv.dataset.d), onSave:v=>setMetric(mt.k, nv.dataset.d, v)}); return; }
   const wb = t.closest('.g button.nv[data-waist]');
-  if(wb){ const wk = wb.dataset.waist; const cur = state.month.waist[wk]; openNumber({title:'Obvod pása', sub:'týždeň '+wk, unit:'cm', step:0.1, value:(cur===undefined||cur==='')?null:Number(cur), onSave:v=>setWaist(wk, v)}); return; }
+  if(wb){ const wk = wb.dataset.waist; const cur = state.month.waist[wk]; openNumber({title:'Obvod pása', sub:'týždeň '+wk, unit:'cm', step:0.1, value:has(cur)?Number(cur):null, onSave:v=>setWaist(wk, v)}); return; }
   const nb = t.closest('button[data-note-d]');
   if(nb){ openNote(Number(nb.dataset.noteD)); return; }
   const ed = t.closest('button[data-edit]');
@@ -734,8 +865,17 @@ function openSettings(){
   const close = sheet(`<h3>Ciele<small>platia pre všetky mesiace</small></h3>
     <div class="f"><label for="stSteps">Kroky za deň</label><input id="stSteps" type="number" inputmode="numeric" step="500" value="${s.stepsTarget||''}"><small>Deň sa počíta ako splnený, keď dosiahneš tento počet.</small></div>
     <div class="f"><label for="stKcal">Kalórie za deň · strop</label><input id="stKcal" type="number" inputmode="numeric" step="50" value="${s.kcalTarget||''}" placeholder="bez cieľa"><small>Ak nastavíš, kalórie sa pridajú medzi denné položky a deň je splnený pod stropom.</small></div>
+    ${state.mode==='db' ? '<div class="f"><label for="stImport">Preniesť zápisy z iného zariadenia</label><textarea id="stImport" placeholder="Vlož kód, ktorý začína DENNIK1:"></textarea><small>Kód dostaneš na zariadení, kde stránka nebola pripojená, tlačidlom Skopírovať zápisy. Doplnia sa len prázdne políčka.</small><div><button class="b" id="stImportBtn" type="button">Nahrať zápisy</button></div></div>' : ''}
     <div class="acts"><div class="r"><button class="b" id="stCancel">Zrušiť</button><button class="b fill" id="stSave">Uložiť</button></div></div>`);
   $('#stCancel').onclick = close;
+  const ib = $('#stImportBtn');
+  if(ib) ib.onclick = async ()=>{
+    const raw = $('#stImport').value.trim().replace(/^DENNIK1:/, '');
+    let src; try{ src = JSON.parse(raw); }catch(e){ toast('Kód sa nedá prečítať. Skopíruj ho celý.'); return; }
+    ib.disabled = true; ib.textContent = 'Nahrávam…';
+    try{ const c = await runImport(src); close(); toast(c ? 'Nahraté: '+c+' zápisov' : 'Nič nové na nahratie'); }
+    catch(e){ ib.disabled = false; ib.textContent = 'Nahrať zápisy'; toast('Nahratie zlyhalo. Skús to znova.'); }
+  };
   $('#stSave').onclick = ()=>{ const st = parseInt($('#stSteps').value,10), kc = parseInt($('#stKcal').value,10); state.settings = Object.assign({}, state.settings, {stepsTarget: st>0?st:10000, kcalTarget: kc>0?kc:null}); saveSettings(); render(); close(); toast('Ciele uložené'); };
 }
 function openEditor(id){
@@ -761,6 +901,12 @@ document.addEventListener('pointerdown', e=>{ if(!(e.target.closest && e.target.
 let toastT; function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'), 1600); }
 
 /* boot */
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState!=='visible') return;
+  const pYm = TODAY.ym, pD = TODAY.d; refreshToday();
+  if(pYm===TODAY.ym && pD===TODAY.d) return;
+  if(state.ym===pYm && pYm!==TODAY.ym){ state.ym = TODAY.ym; delete $('#gridwrap').dataset.scrolled; loadMonth(); } else render();
+});
 state.month = emptyMonth();
 render();
 initStore();
